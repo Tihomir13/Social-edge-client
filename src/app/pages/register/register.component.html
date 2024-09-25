@@ -3,32 +3,38 @@
         <div class="d-flex flex-column align-items-center justify-content-center">
             <h1>Create a new account</h1>
 
-            <form class="form" action="">
-                <div class="d-flex flex-md-row flex-column mb-22px gap-22px">
-                    <input class="form-control semi" type="text" placeholder="First name">
-                    <input class="form-control semi" type="text" placeholder="Last name">
+            <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="d-flex flex-md-row flex-column mb-22px gap-22px" formGroupName="name">
+                    <input class="form-control semi" type="text" placeholder="First name" formControlName="firstName">
+
+                    <input class="form-control semi" type="text" placeholder="Last name" formControlName="lastName">
                 </div>
 
                 <div class="d-flex flex-md-row flex-column mb-22px gap-22px">
-                    <input class="form-control semi" type="text" placeholder="Username">
+                    <input class="form-control semi" type="text" placeholder="Username" formControlName="username">
 
-                    <div class="d-flex gap-10px">
-                        <select class="dropdown" id="day" name="day" [(ngModel)]="selectedDay">
+                    <!-- @if () {
+                        <div>
+                            Username is already used by another user. Please try a different one!
+                        </div>
+                    } -->
+
+                    <div class="d-flex gap-10px" formGroupName="birthday">
+                        <select class="dropdown" id="day" name="day" formControlName="day">
                             @for (day of getDaysInMonth(); track $index) {
                             <option [value]="day">{{day}}</option>
                             }
                         </select>
 
-                        <select class="dropdown" id="month" name="month" [(ngModel)]="selectedMonth"
-                            (change)="onMonthChange()">
+                        <select class="dropdown" id="month" name="month" (change)="onMonthChange()"
+                            formControlName="month">
 
                             @for (month of months; track $index) {
                             <option [value]="$index">{{month | shortenMonth}}</option>
                             }
                         </select>
 
-                        <select class="dropdown" id="year" name="year" [(ngModel)]="selectedYear"
-                            (change)="onYearChange()">
+                        <select class="dropdown" id="year" name="year" (change)="onYearChange()" formControlName="year">
 
                             @for (year of years; track $index) {
                             <option [value]="year">{{ year }}</option>
@@ -37,15 +43,34 @@
                     </div>
                 </div>
 
-                <input class="form-control mb-22px full" type="email" placeholder="Email address">
+                <input class="form-control mb-22px full" type="email" placeholder="Email address"
+                    formControlName="email">
 
-                <input class="form-control mb-22px full" type="password" placeholder="Password">
+                @if (isEmailValid) {
+                <div class="invalid-message">
+                    Please enter a valid email!
+                </div>
+                }
 
-                <input class="form-control mb-22px full" type="password" placeholder="Confirm password">
+                <div formGroupName="passwords">
+                    <input class="form-control mb-22px full" type="password" placeholder="Password"
+                        formControlName="password">
+
+                    <input class="form-control mb-22px full" type="password" placeholder="Confirm password"
+                        formControlName="confirmPassword">
+
+                    @if (isConfirmPassValid) {
+                    <div class="invalid-message mb-22px">
+                        Invalid Password. Please enter password
+                        with 8 characters and include at least one uppercase letter, one
+                        number, and one special character
+                    </div>
+                    }
+                </div>
 
                 <div class="d-flex flex-column align-items-center justify-content-center gap-22px">
-                    <button class="btn">Register</button>
-                    
+                    <button class="btn" type="submit">Register</button>
+
                     <p>Already have an account?</p>
                 </div>
             </form>

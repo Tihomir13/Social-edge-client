@@ -49,6 +49,10 @@ select {
     color: rgb(255, 255, 255);
     background-color: $primary-purple;
   }
+
+  .invalid-message {
+    color: rgb(220, 0, 0);
+  }
 }
 
 @media screen and (max-width: 768px) {
@@ -60,10 +64,6 @@ select {
 
     .dropdown {
       width: 174px;
-      height: 40px;
-      border-radius: 11px;
-      text-align: center;
-      border-color: rgb(222, 226, 230);
     }
   }
 }
