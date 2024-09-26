@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { passwordMatchValidator } from '../validators/validators';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class FormService {
   constructor(private formBuilder: FormBuilder) {}
 

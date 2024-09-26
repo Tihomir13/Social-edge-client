@@ -2,17 +2,25 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ShortenMonthPipe } from '../../shared/pipes/shorten-month.pipe';
 import {
   AbstractControl,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
+
 import { FormService } from './services/form.service';
+import { RequestsService } from './services/requests.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ShortenMonthPipe, ReactiveFormsModule, FormsModule],
+  imports: [
+    ShortenMonthPipe,
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule,
+  ],
+  providers: [FormService, RequestsService, HttpClient],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
@@ -86,6 +94,7 @@ export class RegisterComponent implements OnInit {
   }
 
   private formService = inject(FormService);
+  private reqService = inject(RequestsService);
 
   ngOnInit(): void {
     this.selectedDay = this.date.getDate();
@@ -127,7 +136,14 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      console.log(this.form.value);
+      this.reqService.registerUser(this.form.value).subscribe({
+        next: (response) => {
+          console.log('User registered successfully', response);
+        },
+        error: (error) => {
+          console.error('Registration failed', error);
+        },
+      });
     }
   }
 }
