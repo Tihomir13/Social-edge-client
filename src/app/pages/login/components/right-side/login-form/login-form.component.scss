@@ -4,7 +4,7 @@
   .form-control {
     height: 45px;
     border-radius: 11px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
     &:focus {
@@ -18,6 +18,8 @@
   }
 
   .form-check-label {
+    border: 1px ;
+
     cursor: pointer;
     .form-check-input {
       &:focus {

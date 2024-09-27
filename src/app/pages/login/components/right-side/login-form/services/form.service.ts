@@ -11,6 +11,7 @@ export class FormService {
     return this.formBuilder.group({
       loginIdentifier: ['', Validators.required], // email or username
       password: ['', Validators.required],
+      rememberMe: [false],
     });
   }
 }

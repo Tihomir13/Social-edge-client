@@ -1,4 +1,4 @@
-@import '../../../../../styles.scss';
+@import "../../../../../styles.scss";
 
 h1 {
   margin-bottom: 40px;
@@ -36,7 +36,7 @@ h1 {
   }
 }
 
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1200px) {
   .login-container {
     .content-container {
       padding: 30px;
@@ -47,6 +47,7 @@ h1 {
       text-align: center;
       margin-left: 0px;
       margin-bottom: 40px;
+      padding: 0px 30px 0px 30px;
     }
   }
 }
