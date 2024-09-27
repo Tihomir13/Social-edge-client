@@ -1,0 +1,27 @@
+.container-fluid {
+  height: 100svh;
+  background: linear-gradient(
+    135deg,
+    #89f6fe8d 20%,
+    #66a6ff63 50%,
+    #fbc2ebbf 100%
+  );
+}
+
+.col-lg-6 {
+  margin-top: 250px;
+}
+
+.align-items-center {
+  padding-left: 85px;
+}
+
+@media screen and (max-width: 1400px) {
+  .col-lg-6 {
+    margin-top: 50%;
+  }
+
+  .align-items-center {
+    padding-left: 0px;
+  }
+}
