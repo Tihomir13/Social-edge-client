@@ -6,22 +6,20 @@
     #66a6ff63 50%,
     #fbc2ebbf 100%
   );
-}
 
-.col-lg-6 {
-  margin-top: 250px;
-}
-
-.align-items-center {
-  padding-left: 85px;
-}
-
-@media screen and (max-width: 1400px) {
-  .col-lg-6 {
-    margin-top: 50%;
+  .left-side {
+    margin-top: 250px;
   }
+  
+  .right-side {
+    margin-top: 185px;
+  }
+}
 
-  .align-items-center {
-    padding-left: 0px;
+@media screen and (max-width: 576px) {
+  .container-fluid {
+    .col-lg-6 {
+      margin-top: 0%;
+    }
   }
 }

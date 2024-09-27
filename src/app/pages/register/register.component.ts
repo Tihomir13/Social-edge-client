@@ -10,6 +10,7 @@ import {
 import { FormService } from './services/form.service';
 import { RequestsService } from './services/requests.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -19,6 +20,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
+    RouterModule
   ],
   providers: [FormService, RequestsService, HttpClient],
   templateUrl: './register.component.html',
