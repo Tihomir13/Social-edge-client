@@ -4,21 +4,15 @@
             <div class="d-flex flex-column content-container">
                 <h1>Social Edge</h1>
 
-                <div class="d-flex align-items-center justify-content-center  google-auth-container">
-                    <img src="./assets/icons/google.svg" alt="">
+                <app-google-btn />
 
-                    <a>
-                        Log in with Google
-                    </a>
-                </div>
-
-                <p class="or-text">or</p>
+                <p class="or-text fw-bold">or</p>
 
                 <app-login-form />
             </div>
 
             <p class="no-acc-text">Don't have an account yet?
-                <a [routerLink]="['/register']" class="sign-up">Sign up</a>
+                <a [routerLink]="['/register']" class="sign-up ms-1">Sign up</a>
                 now to join our community
             </p>
         </div>

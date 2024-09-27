@@ -11,6 +11,7 @@ import { FormService } from './services/form.service';
 import { RequestsService } from './services/requests.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { GoogleBtnComponent } from '../../shared/components/google-btn/google-btn.component';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +21,8 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    GoogleBtnComponent,
   ],
   providers: [FormService, RequestsService, HttpClient],
   templateUrl: './register.component.html',

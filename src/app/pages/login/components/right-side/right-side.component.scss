@@ -1,3 +1,5 @@
+@import '../../../../../styles.scss';
+
 h1 {
   margin-bottom: 40px;
 
@@ -14,19 +16,13 @@ h1 {
     max-width: 360px;
     width: 100%;
 
-    .google-auth-container {
-      height: 45px;
-      border-radius: 11px;
-      margin-bottom: 40px;
-      background-color: rgb(255, 255, 255);
-    }
-
     .or-text {
-      margin-bottom: 40px;
+      margin-top: 20px;
+      margin-bottom: 30px;
+      color: rgba(0, 0, 0, 0.3);
     }
-
   }
-  
+
   .no-acc-text {
     margin-top: 40px;
     margin-left: 42.5px;
