@@ -1,15 +1,32 @@
-.logo-container {
-  .logo {
-    width: 80px;
+@import '../.../../../../../../styles.scss';
+
+.container-fluid {
+  padding: 5px 20px 5px 20px;
+  //background-color: $light-purple;
+  //border-bottom: 1px solid rgb(197, 197, 197);
+
+  .logo-container {
+    .logo {
+      width: 80px;
+    }
   }
-}
 
-.search-bar {
-  width: 100%;
-}
+  .search-bar {
+    margin-left: 20px;
+    width: 100%;
+  }
 
-.icons-container {
-  .icon {
-    width: 25px;
+  .icons-container {
+    margin-right: 20px;
+    .icon {
+      width: 35px;
+      cursor: pointer;
+      border-radius: 50%;
+      padding: 5px;
+
+      &:hover {
+        background-color: $light-gray;
+      }
+    }
   }
 }

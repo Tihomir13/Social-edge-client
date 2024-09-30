@@ -1,11 +1,12 @@
 @import "../../../../../../../styles.scss";
 
 .profile-container {
-  background-color: $primary-purple;
-  width: 255px;
+  background-color: $light-purple;
+  width: 250px;
   border-radius: 25px;
   color: rgb(255, 255, 255);
   position: relative;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 
   .profile-image {
     margin-right: 5px;
@@ -15,9 +16,14 @@
 
   .arrow-img {
     position: absolute;
+    cursor: pointer;
     width: 25px;
     right: 25px;
     transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: translateY(-2px);
+    }
 
     &.rotated {
       transform: rotate(180deg);

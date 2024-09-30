@@ -1,10 +1,9 @@
 .search-bar-container {
   position: relative;
-  width: 100%;
+  max-width: 550px;
 
   .form-control {
     width: 100%;
-    max-width: 550px;
     border-radius: 30px;
     height: 40px;
 
@@ -16,8 +15,8 @@
 
   .search-icon {
     cursor: pointer;
-    width: 30px;
+    width: 25px;
     position: absolute;
-    left: 505px;
+    right: 15px;
   }
 }
