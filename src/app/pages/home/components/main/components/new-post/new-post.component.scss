@@ -1,0 +1,31 @@
+@import "../../../../../../../styles.scss";
+
+.new-post-container {
+  border-radius: 11px;
+  background-color: $primary-purple;
+  padding: 5px 10px 5px 10px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  .profile-icon {
+    cursor: pointer;
+    border-radius: 50%;
+    width: 50px;
+  }
+
+  .form-control {
+    max-width: 540px;
+    height: 40px;
+    border-radius: 20px;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .add-photo-icon,
+  .add-status-icon {
+    width: 30px;
+    cursor: pointer;
+  }
+}
