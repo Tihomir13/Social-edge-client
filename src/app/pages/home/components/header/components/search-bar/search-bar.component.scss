@@ -1,0 +1,23 @@
+.search-bar-container {
+  position: relative;
+  width: 100%;
+
+  .form-control {
+    width: 100%;
+    max-width: 550px;
+    border-radius: 30px;
+    height: 40px;
+
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  .search-icon {
+    cursor: pointer;
+    width: 30px;
+    position: absolute;
+    left: 505px;
+  }
+}

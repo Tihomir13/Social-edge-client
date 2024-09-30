@@ -1,0 +1,26 @@
+@import "../../../../../../../styles.scss";
+
+.profile-container {
+  background-color: $primary-purple;
+  width: 255px;
+  border-radius: 25px;
+  color: rgb(255, 255, 255);
+  position: relative;
+
+  .profile-image {
+    margin-right: 5px;
+    width: 50px;
+    border-radius: 50%;
+  }
+
+  .arrow-img {
+    position: absolute;
+    width: 25px;
+    right: 25px;
+    transition: transform 0.3s ease-in-out;
+
+    &.rotated {
+      transform: rotate(180deg);
+    }
+  }
+}
