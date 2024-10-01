@@ -138,7 +138,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.form.valid) {
       this.reqService.registerUser(this.form.value).subscribe({
         next: (response) => {

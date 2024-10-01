@@ -5,8 +5,10 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './new-post.component.html',
-  styleUrl: './new-post.component.scss'
+  styleUrl: './new-post.component.scss',
 })
 export class NewPostComponent {
+  currentTags: string[] = [];
 
+  addTag() {}
 }
