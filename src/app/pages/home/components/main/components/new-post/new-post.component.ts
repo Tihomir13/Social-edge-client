@@ -10,5 +10,7 @@ import { Component } from '@angular/core';
 export class NewPostComponent {
   currentTags: string[] = [];
 
-  addTag() {}
+  addTag(value: string) {
+    this.currentTags = [...this.currentTags, value];
+  }
 }

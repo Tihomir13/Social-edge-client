@@ -15,10 +15,14 @@
 
     <div class="tags-container">
         <div class="add-tag-container d-flex">
-            <input class="form-control" type="text" placeholder="add a tag">
-            <button class="add-tag-btn" (click)="addTag()">
+            <input #newTag class="form-control" type="text" placeholder="add a tag">
+            <button class="add-tag-btn" (click)="addTag(newTag.value)">
                 <img class="add-tag-img" src="./assets/icons/plus.svg" alt="add tag icon">
             </button>
         </div>
+
+        @for (tag of currentTags; track $index) {
+        <span>{{tag}}</span>
+        }
     </div>
 </div>
