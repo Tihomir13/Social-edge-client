@@ -1,31 +1,34 @@
-@import '../.../../../../../../styles.scss';
+@import "../.../../../../../../styles.scss";
 
 .container-fluid {
-  padding: 5px 20px 5px 20px;
-  //background-color: $light-purple;
-  //border-bottom: 1px solid rgb(197, 197, 197);
+  .container-content {
+    // background-color: rgb(246, 219, 255);
+    height: 90px;
+    padding: 5px 20px 5px 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; // #4
 
-  .logo-container {
-    .logo {
-      width: 80px;
+    .logo-container {
+      .logo {
+        width: 80px;
+      }
     }
-  }
 
-  .search-bar {
-    margin-left: 20px;
-    width: 100%;
-  }
+    .search-bar {
+      margin-left: 20px;
+      width: 100%;
+    }
 
-  .icons-container {
-    margin-right: 20px;
-    .icon {
-      width: 35px;
-      cursor: pointer;
-      border-radius: 50%;
-      padding: 5px;
+    .icons-container {
+      margin-right: 20px;
+      .icon {
+        width: 35px;
+        cursor: pointer;
+        border-radius: 50%;
+        padding: 5px;
 
-      &:hover {
-        background-color: $light-gray;
+        &:hover {
+          background-color: $light-gray;
+        }
       }
     }
   }
