@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-new-post',
@@ -11,6 +12,12 @@ export class NewPostComponent {
   currentTags: string[] = [];
 
   addTag(value: string) {
-    this.currentTags = [...this.currentTags, value];
+    if (value != '') {
+      this.currentTags = [...this.currentTags, '#' + value];
+    }
+  }
+
+  onRemoveTag(index: number) {
+    this.currentTags = this.currentTags.filter((_, i) => i !== index);
   }
 }

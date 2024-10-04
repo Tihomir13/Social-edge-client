@@ -11,12 +11,7 @@ select {
 
 .container-fluid {
   height: 100svh;
-  background: linear-gradient(
-    135deg,
-    #89f6fe8d 20%,
-    #66a6ff63 50%,
-    #fbc2ebbf 100%
-  );
+  background: $gradient;
 
   .content {
     margin-top: 150px;

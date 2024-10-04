@@ -1,25 +1,18 @@
-.container-fluid {
-  height: 100svh;
-  background: linear-gradient(
-    135deg,
-    #89f6fe8d 20%,
-    #66a6ff63 50%,
-    #fbc2ebbf 100%
-  );
+@import "../../../styles.scss";
 
-  .left-side {
-    margin-top: 250px;
-  }
-  
-  .right-side {
-    margin-top: 185px;
+.container-fluid {
+  .content-container {
+    background: $gradient;
+    height: 100svh;
   }
 }
 
 @media screen and (max-width: 576px) {
   .container-fluid {
-    .col-xl-6 {
-      margin-top: 0%;
+    .content-container {
+      .col-xl-6 {
+        margin-top: 0%;
+      }
     }
   }
 }

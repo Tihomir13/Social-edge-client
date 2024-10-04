@@ -1,47 +1,54 @@
-<div
-  class="new-post-container d-flex align-items-center justify-content-between"
->
-  <img
-    class="profile-icon"
-    src="./assets/images/image.png"
-    alt="profile image"
-  />
+<div class="new-post-container">
+  <div class="new-post-title d-flex align-items-center justify-content-between">
+    <img
+      class="profile-icon"
+      src="./assets/images/image.png"
+      alt="profile image"
+    />
 
-  <input class="form-control" type="text" placeholder="Make a new post.." />
+    <input class="form-control" type="text" placeholder="Make a new post.." />
 
-  <img
-    class="add-photo-icon"
-    src="./assets/icons/add-image.svg"
-    alt="add image icon"
-  />
+    <img
+      class="add-photo-icon"
+      src="./assets/icons/add-image.svg"
+      alt="add image icon"
+    />
 
-  <img
-    class="add-status-icon"
-    src="./assets/icons/happy.svg"
-    alt="add status on the post icon"
-  />
-</div>
-
-<div class="new-post-content">
-  <div class="text-container">
-    <textarea class="text form-control" rows="6"></textarea>
+    <img
+      class="add-status-icon"
+      src="./assets/icons/happy.svg"
+      alt="add status on the post icon"
+    />
   </div>
 
-  <div class="tags-container d-flex">
-    <div class="add-tag-container d-flex">
-      <input #newTag class="form-control" type="text" placeholder="add a tag" />
-      <button class="add-tag-btn" (click)="addTag(newTag.value)">
-        <img
-          class="add-tag-img"
-          src="./assets/icons/plus.svg"
-          alt="add tag icon"
-        />
-      </button>
-
+  <div class="new-post-content">
+    <div class="text-container">
+      <textarea class="text form-control" rows="6"></textarea>
     </div>
 
-    @for (tag of currentTags; track $index) {
-    <span class="tag">{{ tag }}</span>
-    }
+    <div class="tags-container d-flex">
+      <div class="add-tag-container d-flex">
+        <input
+          #newTag
+          class="form-control"
+          type="text"
+          placeholder="add a tag"
+        />
+        <button class="add-tag-btn" (click)="addTag(newTag.value)">
+          <img
+            class="add-tag-img"
+            src="./assets/icons/plus.svg"
+            alt="add tag icon"
+          />
+        </button>
+      </div>
+
+      @for (tag of currentTags; track $index) {
+      <span class="tag d-flex align-items-center justify-content-center"
+        >{{ tag }}
+        <span class="delete-icon fs-3" (click)="onRemoveTag($index)">✖</span>
+      </span>
+      }
+    </div>
   </div>
 </div>

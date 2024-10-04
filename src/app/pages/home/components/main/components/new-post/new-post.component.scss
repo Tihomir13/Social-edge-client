@@ -1,88 +1,115 @@
 @import "../../../../../../../styles.scss";
 
 .new-post-container {
-  border-radius: 11px 11px 0px 0px;
-  background-color: $light-purple;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  padding: 10px 15px 10px 15px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 11px;
+  // background-color: $gradient-2;
+  background-color: rgb(238, 182, 255);
 
-  .profile-icon {
-    cursor: pointer;
-    border-radius: 50%;
-    width: 45px;
-  }
+  .new-post-title {
+    border-radius: 11px 11px 0px 0px;
+    padding: 10px 15px 10px 15px;
 
-  .form-control {
-    max-width: 540px;
-    height: 45px;
-    border-radius: 20px;
-
-    &:focus {
-      outline: none;
-      box-shadow: none;
+    .profile-icon {
+      cursor: pointer;
+      border-radius: 50%;
+      width: 45px;
     }
-  }
 
-  .add-photo-icon,
-  .add-status-icon {
-    width: 30px;
-    cursor: pointer;
-    margin-left: 1px;
-  }
-}
-
-.new-post-content {
-  border-radius: 0px 0px 11px 11px;
-  background-color: $light-purple;
-  padding: 0px 10px 10px 10px;
-
-  .text-container {
-    margin-bottom: 10px;
-
-    .text {
-      border-radius: 11px;
-      resize: none;
-      border: none;
+    .form-control {
+      max-width: 540px;
+      height: 45px;
+      border-radius: 20px;
 
       &:focus {
         outline: none;
         box-shadow: none;
       }
     }
+
+    .add-photo-icon,
+    .add-status-icon {
+      width: 30px;
+      cursor: pointer;
+      margin-left: 1px;
+    }
   }
 
-  .tags-container {
-    flex-wrap: wrap;
+  .new-post-content {
+    border-radius: 0px 0px 11px 11px;
+    padding: 0px 10px 10px 10px;
 
-    .add-tag-container {
-      .form-control {
-        max-width: 200px;
-        height: 45px;
-        border-radius: 11px 0px 0px 11px;
+    .text-container {
+      margin-bottom: 10px;
+
+      .text {
+        border-radius: 11px;
+        resize: none;
+        border: none;
 
         &:focus {
           outline: none;
           box-shadow: none;
         }
       }
-
-      .add-tag-btn {
-        width: 50px;
-        height: 45px;
-        border: none;
-        background-color: rgba(0, 255, 234, 0.602);
-        border-radius: 0px 11px 11px 0px;
-        margin-right: 5px;
-      }
     }
 
-    .tag {
-      height: 45px;
-      padding: 5px;
-      color: rgb(255, 255, 255);
-      background-color: rgb(249, 39, 249);
-      border-radius: 11px;
-      margin: 0px 5px 10px 5px;
+    .tags-container {
+      flex-wrap: wrap;
+
+      .add-tag-container {
+        .form-control {
+          max-width: 200px;
+          height: 45px;
+          border-radius: 11px 0px 0px 11px;
+
+          &:focus {
+            outline: none;
+            box-shadow: none;
+          }
+        }
+
+        .add-tag-btn {
+          width: 50px;
+          height: 45px;
+          border: none;
+          background-color: rgb(217, 91, 255);
+          border-radius: 0px 11px 11px 0px;
+          margin-right: 5px;
+        }
+      }
+
+      .tag {
+        position: relative;
+        height: 45px;
+        padding: 5px 15px;
+        color: rgb(255, 255, 255);
+        background-color: rgba(249, 39, 249, 1);
+        border-radius: 11px;
+        margin: 0px 5px 10px 5px;
+        display: inline-flex;
+        align-items: center;
+        transition: background-color 0.2s ease;
+
+        &:hover {
+          cursor: pointer;
+          background-color: rgba(254, 50, 254, 0.3);
+
+          .delete-icon {
+            display: block;
+          }
+        }
+
+        .delete-icon {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 16px;
+          color: $light-purple;
+          display: none;
+          cursor: pointer;
+        }
+      }
     }
   }
 }

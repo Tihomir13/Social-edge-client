@@ -6,6 +6,19 @@ $light-purple: rgba(183, 111, 255, 0.9);
 //$light-purple: rgb(183, 111, 255);
 $light-gray: rgb(222, 226, 230);
 
+$gradient: linear-gradient(
+  135deg,
+  #89f6fe8d 10%,
+  hsla(215, 100%, 70%, 0.4) 50%,
+  #ffaee8 100%
+);
+
+$gradient-2: linear-gradient(
+  180deg,
+  hsla(286, 100%, 80%, 1) 50%,
+  hsla(320, 100%, 50%, 1) 100%
+);
+
 * {
   font-family: "Plus Jakarta Sans", sans-serif;
 }
@@ -37,4 +50,3 @@ $light-gray: rgb(222, 226, 230);
 .gap-22px {
   gap: 22px;
 }
-
