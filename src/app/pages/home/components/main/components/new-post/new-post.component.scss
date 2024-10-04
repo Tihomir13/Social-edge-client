@@ -1,8 +1,7 @@
 @import "../../../../../../../styles.scss";
 
 .new-post-container {
-  border-radius: 11px 11px 11px 11px;
-  background-color: rgb(239, 199, 251);
+  border-radius: 11px 11px 0px 0px;
   background-color: $light-purple;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
   padding: 10px 15px 10px 15px;
@@ -33,9 +32,8 @@
 }
 
 .new-post-content {
-  //border: 1px solid black;
   border-radius: 0px 0px 11px 11px;
-  background-color: rgb(205, 205, 205);
+  background-color: $light-purple;
   padding: 0px 10px 10px 10px;
 
   .text-container {
@@ -54,13 +52,12 @@
   }
 
   .tags-container {
-    .add-tag-container {
-      display: flex;
-      flex-wrap: wrap;
+    flex-wrap: wrap;
 
+    .add-tag-container {
       .form-control {
         max-width: 200px;
-        height: 35px;
+        height: 45px;
         border-radius: 11px 0px 0px 11px;
 
         &:focus {
@@ -71,10 +68,21 @@
 
       .add-tag-btn {
         width: 50px;
+        height: 45px;
         border: none;
-        background-color: $primary-purple;
+        background-color: rgba(0, 255, 234, 0.602);
         border-radius: 0px 11px 11px 0px;
+        margin-right: 5px;
       }
+    }
+
+    .tag {
+      height: 45px;
+      padding: 5px;
+      color: rgb(255, 255, 255);
+      background-color: rgb(249, 39, 249);
+      border-radius: 11px;
+      margin: 0px 5px 10px 5px;
     }
   }
 }

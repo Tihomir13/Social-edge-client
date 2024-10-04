@@ -22,14 +22,12 @@
   />
 </div>
 
-@if(false) {
-
 <div class="new-post-content">
   <div class="text-container">
     <textarea class="text form-control" rows="6"></textarea>
   </div>
 
-  <div class="tags-container">
+  <div class="tags-container d-flex">
     <div class="add-tag-container d-flex">
       <input #newTag class="form-control" type="text" placeholder="add a tag" />
       <button class="add-tag-btn" (click)="addTag(newTag.value)">
@@ -39,11 +37,11 @@
           alt="add tag icon"
         />
       </button>
+
     </div>
 
     @for (tag of currentTags; track $index) {
-    <span>{{ tag }}</span>
+    <span class="tag">{{ tag }}</span>
     }
   </div>
 </div>
-}
