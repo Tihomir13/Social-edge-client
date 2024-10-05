@@ -1,13 +1,14 @@
 @import "../../../../../../../styles.scss";
 
+$square-width: 110px;
+
 .new-post-container {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius: 11px;
-  // background-color: $gradient-2;
+  border-radius: $border-radius;
   background-color: rgb(238, 182, 255);
 
   .new-post-title {
-    border-radius: 11px 11px 0px 0px;
+    border-radius: $border-radius $border-radius 0px 0px;
     padding: 10px 15px 10px 15px;
 
     .profile-icon {
@@ -36,14 +37,14 @@
   }
 
   .new-post-content {
-    border-radius: 0px 0px 11px 11px;
+    border-radius: 0px 0px $border-radius $border-radius;
     padding: 0px 10px 10px 10px;
 
     .text-container {
       margin-bottom: 10px;
 
       .text {
-        border-radius: 11px;
+        border-radius: $border-radius;
         resize: none;
         border: none;
 
@@ -61,7 +62,7 @@
         .form-control {
           max-width: 200px;
           height: 45px;
-          border-radius: 11px 0px 0px 11px;
+          border-radius: $border-radius 0px 0px $border-radius;
 
           &:focus {
             outline: none;
@@ -74,7 +75,7 @@
           height: 45px;
           border: none;
           background-color: rgb(217, 91, 255);
-          border-radius: 0px 11px 11px 0px;
+          border-radius: 0px $border-radius $border-radius 0px;
           margin-right: 5px;
         }
       }
@@ -85,7 +86,7 @@
         padding: 5px 15px;
         color: rgb(255, 255, 255);
         background-color: rgba(249, 39, 249, 1);
-        border-radius: 11px;
+        border-radius: $border-radius;
         margin: 0px 5px 10px 5px;
         display: inline-flex;
         align-items: center;
@@ -93,7 +94,7 @@
 
         &:hover {
           cursor: pointer;
-          background-color: rgba(254, 50, 254, 0.3);
+          opacity: 0.2;
 
           .delete-icon {
             display: block;
@@ -104,11 +105,81 @@
           position: absolute;
           top: 50%;
           transform: translateY(-50%);
-          font-size: 16px;
-          color: $light-purple;
+          color: rgb(0, 0, 0);
           display: none;
           cursor: pointer;
         }
+      }
+    }
+
+    .photos-container {
+      margin-top: 10px;
+      flex-wrap: wrap;
+      gap: 12px;
+
+      .photo-wrapper {
+        position: relative;
+        cursor: pointer;
+
+        &:hover {
+          .photo {
+            transform: scale(1.05);
+            opacity: 0.2;
+          }
+
+          .delete-icon {
+            display: block;
+          }
+        }
+
+        .photo {
+          border: 1px solid $light-gray;
+          object-fit: contain;
+          border-radius: $border-radius;
+          width: $square-width;
+          aspect-ratio: 1/1;
+          transition: transform 0.3s ease;
+        }
+
+        .delete-icon {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: $light-purple;
+          display: none;
+        }
+      }
+
+      .add-photo-btn {
+        width: $square-width;
+        aspect-ratio: 1/1;
+        border-radius: $border-radius;
+      }
+    }
+
+    .custom-file-label {
+      width: $square-width;
+      aspect-ratio: 1/1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      background-color: transparent;
+      border-radius: $border-radius;
+      border: 2px dashed $light-gray;
+
+      &:hover {
+        transform: scale(1.05);
+        background-color: rgba($light-gray, 0.25);
+      }
+
+      .plus-icon {
+        width: 40px;
+        aspect-ratio: 1/1;
+        opacity: 0.7;
+        transition: opacity 0.3s ease;
       }
     }
   }
