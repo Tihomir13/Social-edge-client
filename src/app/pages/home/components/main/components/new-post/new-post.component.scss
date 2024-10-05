@@ -182,5 +182,18 @@ $square-width: 110px;
         transition: opacity 0.3s ease;
       }
     }
+
+    .btn {
+      height: 45px;
+      background-color: $primary-purple;
+      color: rgb(255, 255, 255);
+      border-radius: 11px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+      transition: 0.2s;
+
+      &:hover {
+        background-color: $light-purple;
+      }
+    }
   }
 }

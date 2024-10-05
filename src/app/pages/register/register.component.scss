@@ -15,7 +15,7 @@ select {
 
   .content {
     margin-top: 150px;
-    
+
     .form {
       max-width: 542px;
       width: 100%;
@@ -55,6 +55,12 @@ select {
 
         color: rgb(255, 255, 255);
         background-color: $primary-purple;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+        transition: 0.3s;
+
+        &:hover {
+          background-color: $dark-purple;
+        }
       }
 
       .has-acc-text {
