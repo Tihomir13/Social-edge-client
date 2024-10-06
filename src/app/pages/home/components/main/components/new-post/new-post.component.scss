@@ -214,4 +214,18 @@ $square-width: 110px;
     top: 65px;
     right: -40px;
   }
+
+  .error {
+    font-weight: bold;
+    color: rgb(220, 0, 0);
+    margin-top: 10px;
+  }
+
+  .btn-container {
+    margin-top: 10px;
+
+    .btn {
+      padding: 0px 30px 0px 30px;
+    }
+  }
 }

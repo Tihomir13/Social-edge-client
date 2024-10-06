@@ -3,6 +3,7 @@ import { Component, HostListener, inject } from '@angular/core';
 import { ArrayUtilityService } from '../../../../../../shared/services/utility/array-utility.service';
 import { StatusPickerComponent } from './status-picker/status-picker.component';
 import { statuses } from '../../../../../../shared/constants/arrays';
+import { maxImageSize } from '../../../../../../shared/constants/settings';
 
 @Component({
   selector: 'app-new-post',
@@ -15,8 +16,11 @@ import { statuses } from '../../../../../../shared/constants/arrays';
 export class NewPostComponent {
   isStatusPickerVisible: boolean = false;
 
+  errorMsgTag: string = '';
+  errorMsgPhoto: string = '';
+
   currentTags: string[] = [];
-  currStatus: string = '';
+  currentStatus: string = '';
 
   selectedFiles: File[] = [];
   imagePreviews: string[] = [];
@@ -31,7 +35,12 @@ export class NewPostComponent {
     const newTag = '#' + value;
 
     if (this.currentTags.includes(newTag)) {
+      this.errorMsgTag = `You have already entered ${newTag}.`;
       return;
+    }
+
+    if (this.errorMsgTag != '') {
+      this.errorMsgTag = '';
     }
 
     this.currentTags = [...this.currentTags, '#' + value];
@@ -45,18 +54,51 @@ export class NewPostComponent {
   }
 
   onAddFile(event: any): void {
-    this.selectedFiles = Array.from(event.target.files);
+    const files = Array.from(event.target.files) as File[];
 
-    this.selectedFiles.forEach((file) => {
+    files.forEach((file) => {
+      const isDuplicate = this.selectedFiles.some(
+        (selectedFile) =>
+          selectedFile.name === file.name &&
+          selectedFile.size === file.size &&
+          selectedFile.lastModified === file.lastModified
+      );
+
+      if (isDuplicate) {
+        this.errorMsgPhoto = 'This file has already been added.';
+        return;
+      }
+
+      const validFileTypes = ['image/png', 'image/jpeg'];
+      if (!validFileTypes.includes(file.type)) {
+        this.errorMsgPhoto = 'Please, upload only PNG or JPEG images.';
+        return;
+      }
+
+      const maxFileSize = maxImageSize * 1024 * 1024;
+      if (file.size > maxFileSize) {
+        this.errorMsgPhoto = `The image needs to be smaller than ${maxImageSize}MB.`;
+        return;
+      }
+
+      if (this.errorMsgPhoto !== '') {
+        this.errorMsgPhoto = '';
+      }
+
+      this.selectedFiles.push(file);
+
       const reader = new FileReader();
       reader.onload = () => {
-        this.imagePreviews.push(reader.result as string);
+        const previewUrl = reader.result as string;
+        if (!this.imagePreviews.includes(previewUrl)) {
+          this.imagePreviews.push(previewUrl);
+        }
       };
 
-      const uniqueImgPrev = [...new Set(this.imagePreviews)];
-      this.imagePreviews = uniqueImgPrev;
       reader.readAsDataURL(file);
     });
+    
+    (event.target as HTMLInputElement).value = '';
   }
 
   onRemoveFile(index: number): void {
@@ -81,7 +123,7 @@ export class NewPostComponent {
 
   changeStatus(index: number): void {
     const newStatus = statuses[index];
-    this.currStatus = newStatus.emoji;
+    this.currentStatus = newStatus.emoji;
   }
 
   // submitPost() {
