@@ -2,7 +2,6 @@
 
 .profile-container {
   background-color: $light-purple;
-  width: 250px;
   border-radius: 25px;
   color: rgb(255, 255, 255);
   position: relative;
@@ -11,7 +10,19 @@
   .profile-image {
     margin-right: 5px;
     width: 50px;
-    border-radius: 50%;
+    border-radius: 25px;
+    cursor: pointer; // прави снимката кликаема
+    transition: transform 0.3s ease-in-out;
+
+    &.clickable {
+      &:hover {
+        transform: translateY(-2px);
+      }
+    }
+
+    &.rotated {
+      transform: rotate(180deg);
+    }
   }
 
   .arrow-img {

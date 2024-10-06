@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -8,10 +8,31 @@ import { Component } from '@angular/core';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
-export class ProfileComponent {
-  isArrowRotated: boolean = false;
+export class ProfileComponent implements OnInit {
+  isArrowRotated = false;
+  isImageClickable = false;
+
+  ngOnInit(): void {
+    this.checkWindowWidth();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.checkWindowWidth();
+  }
+
+  checkWindowWidth() {
+    const width = window.innerWidth;
+    this.isImageClickable = width <= 768;
+  }
 
   toggleArrow() {
     this.isArrowRotated = !this.isArrowRotated;
+  }
+
+  onImageClick() {
+    if (this.isImageClickable) {
+      this.toggleArrow();
+    }
   }
 }

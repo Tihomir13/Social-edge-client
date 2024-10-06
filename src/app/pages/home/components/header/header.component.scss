@@ -33,3 +33,27 @@
     }
   }
 }
+
+app-profile {
+  max-width: 250px;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .container-fluid {
+    .container-content {
+      .search-bar {
+        margin-left: 0px;
+        width: 100%;
+      }
+
+      .icons-container {
+        margin-right: 0px;
+      }
+    }
+  }
+
+  app-profile {
+    max-width: 50px;
+  }
+}

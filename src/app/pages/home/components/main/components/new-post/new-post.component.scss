@@ -36,9 +36,8 @@ $square-width: 110px;
 
     .add-photo-icon,
     .add-status-icon {
-      width: 30px;
       cursor: pointer;
-      border-radius: 50%;
+      width: 30px;
       transition: 0.2s ease;
 
       &:hover {
