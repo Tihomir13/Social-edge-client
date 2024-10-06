@@ -7,4 +7,19 @@
   width: 100%;
   margin-top: 80px;
   //background-color: $light-gray;
+
+  // .content {
+  //   .new-post-container {
+  //   }
+  // }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    .content {
+      .new-post-container {
+        padding: 0px 20px;
+      }
+    }
+  }
 }
