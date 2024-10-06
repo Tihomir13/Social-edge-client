@@ -72,13 +72,8 @@ export class NewPostComponent {
     this.isStatusPickerVisible = !this.isStatusPickerVisible;
   }
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-
-    if (this.isStatusPickerVisible && !target.closest('.status-container')) {
-      this.isStatusPickerVisible = false;
-    }
+  onStatusPickerClose(isVisible: boolean): void {
+    this.isStatusPickerVisible = isVisible;
   }
 
   // submitPost() {

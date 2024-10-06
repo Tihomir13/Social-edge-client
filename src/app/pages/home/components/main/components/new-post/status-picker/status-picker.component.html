@@ -1,5 +1,5 @@
 <div class="status-picker-container">
-  <app-search-bar (searchedText)="SearchStatus($event)"></app-search-bar>
+  <app-search-bar (searchedText)="SearchStatus($event)" />
 
   <div class="statuses-container">
     @for (status of currentStatuses; track $index) {

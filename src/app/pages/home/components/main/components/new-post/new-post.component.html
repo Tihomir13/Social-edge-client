@@ -19,13 +19,15 @@
         class="add-status-icon"
         src="./assets/icons/happy.svg"
         alt="add status on the post icon"
-        (click)="isStatusPickerVisible = !isStatusPickerVisible"
+        (click)="toggleStatusPicker()"
       />
 
       @if(isStatusPickerVisible) {
       <app-status-picker
         class="status-picker-component"
-      ></app-status-picker>
+        [isVisible]="isStatusPickerVisible"
+        (close)="onStatusPickerClose($event)"
+      />
       }
     </div>
   </div>
