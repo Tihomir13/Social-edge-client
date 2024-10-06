@@ -34,6 +34,17 @@ $square-width: 110px;
       cursor: pointer;
       margin-left: 1px;
     }
+
+    .status-picker-component {
+      border: 1px solid $light-gray;
+      border-radius: 11px;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+
+      width: 480px;
+      top: 47px;
+      left: 50%;
+      transform: translate(-50%);
+    }
   }
 
   .new-post-content {
@@ -195,5 +206,11 @@ $square-width: 110px;
         background-color: $light-purple;
       }
     }
+  }
+
+  .status-picker-component {
+    position: absolute;
+    top: 65px;
+    right: -40px;
   }
 }

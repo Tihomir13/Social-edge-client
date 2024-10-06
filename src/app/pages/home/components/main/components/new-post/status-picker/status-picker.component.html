@@ -1,0 +1,12 @@
+<div class="status-picker-container">
+  <app-search-bar (searchedText)="SearchStatus($event)"></app-search-bar>
+
+  <div class="statuses-container">
+    @for (status of currentStatuses; track $index) {
+    <div class="status-container fs-5">
+      <span>{{ status.emoji }}</span>
+      <span>{{ status.name }}</span>
+    </div>
+    }
+  </div>
+</div>

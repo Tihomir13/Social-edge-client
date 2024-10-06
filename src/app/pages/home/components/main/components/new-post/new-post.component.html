@@ -14,11 +14,18 @@
       alt="add image icon"
     />
 
-    <img
-      class="add-status-icon"
-      src="./assets/icons/happy.svg"
-      alt="add status on the post icon"
-    />
+    <div class="position-relative">
+      <img
+        class="add-status-icon"
+        src="./assets/icons/happy.svg"
+        alt="add status on the post icon"
+        (click)="isStatusPickerVisible = !isStatusPickerVisible"
+      />
+
+      @if(!isStatusPickerVisible) {
+        <app-status-picker class="status-picker-component"></app-status-picker>
+        }
+    </div>
   </div>
 
   <div class="new-post-content">

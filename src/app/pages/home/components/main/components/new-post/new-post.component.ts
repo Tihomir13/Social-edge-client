@@ -1,16 +1,19 @@
 import { Component, inject } from '@angular/core';
-import { filter } from 'rxjs';
+
 import { ArrayUtilityService } from '../../../../../../shared/services/utility/array-utility.service';
+import { StatusPickerComponent } from './status-picker/status-picker.component';
 
 @Component({
   selector: 'app-new-post',
   standalone: true,
-  imports: [],
+  imports: [StatusPickerComponent],
   providers: [ArrayUtilityService],
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.scss',
 })
 export class NewPostComponent {
+  isStatusPickerVisible: boolean = false;
+
   currentTags: string[] = [];
   selectedFiles: File[] = [];
   imagePreviews: string[] = [];
