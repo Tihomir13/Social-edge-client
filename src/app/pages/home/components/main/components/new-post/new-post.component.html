@@ -15,18 +15,22 @@
     />
 
     <div class="status-container position-relative">
+      @if(currStatus === ''){
       <img
         class="add-status-icon"
         src="./assets/icons/happy.svg"
         alt="add status on the post icon"
         (click)="toggleStatusPicker()"
       />
-
-      @if(isStatusPickerVisible) {
+      } @else {
+      <span class="add-status-icon fs-4" (click)="toggleStatusPicker()">
+        {{ currStatus }} </span
+      >} @if(isStatusPickerVisible) {
       <app-status-picker
         class="status-picker-component"
         [isVisible]="isStatusPickerVisible"
         (close)="onStatusPickerClose($event)"
+        (chosenStatus)="changeStatus($event)"
       />
       }
     </div>

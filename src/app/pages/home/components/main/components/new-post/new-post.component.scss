@@ -180,7 +180,7 @@ $square-width: 110px;
       transition: transform 0.3s ease;
       background-color: transparent;
       border-radius: $border-radius;
-      border: 2px dashed $light-gray;
+      border: 2px dashed rgb(150, 150, 150);
 
       &:hover {
         transform: scale(1.05);

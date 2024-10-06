@@ -15,8 +15,13 @@ export class StatusPickerComponent {
 
   isVisible = input<boolean>(false);
   close = output<boolean>();
+  chosenStatus = output<number>();
 
   localVisibility = signal<boolean>(this.isVisible());
+
+  ngOnChanges(): void {
+    this.localVisibility.set(this.isVisible());
+  }
 
   SearchStatus(text: string): void {
     const lowerCaseText: string = text.toLowerCase();
@@ -30,8 +35,9 @@ export class StatusPickerComponent {
     this.close.emit(this.localVisibility());
   }
 
-  ngOnChanges(): void {
-    this.localVisibility.set(this.isVisible());
+  onChosenStatus(index: number): void {
+    this.chosenStatus.emit(index);
+    this.closePicker();
   }
 
   @HostListener('document:click', ['$event'])

@@ -2,6 +2,7 @@ import { Component, HostListener, inject } from '@angular/core';
 
 import { ArrayUtilityService } from '../../../../../../shared/services/utility/array-utility.service';
 import { StatusPickerComponent } from './status-picker/status-picker.component';
+import { statuses } from '../../../../../../shared/constants/arrays';
 
 @Component({
   selector: 'app-new-post',
@@ -15,6 +16,8 @@ export class NewPostComponent {
   isStatusPickerVisible: boolean = false;
 
   currentTags: string[] = [];
+  currStatus: string = '';
+
   selectedFiles: File[] = [];
   imagePreviews: string[] = [];
 
@@ -68,12 +71,17 @@ export class NewPostComponent {
     );
   }
 
-  toggleStatusPicker() {
+  toggleStatusPicker(): void {
     this.isStatusPickerVisible = !this.isStatusPickerVisible;
   }
 
   onStatusPickerClose(isVisible: boolean): void {
     this.isStatusPickerVisible = isVisible;
+  }
+
+  changeStatus(index: number): void {
+    const newStatus = statuses[index];
+    this.currStatus = newStatus.emoji;
   }
 
   // submitPost() {
