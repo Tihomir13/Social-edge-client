@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 
 import { ArrayUtilityService } from '../../../../../../shared/services/utility/array-utility.service';
 import { StatusPickerComponent } from './status-picker/status-picker.component';
@@ -66,6 +66,19 @@ export class NewPostComponent {
       this.selectedFiles,
       index
     );
+  }
+
+  toggleStatusPicker() {
+    this.isStatusPickerVisible = !this.isStatusPickerVisible;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+
+    if (this.isStatusPickerVisible && !target.closest('.status-container')) {
+      this.isStatusPickerVisible = false;
+    }
   }
 
   // submitPost() {

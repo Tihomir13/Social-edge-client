@@ -14,7 +14,7 @@
       alt="add image icon"
     />
 
-    <div class="position-relative">
+    <div class="status-container position-relative">
       <img
         class="add-status-icon"
         src="./assets/icons/happy.svg"
@@ -22,9 +22,11 @@
         (click)="isStatusPickerVisible = !isStatusPickerVisible"
       />
 
-      @if(!isStatusPickerVisible) {
-        <app-status-picker class="status-picker-component"></app-status-picker>
-        }
+      @if(isStatusPickerVisible) {
+      <app-status-picker
+        class="status-picker-component"
+      ></app-status-picker>
+      }
     </div>
   </div>
 
