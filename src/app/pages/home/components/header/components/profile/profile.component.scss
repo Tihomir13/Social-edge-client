@@ -41,3 +41,11 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .profile-container {
+    .profile-image {
+      margin-right: 0px;
+    }
+  }
+}
