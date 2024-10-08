@@ -1,4 +1,10 @@
-import { Component, HostListener, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  Renderer2,
+  ViewChild,
+} from '@angular/core';
 
 import { ArrayUtilityService } from '../../../../../../shared/services/utility/array-utility.service';
 import { StatusPickerComponent } from './status-picker/status-picker.component';
@@ -15,17 +21,21 @@ import { maxImageSize } from '../../../../../../shared/constants/settings';
 })
 export class NewPostComponent {
   isStatusPickerVisible: boolean = false;
-
-  errorMsgTag: string = '';
-  errorMsgPhoto: string = '';
-
-  currentTags: string[] = [];
-  currentStatus: string = '';
+  isCreatingNewPost: boolean = false;
 
   selectedFiles: File[] = [];
   imagePreviews: string[] = [];
 
+  currentTags: string[] = [];
+  currentStatus: string = '';
+
+  errorMsgTag: string = '';
+  errorMsgPhoto: string = '';
+
+  @ViewChild('textArea') textArea!: ElementRef;
+
   arrUtilService = inject(ArrayUtilityService);
+  renderer = inject(Renderer2);
 
   onAddTag(value: string): void {
     if (value === '') {
@@ -97,7 +107,7 @@ export class NewPostComponent {
 
       reader.readAsDataURL(file);
     });
-    
+
     (event.target as HTMLInputElement).value = '';
   }
 
@@ -124,6 +134,28 @@ export class NewPostComponent {
   changeStatus(index: number): void {
     const newStatus = statuses[index];
     this.currentStatus = newStatus.emoji;
+    this.startCreatingNewPost();
+  }
+
+  triggerFileInput(): void {
+    const fileInput = document.getElementById('file-input') as HTMLInputElement;
+    fileInput.click();
+    this.startCreatingNewPost();
+  }
+
+  startCreatingNewPost(): void {
+    if (!this.isCreatingNewPost) {
+      this.isCreatingNewPost = true;
+      this.focusTextArea();
+    }
+  }
+
+  focusTextArea(): void {
+    setTimeout(() => {
+      if (this.textArea) {
+        this.renderer.selectRootElement(this.textArea.nativeElement).focus();
+      }
+    }, 1);
   }
 
   // submitPost() {

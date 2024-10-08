@@ -9,13 +9,15 @@
     <input
       class="title form-control"
       type="text"
-      placeholder="Make a new post.."
+      [placeholder]="!isCreatingNewPost ? 'Make a new post...' : 'Title...'"
+      (click)="startCreatingNewPost()"
     />
 
     <img
-      class="add-photo-icon d-none d-block"
+      class="add-photo-icon d-none d-lg-block"
       src="./assets/icons/add-image.svg"
       alt="add image icon"
+      (click)="triggerFileInput()"
     />
 
     <div class="status-container position-relative">
@@ -40,9 +42,10 @@
     </div>
   </div>
 
+  @if(isCreatingNewPost) {
   <div class="new-post-content">
     <div class="text-container">
-      <textarea class="text form-control" rows="6"></textarea>
+      <textarea #textArea class="text form-control" rows="6"></textarea>
     </div>
 
     <div class="tags-container d-flex">
@@ -111,4 +114,5 @@
       <button class="btn">Post</button>
     </div>
   </div>
+  }
 </div>
