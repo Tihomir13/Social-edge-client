@@ -2,8 +2,6 @@
 
 .container {
   max-width: 740px;
-  padding: 0px;
-  margin: auto;
   width: 100%;
   margin-top: 80px;
   //background-color: $light-gray;
@@ -17,9 +15,7 @@
 @media screen and (max-width: 768px) {
   .container {
     .content {
-      .new-post-container {
-        padding: 10px;
-      }
+      padding: 10px;
     }
   }
 }

@@ -14,10 +14,11 @@
     />
 
     <img
-      class="add-photo-icon d-none d-lg-block"
+      class="add-photo-icon"
       src="./assets/icons/add-image.svg"
       alt="add image icon"
       (click)="triggerFileInput()"
+      [ngClass]="{'d-none': isCreatingNewPost}"
     />
 
     <div class="status-container position-relative">
