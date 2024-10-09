@@ -10,12 +10,12 @@ import { ArrayUtilityService } from '../../../../../../shared/services/utility/a
 import { StatusPickerComponent } from './status-picker/status-picker.component';
 import { statuses } from '../../../../../../shared/constants/arrays';
 import { maxImageSize } from '../../../../../../shared/constants/settings';
-import { NgClass } from '@angular/common';
+import { NgClass, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-new-post',
   standalone: true,
-  imports: [StatusPickerComponent, NgClass],
+  imports: [StatusPickerComponent, NgClass, NgStyle],
   providers: [ArrayUtilityService],
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.scss',

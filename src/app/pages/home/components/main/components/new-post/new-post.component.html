@@ -11,6 +11,7 @@
       type="text"
       [placeholder]="!isCreatingNewPost ? 'Make a new post...' : 'Title...'"
       (click)="startCreatingNewPost()"
+      [ngStyle]="{ 'max-width': isCreatingNewPost ? '605px' : '580px' }"
     />
 
     <img
