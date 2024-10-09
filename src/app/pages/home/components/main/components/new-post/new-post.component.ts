@@ -2,6 +2,7 @@ import {
   Component,
   ElementRef,
   inject,
+  OnDestroy,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -20,7 +21,7 @@ import { NgClass, NgStyle } from '@angular/common';
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.scss',
 })
-export class NewPostComponent {
+export class NewPostComponent implements OnDestroy {
   isStatusPickerVisible: boolean = false;
   isCreatingNewPost: boolean = false;
 
@@ -33,10 +34,13 @@ export class NewPostComponent {
   errorMsgTag: string = '';
   errorMsgPhoto: string = '';
 
+  private globalClickListener: (() => void) | null = null;
+
   @ViewChild('textArea') textArea!: ElementRef;
 
   arrUtilService = inject(ArrayUtilityService);
-  renderer = inject(Renderer2);
+  private renderer = inject(Renderer2);
+  private elRef = inject(ElementRef);
 
   onAddTag(value: string): void {
     if (value === '') {
@@ -148,6 +152,16 @@ export class NewPostComponent {
     if (!this.isCreatingNewPost) {
       this.isCreatingNewPost = true;
       this.focusTextArea();
+
+      this.globalClickListener = this.renderer.listen(
+        'document',
+        'click',
+        (event: Event) => {
+          if (!this.elRef.nativeElement.contains(event.target)) {
+            this.isCreatingNewPost = false;
+          }
+        }
+      );
     }
   }
 
@@ -157,6 +171,12 @@ export class NewPostComponent {
         this.renderer.selectRootElement(this.textArea.nativeElement).focus();
       }
     }, 1);
+  }
+
+  ngOnDestroy(): void {
+    if (this.globalClickListener) {
+      this.globalClickListener();
+    }
   }
 
   // submitPost() {
