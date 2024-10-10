@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { PostComponent } from './components/post/post.component';
 
@@ -7,8 +7,12 @@ import { PostComponent } from './components/post/post.component';
   standalone: true,
   imports: [NewPostComponent, PostComponent],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  styleUrl: './main.component.scss',
 })
-export class MainComponent {
+export class MainComponent implements OnInit {
+  posts: any = [];
 
+  ngOnInit(): void {
+    //posts
+  }
 }
