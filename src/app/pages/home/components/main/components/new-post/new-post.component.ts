@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   inject,
@@ -36,11 +37,13 @@ export class NewPostComponent implements OnDestroy {
 
   private globalClickListener: (() => void) | null = null;
 
-  @ViewChild('textArea') textArea!: ElementRef;
+  @ViewChild('textArea', { static: false }) textArea!: ElementRef;
+  @ViewChild('inputFile', { static: false }) inputFile!: ElementRef;
 
   arrUtilService = inject(ArrayUtilityService);
   private renderer = inject(Renderer2);
   private elRef = inject(ElementRef);
+  private cdr = inject(ChangeDetectorRef);
 
   onAddTag(value: string): void {
     if (value === '') {
@@ -142,10 +145,10 @@ export class NewPostComponent implements OnDestroy {
     this.startCreatingNewPost();
   }
 
-  triggerFileInput(): void {
-    const fileInput = document.getElementById('file-input') as HTMLInputElement;
-    fileInput.click();
-    this.startCreatingNewPost();
+  triggerFileInput() {
+    this.isCreatingNewPost = true;
+    this.cdr.detectChanges();
+    this.inputFile.nativeElement.click();
   }
 
   startCreatingNewPost(): void {
@@ -166,11 +169,11 @@ export class NewPostComponent implements OnDestroy {
   }
 
   focusTextArea(): void {
-    setTimeout(() => {
-      if (this.textArea) {
-        this.renderer.selectRootElement(this.textArea.nativeElement).focus();
-      }
-    }, 1);
+    this.cdr.detectChanges();
+
+    if (this.textArea) {
+      this.renderer.selectRootElement(this.textArea.nativeElement).focus();
+    }
   }
 
   ngOnDestroy(): void {

@@ -1,5 +1,4 @@
 import { Component, HostListener, input, output, signal } from '@angular/core';
-import { status } from '../../../../../../../shared/interfaces/new-post';
 import { statuses } from '../../../../../../../shared/constants/arrays';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 

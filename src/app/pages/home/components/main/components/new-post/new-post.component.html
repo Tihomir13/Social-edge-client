@@ -19,7 +19,7 @@
       src="./assets/icons/add-image.svg"
       alt="add image icon"
       (click)="triggerFileInput()"
-      [ngClass]="{'d-none': isCreatingNewPost}"
+      [ngClass]="{ 'd-none': isCreatingNewPost }"
     />
 
     <div class="status-container position-relative">
@@ -96,6 +96,7 @@
       }
 
       <input
+        #inputFile
         type="file"
         id="file-input"
         class="file-input d-none"
