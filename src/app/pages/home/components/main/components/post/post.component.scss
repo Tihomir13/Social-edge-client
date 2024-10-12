@@ -34,6 +34,32 @@
   }
   .interactions-container {
     margin-top: 10px;
+
+    .interaction-icon {
+      cursor: pointer;
+    }
+  }
+
+  .add-comment-container {
+    margin-top: 20px;
+    .profile-icon-container {
+      .icon {
+        width: 45px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+      }
+    }
+
+    .form-control {
+      width: 100%;
+      border-radius: 25px;
+      height: 45px;
+  
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
   }
 }
 

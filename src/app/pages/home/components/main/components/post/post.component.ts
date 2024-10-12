@@ -5,8 +5,12 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './post.component.html',
-  styleUrl: './post.component.scss'
+  styleUrl: './post.component.scss',
 })
 export class PostComponent {
+  isCommentsClicked: boolean = true;
 
+  toggleComments(): void {
+    this.isCommentsClicked = !this.isCommentsClicked;
+  }
 }
