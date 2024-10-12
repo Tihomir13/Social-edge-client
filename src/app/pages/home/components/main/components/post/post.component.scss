@@ -1,0 +1,44 @@
+@import "../../../../../../../styles.scss";
+
+.post-container {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: $border-radius;
+  background-color: rgb(238, 182, 255);
+  margin-top: 15px;
+  padding: 10px;
+
+  .header {
+    margin-bottom: 10px;
+    .profile-icon-container {
+      .icon {
+        width: 45px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+      }
+    }
+
+    .options-container {
+      .icon {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .images-container {
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      border-radius: $border-radius;
+    }
+  }
+  .interactions-container {
+    margin-top: 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .post-container {
+    border-radius: 0px;
+  }
+}

@@ -6,6 +6,7 @@ $square-width: 110px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: $border-radius;
   background-color: rgb(238, 182, 255);
+  margin-bottom: 35px;
 
   .new-post-title {
     border-radius: $border-radius $border-radius 0px 0px;
@@ -237,6 +238,8 @@ $square-width: 110px;
 
 @media screen and (max-width: 768px) {
   .new-post-container {
+    border-radius: 0px;
+
     .new-post-title {
       .status-picker-component {
         width: 280px;
