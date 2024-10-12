@@ -3,7 +3,9 @@
         <div class="d-flex flex-column align-items-center justify-content-center content">
             <h1>Create an new account</h1>
 
-            <app-google-btn />
+            <app-google-btn class="google-btn"/>
+
+            <p class="or-text fw-bold">or</p>
 
             <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="d-flex flex-md-row flex-column mb-22px gap-22px" formGroupName="name">
@@ -45,7 +47,7 @@
                     </div>
                 </div>
 
-                <input class="form-control mb-22px -width-control" type="email" placeholder="Email address"
+                <input class="form-control mb-22px full-width-control" type="email" placeholder="Email address"
                     formControlName="email">
 
                 @if (isEmailValid) {

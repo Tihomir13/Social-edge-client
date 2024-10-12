@@ -16,6 +16,15 @@ select {
   .content {
     margin-top: 150px;
 
+    .google-btn {
+      max-width: 360px;
+      width: 100%;
+    }
+
+    .or-text {
+      @extend %or-text;
+    }
+
     .form {
       max-width: 542px;
       width: 100%;
@@ -32,7 +41,6 @@ select {
 
       .semi-width-control {
         max-width: 260px;
-        width: 100%;
       }
 
       .full-width-control {
@@ -77,17 +85,28 @@ select {
 }
 
 @media screen and (max-width: 768px) {
-  .container {
-    margin-top: 10%;
+  .container-fluid {
+    .content {
+      padding: 0px;
 
-    .form {
-      .semi,
-      .btn {
-        max-width: 542px;
-      }
-
-      .dropdown {
-        width: 174px;
+      .form {
+        max-width: 360px;
+        width: 100%;
+  
+        .semi-width-control,
+        .full-width-control {
+          max-width: 360px;
+          width: 100%;
+        }
+  
+        .dropdown {
+          width: 120px;
+        }
+  
+        .btn {
+          max-width: 360px;
+          width: 100%;
+        }
       }
     }
   }
