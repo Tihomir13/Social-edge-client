@@ -114,7 +114,7 @@ export class NewPostComponent implements OnDestroy {
             (p) => p.className === 'Porn' || p.className === 'Hentai'
           );
 
-          if (nsfwResult && nsfwResult.probability > 0.02) {
+          if (nsfwResult && nsfwResult.probability > 0.1) {
             this.errorMsgPhoto =
               'NSFW content detected. Please, upload appropriate images.';
             return;
