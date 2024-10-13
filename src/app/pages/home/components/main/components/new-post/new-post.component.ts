@@ -14,6 +14,8 @@ import { statuses } from '../../../../../../shared/constants/arrays';
 import { maxImageSize } from '../../../../../../shared/constants/settings';
 import { NgClass, NgStyle } from '@angular/common';
 
+import * as nsfwjs from 'nsfwjs';
+
 @Component({
   selector: 'app-new-post',
   standalone: true,
@@ -73,49 +75,66 @@ export class NewPostComponent implements OnDestroy {
 
   onAddFile(event: any): void {
     const files = Array.from(event.target.files) as File[];
-
-    files.forEach((file) => {
+  
+    files.forEach(async (file) => {
       const isDuplicate = this.selectedFiles.some(
         (selectedFile) =>
           selectedFile.name === file.name &&
           selectedFile.size === file.size &&
           selectedFile.lastModified === file.lastModified
       );
-
+  
       if (isDuplicate) {
         this.errorMsgPhoto = 'This file has already been added.';
         return;
       }
-
+  
       const validFileTypes = ['image/png', 'image/jpeg'];
       if (!validFileTypes.includes(file.type)) {
         this.errorMsgPhoto = 'Please, upload only PNG or JPEG images.';
         return;
       }
-
+  
       const maxFileSize = maxImageSize * 1024 * 1024;
       if (file.size > maxFileSize) {
         this.errorMsgPhoto = `The image needs to be smaller than ${maxImageSize}MB.`;
         return;
       }
-
-      if (this.errorMsgPhoto !== '') {
-        this.errorMsgPhoto = '';
-      }
-
-      this.selectedFiles.push(file);
-
+  
       const reader = new FileReader();
-      reader.onload = () => {
-        const previewUrl = reader.result as string;
-        if (!this.imagePreviews.includes(previewUrl)) {
-          this.imagePreviews.push(previewUrl);
-        }
+      reader.onload = async () => {
+        const image = new Image();
+        image.src = reader.result as string;
+  
+        image.onload = async () => {
+          const model = await nsfwjs.load();
+          const predictions = await model.classify(image);
+  
+          const nsfwResult = predictions.find(
+            (p) => p.className === 'Porn' || p.className === 'Hentai' || p.className === 'Sexy'
+          );
+  
+          if (nsfwResult && nsfwResult.probability > 0.7) {
+            this.errorMsgPhoto = 'NSFW content detected. Please, upload appropriate images.';
+            return;
+          }
+  
+          if (this.errorMsgPhoto !== '') {
+            this.errorMsgPhoto = '';
+          }
+  
+          this.selectedFiles.push(file);
+  
+          const previewUrl = reader.result as string;
+          if (!this.imagePreviews.includes(previewUrl)) {
+            this.imagePreviews.push(previewUrl);
+          }
+        };
       };
-
+  
       reader.readAsDataURL(file);
     });
-
+  
     (event.target as HTMLInputElement).value = '';
   }
 
@@ -145,7 +164,7 @@ export class NewPostComponent implements OnDestroy {
     this.startCreatingNewPost();
   }
 
-  triggerFileInput() {
+  triggerFileInput():void {
     this.isCreatingNewPost = true;
     this.cdr.detectChanges();
     this.inputFile.nativeElement.click();
