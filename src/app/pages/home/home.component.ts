@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   newPostFormGroup!: FormGroup;
 
   modalService = inject(ModalService);
-  newPostService = inject(NewPostStateService);
+  newPostStateService = inject(NewPostStateService);
   formService = inject(GenerateNewPostFormService);
 
   ngOnInit() {
@@ -30,9 +30,8 @@ export class HomeComponent implements OnInit {
   onChoseOption(option: boolean) {
     if (option === true) {
       this.newPostFormGroup.reset();
-      this.newPostService.toggleNewPost(false);
-    } else {
-      this.newPostService.toggleNewPost(false);
+      this.newPostStateService.toggleNewPost(false);
+      this.newPostStateService.removeGlobalClickListener();
     }
 
     this.modalService.toggleModal();

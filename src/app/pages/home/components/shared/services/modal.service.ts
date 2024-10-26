@@ -14,6 +14,7 @@ export class ModalService {
   }
 
   chooseOption(value: boolean) {
-    this.newPostService.toggleNewPost(value);
+    // console.log(value);
+    // this.newPostService.toggleNewPost(value);
   }
 }

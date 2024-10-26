@@ -54,8 +54,6 @@ export class NewPostComponent {
   errorMsgTag: string = '';
   errorMsgPhoto: string = '';
 
-  private globalClickListener: (() => void) | null = null;
-
   @ViewChild('textArea', { static: false }) textArea!: ElementRef;
   @ViewChild('inputFile', { static: false }) inputFile!: ElementRef;
 
@@ -186,29 +184,22 @@ export class NewPostComponent {
     this.inputFile.nativeElement.click();
   }
 
-  removeGlobalClickListener(): void {
-    if (this.globalClickListener) {
-      this.globalClickListener();
-      this.globalClickListener = null;
-    }
-  }
-
   startCreatingNewPost(): void {
     if (!this.newPostState.isCreatingNewPost()) {
       this.newPostState.toggleNewPost(true);
 
       this.focusTextArea();
 
-      this.globalClickListener = this.renderer.listen(
+      const listener = this.renderer.listen(
         'document',
         'click',
         (event: Event) => {
           if (!this.elRef.nativeElement.contains(event.target)) {
             this.modalService.toggleModal();
-            this.removeGlobalClickListener();
           }
         }
       );
+      this.newPostState.setGlobalClickListener(listener);
     }
   }
 
