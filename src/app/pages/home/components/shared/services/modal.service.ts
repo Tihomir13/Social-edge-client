@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
+import { NewPostStateService } from '../../main/components/new-post/helpers/new-post-state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -6,9 +7,13 @@ import { Injectable, signal } from '@angular/core';
 export class ModalService {
   isModalToggled = signal(false);
 
+  newPostService = inject(NewPostStateService);
+
   toggleModal() {
-    console.log(this.isModalToggled());
-    
     this.isModalToggled.set(!this.isModalToggled());
+  }
+
+  chooseOption(value: boolean) {
+    this.newPostService.toggleNewPost(value);
   }
 }

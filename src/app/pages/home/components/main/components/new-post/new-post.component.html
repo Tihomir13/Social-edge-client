@@ -1,4 +1,4 @@
-<div class="new-post-container">
+<form class="new-post-container" [formGroup]="newPostFormGroup()!" (ngSubmit)="onSubmit()">
   <div class="new-post-title d-flex align-items-center justify-content-between">
     <img
       class="profile-icon"
@@ -9,9 +9,10 @@
     <input
       class="title form-control"
       type="text"
-      [placeholder]="!isCreatingNewPost ? 'Make a new post...' : 'Title...'"
+      [placeholder]="!this.newPostState.isCreatingNewPost() ? 'Make a new post...' : 'Title...'"
       (click)="startCreatingNewPost()"
-      [ngStyle]="{ 'max-width': isCreatingNewPost ? '605px' : '580px' }"
+      [ngStyle]="{ 'max-width': this.newPostState.isCreatingNewPost() ? '605px' : '580px' }"
+      formControlName="title"
     />
 
     <img
@@ -19,7 +20,7 @@
       src="./assets/icons/add-image.svg"
       alt="add image icon"
       (click)="triggerFileInput()"
-      [ngClass]="{ 'd-none': isCreatingNewPost }"
+      [ngClass]="{ 'd-none': this.newPostState.isCreatingNewPost() }"
     />
 
     <div class="status-container position-relative">
@@ -44,13 +45,18 @@
     </div>
   </div>
 
-  @if(isCreatingNewPost) {
+  @if(this.newPostState.isCreatingNewPost()) {
   <div class="new-post-content">
     <div class="text-container">
-      <textarea #textArea class="text form-control" rows="6"></textarea>
+      <textarea
+        #textArea
+        class="text form-control"
+        rows="6"
+        formControlName="content"
+      ></textarea>
     </div>
 
-    <div class="tags-container d-flex">
+    <div class="tags-container d-flex" formArrayName="tags">
       <div class="add-tag-container d-flex">
         <input
           #newTag
@@ -70,7 +76,7 @@
         </button>
       </div>
 
-      @for (tag of currentTags; track $index) {
+      @for (tag of tags.value; track $index) {
       <span
         class="tag d-flex align-items-center justify-content-center"
         (click)="onRemoveTag($index)"
@@ -85,7 +91,7 @@
     <div class="error">{{ errorMsgTag }}</div>
     }
 
-    <div class="photos-container d-flex">
+    <div class="photos-container d-flex" formArrayName="images">
       @for (photo of imagePreviews; track $index) {
 
       <div class="photo-wrapper" (click)="onRemoveFile($index)">
@@ -118,4 +124,4 @@
     </div>
   </div>
   }
-</div>
+</form>

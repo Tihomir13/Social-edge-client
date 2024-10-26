@@ -1,6 +1,6 @@
 <app-header />
-<app-main />
+<app-main [newPostFormGroup]="newPostFormGroup" />
 
 @if(this.modalService.isModalToggled()) {
-<app-yes-no-modal class="dialog" />
+<app-yes-no-modal class="dialog" (option)="onChoseOption($event)" />
 }

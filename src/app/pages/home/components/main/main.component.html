@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="content">
-      <app-new-post class="app-new-post" />
+      <app-new-post class="app-new-post" [newPostFormGroup]="newPostFormGroup()" />
 
       <app-post />
       <!-- @for (item of items; track $index) {} -->

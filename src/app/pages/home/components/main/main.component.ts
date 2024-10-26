@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, input, OnInit } from '@angular/core';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { PostComponent } from './components/post/post.component';
-import { YesNoModalComponent } from "../../../../shared/components/yes-no-modal/yes-no-modal.component";
+import { YesNoModalComponent } from '../../../../shared/components/yes-no-modal/yes-no-modal.component';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-main',
@@ -12,6 +13,7 @@ import { YesNoModalComponent } from "../../../../shared/components/yes-no-modal/
 })
 export class MainComponent implements OnInit {
   posts: any = [];
+  newPostFormGroup = input<FormGroup>();
 
   ngOnInit(): void {
     //posts

@@ -3,11 +3,18 @@ import {
   Component,
   ElementRef,
   inject,
+  input,
   OnDestroy,
   Renderer2,
   ViewChild,
 } from '@angular/core';
 import { NgClass, NgStyle } from '@angular/common';
+import {
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 import { ArrayUtilityService } from '../../../../../../shared/services/utility/array-utility.service';
 import { StatusPickerComponent } from './status-picker/status-picker.component';
@@ -15,20 +22,31 @@ import { statuses } from '../../../../../../shared/constants/arrays';
 import { maxImageSize } from '../../../../../../shared/constants/settings';
 
 import * as nsfwjs from 'nsfwjs';
+import { ModalService } from '../../../shared/services/modal.service';
+import { GenerateNewPostFormService } from './helpers/generate-new-post-form.service';
+import { NewPostStateService } from './helpers/new-post-state.service';
 
 @Component({
   selector: 'app-new-post',
   standalone: true,
-  imports: [StatusPickerComponent, NgClass, NgStyle],
+  imports: [StatusPickerComponent, ReactiveFormsModule, NgClass, NgStyle],
   providers: [ArrayUtilityService],
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.scss',
 })
 export class NewPostComponent implements OnDestroy {
-  isStatusPickerVisible: boolean = false;
-  isCreatingNewPost: boolean = false;
+  newPostFormGroup = input<FormGroup>();
 
-  selectedFiles: File[] = [];
+  get tags(): FormArray {
+    return this.newPostFormGroup()?.get('tags') as FormArray;
+  }
+
+  get imagesFiles(): FormArray {
+    return this.newPostFormGroup()?.get('images') as FormArray;
+  }
+
+  isStatusPickerVisible: boolean = false;
+
   imagePreviews: string[] = [];
 
   currentTags: string[] = [];
@@ -46,15 +64,19 @@ export class NewPostComponent implements OnDestroy {
   private renderer = inject(Renderer2);
   private elRef = inject(ElementRef);
   private cdr = inject(ChangeDetectorRef);
+  private formService = inject(GenerateNewPostFormService);
+  private modalService = inject(ModalService);
+  private formBuilder = inject(FormBuilder);
+  newPostState = inject(NewPostStateService);
 
-  onAddTag(value: string): void {
-    if (value === '') {
+  onAddTag(tag: string): void {
+    if (tag === '') {
       return;
     }
 
-    const newTag = '#' + value;
+    const newTag = '#' + tag;
 
-    if (this.currentTags.includes(newTag)) {
+    if (this.tags.value.includes(newTag)) {
       this.errorMsgTag = `You have already entered ${newTag}.`;
       return;
     }
@@ -63,22 +85,19 @@ export class NewPostComponent implements OnDestroy {
       this.errorMsgTag = '';
     }
 
-    this.currentTags = [...this.currentTags, '#' + value];
+    this.tags.push(this.formBuilder.control('#' + tag));
   }
 
   onRemoveTag(index: number): void {
-    this.currentTags = this.arrUtilService.removeElemById(
-      this.currentTags,
-      index
-    );
+    this.tags.removeAt(index);
   }
 
   onAddFile(event: any): void {
     const files = Array.from(event.target.files) as File[];
 
     files.forEach(async (file) => {
-      const isDuplicate = this.selectedFiles.some(
-        (selectedFile) =>
+      const isDuplicate = this.imagesFiles.value.some(
+        (selectedFile: File) =>
           selectedFile.name === file.name &&
           selectedFile.size === file.size &&
           selectedFile.lastModified === file.lastModified
@@ -124,7 +143,7 @@ export class NewPostComponent implements OnDestroy {
             this.errorMsgPhoto = '';
           }
 
-          this.selectedFiles.push(file);
+          this.imagesFiles.push(this.formBuilder.control(file));
 
           const previewUrl = reader.result as string;
           if (!this.imagePreviews.includes(previewUrl)) {
@@ -145,10 +164,7 @@ export class NewPostComponent implements OnDestroy {
       index
     );
 
-    this.selectedFiles = this.arrUtilService.removeElemById(
-      this.selectedFiles,
-      index
-    );
+    this.imagesFiles.removeAt(index);
   }
 
   toggleStatusPicker(): void {
@@ -166,23 +182,26 @@ export class NewPostComponent implements OnDestroy {
   }
 
   triggerFileInput(): void {
-    this.isCreatingNewPost = true;
+    this.newPostState.toggleNewPost(true);
     this.cdr.detectChanges();
     this.inputFile.nativeElement.click();
   }
 
   startCreatingNewPost(): void {
-    if (!this.isCreatingNewPost) {
-      this.isCreatingNewPost = true;
+    if (!this.newPostState.isCreatingNewPost()) {
+      this.newPostState.toggleNewPost(true);
+
       this.focusTextArea();
 
       this.globalClickListener = this.renderer.listen(
         'document',
         'click',
         (event: Event) => {
-          if (!this.elRef.nativeElement.contains(event.target)) {
-            this.isCreatingNewPost = false;
+          if (this.elRef.nativeElement.contains(event.target)) {
+            return;
+            // this.isCreatingNewPost = false;
           }
+          this.modalService.toggleModal();
         }
       );
     }
@@ -195,6 +214,8 @@ export class NewPostComponent implements OnDestroy {
       this.renderer.selectRootElement(this.textArea.nativeElement).focus();
     }
   }
+
+  onSubmit() {}
 
   ngOnDestroy(): void {
     if (this.globalClickListener) {

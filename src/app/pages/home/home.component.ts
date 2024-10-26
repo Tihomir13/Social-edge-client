@@ -1,8 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
 import { YesNoModalComponent } from '../../shared/components/yes-no-modal/yes-no-modal.component';
 import { ModalService } from './components/shared/services/modal.service';
+import { NewPostStateService } from './components/main/components/new-post/helpers/new-post-state.service';
+import { GenerateNewPostFormService } from './components/main/components/new-post/helpers/generate-new-post-form.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +15,25 @@ import { ModalService } from './components/shared/services/modal.service';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  newPostFormGroup!: FormGroup;
+
   modalService = inject(ModalService);
+  newPostService = inject(NewPostStateService);
+  formService = inject(GenerateNewPostFormService);
+
+  ngOnInit() {
+    this.newPostFormGroup = this.formService.generateNewPostForm();
+  }
+
+  onChoseOption(option: boolean) {
+    if (option === true) {
+      this.newPostFormGroup.reset();
+      this.newPostService.toggleNewPost(false);
+    } else {
+      this.newPostService.toggleNewPost(false);
+    }
+
+    this.modalService.toggleModal();
+  }
 }
