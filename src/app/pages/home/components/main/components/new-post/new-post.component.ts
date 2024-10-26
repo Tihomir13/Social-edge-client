@@ -194,7 +194,25 @@ export class NewPostComponent {
         'document',
         'click',
         (event: Event) => {
-          if (!this.elRef.nativeElement.contains(event.target)) {
+          if (this.elRef.nativeElement.contains(event.target)) {
+            return;
+          }
+
+          const isTitleEmpty = this.newPostFormGroup()!.value.title;
+          const isTextEmpty = this.newPostFormGroup()!.value.content;
+          const isTagsEmpty = this.newPostFormGroup()!.value.tags;
+          const isImagesEmpty = this.newPostFormGroup()!.value.images;
+
+          if (
+            isTitleEmpty === '' &&
+            isTextEmpty === '' &&
+            isTagsEmpty.length === 0 &&
+            isImagesEmpty.length === 0
+          ) {
+            this.newPostState.toggleNewPost();
+            this.newPostState.removeGlobalClickListener();
+            return;
+          } else {
             this.modalService.toggleModal();
           }
         }
