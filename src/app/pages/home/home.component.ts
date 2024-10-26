@@ -7,11 +7,12 @@ import { ModalService } from './components/shared/services/modal.service';
 import { NewPostStateService } from './components/main/components/new-post/helpers/new-post-state.service';
 import { GenerateNewPostFormService } from './components/main/components/new-post/helpers/generate-new-post-form.service';
 import { FormGroup } from '@angular/forms';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, MainComponent, YesNoModalComponent],
+  imports: [HeaderComponent, MainComponent, YesNoModalComponent, NgClass],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

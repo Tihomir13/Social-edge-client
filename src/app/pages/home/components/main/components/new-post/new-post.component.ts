@@ -4,7 +4,6 @@ import {
   ElementRef,
   inject,
   input,
-  OnDestroy,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -34,7 +33,7 @@ import { NewPostStateService } from './helpers/new-post-state.service';
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.scss',
 })
-export class NewPostComponent implements OnDestroy {
+export class NewPostComponent {
   newPostFormGroup = input<FormGroup>();
 
   get tags(): FormArray {
@@ -187,6 +186,13 @@ export class NewPostComponent implements OnDestroy {
     this.inputFile.nativeElement.click();
   }
 
+  removeGlobalClickListener(): void {
+    if (this.globalClickListener) {
+      this.globalClickListener();
+      this.globalClickListener = null;
+    }
+  }
+
   startCreatingNewPost(): void {
     if (!this.newPostState.isCreatingNewPost()) {
       this.newPostState.toggleNewPost(true);
@@ -197,11 +203,10 @@ export class NewPostComponent implements OnDestroy {
         'document',
         'click',
         (event: Event) => {
-          if (this.elRef.nativeElement.contains(event.target)) {
-            return;
-            // this.isCreatingNewPost = false;
+          if (!this.elRef.nativeElement.contains(event.target)) {
+            this.modalService.toggleModal();
+            this.removeGlobalClickListener();
           }
-          this.modalService.toggleModal();
         }
       );
     }
@@ -216,12 +221,6 @@ export class NewPostComponent implements OnDestroy {
   }
 
   onSubmit() {}
-
-  ngOnDestroy(): void {
-    if (this.globalClickListener) {
-      this.globalClickListener();
-    }
-  }
 
   // submitPost() {
   //   if (this.selectedFiles.length && this.postText) {

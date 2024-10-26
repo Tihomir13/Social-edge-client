@@ -1,5 +1,8 @@
 <app-header />
-<app-main [newPostFormGroup]="newPostFormGroup" />
+<app-main
+  [newPostFormGroup]="newPostFormGroup"
+  [ngClass]="{ 'blurred': this.modalService.isModalToggled() }"
+/>
 
 @if(this.modalService.isModalToggled()) {
 <app-yes-no-modal class="dialog" (option)="onChoseOption($event)" />
