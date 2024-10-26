@@ -1,2 +1,6 @@
 <app-header />
 <app-main />
+
+@if(this.modalService.isModalToggled()) {
+<app-yes-no-modal class="dialog" />
+}

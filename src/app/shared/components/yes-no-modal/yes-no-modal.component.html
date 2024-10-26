@@ -1,9 +1,9 @@
 <div class="custom-modal-backdrop">
   <div class="custom-modal" (click)="$event.stopPropagation()">
-    @if(title()) {
-    <h2>{{ title() }}</h2>
+    @if(title) {
+    <h4>{{ title }}</h4>
     }
-    <p>{{ message() }}</p>
+    <p>{{ message }}</p>
     <div class="modal-actions">
       <button class="btn btn-outline-primary" (click)="onClick(true)">
         Yes

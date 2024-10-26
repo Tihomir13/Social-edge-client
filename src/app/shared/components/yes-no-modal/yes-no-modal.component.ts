@@ -8,8 +8,11 @@ import { Component, input, output } from '@angular/core';
   styleUrl: './yes-no-modal.component.scss',
 })
 export class YesNoModalComponent {
-  title = input();
-  message = input();
+  // title = input();
+  // message = input();
+
+  title = 'Are you sure you want to delete this post?';
+  message = 'Are you sure you want to delete this post?';
 
   option = output<boolean>();
 
