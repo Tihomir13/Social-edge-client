@@ -9,9 +9,9 @@
     <input
       class="title form-control"
       type="text"
-      [placeholder]="!this.newPostState.isCreatingNewPost() ? 'Make a new post...' : 'Title...'"
+      [placeholder]="!this.newPostState.isCreatingNewPost ? 'Make a new post...' : 'Title...'"
       (click)="startCreatingNewPost()"
-      [ngStyle]="{ 'max-width': this.newPostState.isCreatingNewPost() ? '605px' : '580px' }"
+      [ngStyle]="{ 'max-width': this.newPostState.isCreatingNewPost ? '605px' : '580px' }"
       formControlName="title"
     />
 
@@ -19,12 +19,12 @@
       class="add-photo-icon"
       src="./assets/icons/add-image.svg"
       alt="add image icon"
-      (click)="triggerFileInput()"
-      [ngClass]="{ 'd-none': this.newPostState.isCreatingNewPost() }"
+      (click)="startCreatingNewPost(); triggerFileInput()"
+      [ngClass]="{ 'd-none': this.newPostState.isCreatingNewPost }"
     />
 
     <div class="status-container position-relative">
-      @if(currentStatus === ''){
+      @if(this.newPostState.currentStatus === ''){
       <img
         class="add-status-icon"
         src="./assets/icons/happy.svg"
@@ -33,11 +33,11 @@
       />
       } @else {
       <span class="add-status-icon fs-4" (click)="toggleStatusPicker()">
-        {{ currentStatus }} </span
-      >} @if(isStatusPickerVisible) {
+        {{ this.newPostState.currentStatus }} </span
+      >} @if(this.newPostState.isStatusPickerVisible) {
       <app-status-picker
         class="status-picker-component"
-        [isVisible]="isStatusPickerVisible"
+        [isVisible]="this.newPostState.isStatusPickerVisible"
         (close)="onStatusPickerClose($event)"
         (chosenStatus)="changeStatus($event)"
       />
@@ -45,7 +45,7 @@
     </div>
   </div>
 
-  @if(this.newPostState.isCreatingNewPost()) {
+  @if(this.newPostState.isCreatingNewPost) {
   <div class="new-post-content">
     <div class="text-container">
       <textarea
@@ -87,12 +87,12 @@
       }
     </div>
 
-    @if(errorMsgTag != ''){
-    <div class="error">{{ errorMsgTag }}</div>
+    @if(this.newPostState.errorMsgTag != ''){
+    <div class="error">{{ this.newPostState.errorMsgTag }}</div>
     }
 
     <div class="photos-container d-flex" formArrayName="images">
-      @for (photo of imagePreviews; track $index) {
+      @for (photo of this.newPostState.imagePreviews; track $index) {
 
       <div class="photo-wrapper" (click)="onRemoveFile($index)">
         <img class="photo" [src]="photo" alt="photo" />
@@ -115,8 +115,8 @@
       </label>
     </div>
 
-    @if(errorMsgPhoto != ''){
-    <div class="error">{{ errorMsgPhoto }}</div>
+    @if(this.newPostState.errorMsgPhoto != ''){
+    <div class="error">{{ this.newPostState.errorMsgPhoto }}</div>
     }
 
     <div class="btn-container d-flex justify-content-center">

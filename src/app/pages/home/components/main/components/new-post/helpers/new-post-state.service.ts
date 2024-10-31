@@ -4,11 +4,21 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class NewPostStateService {
-  isCreatingNewPost = signal(false);
+  isCreatingNewPost = false;
   globalClickListener = signal<(() => void) | null>(null);
 
-  toggleNewPost(value: boolean = !this.isCreatingNewPost()) {
-    this.isCreatingNewPost.set(value);
+  isStatusPickerVisible: boolean = false;
+
+  imagePreviews: string[] = [];
+
+  currentTags: string[] = [];
+  currentStatus: string = '';
+
+  errorMsgTag: string = '';
+  errorMsgPhoto: string = '';
+
+  toggleNewPost(value: boolean = !this.isCreatingNewPost) {
+    this.isCreatingNewPost = value;
   }
 
   setGlobalClickListener(listener: () => void) {

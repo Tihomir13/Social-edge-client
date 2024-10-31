@@ -44,14 +44,6 @@ export class NewPostComponent {
     return this.newPostFormGroup()?.get('images') as FormArray;
   }
 
-  isStatusPickerVisible: boolean = false;
-
-  imagePreviews: string[] = [];
-
-  currentTags: string[] = [];
-  currentStatus: string = '';
-
-  errorMsgTag: string = '';
   errorMsgPhoto: string = '';
 
   @ViewChild('textArea', { static: false }) textArea!: ElementRef;
@@ -74,12 +66,12 @@ export class NewPostComponent {
     const newTag = '#' + tag;
 
     if (this.tags.value.includes(newTag)) {
-      this.errorMsgTag = `You have already entered ${newTag}.`;
+      this.newPostState.errorMsgTag = `You have already entered ${newTag}.`;
       return;
     }
 
-    if (this.errorMsgTag != '') {
-      this.errorMsgTag = '';
+    if (this.newPostState.errorMsgTag != '') {
+      this.newPostState.errorMsgTag = '';
     }
 
     this.tags.push(this.formBuilder.control('#' + tag));
@@ -143,8 +135,8 @@ export class NewPostComponent {
           this.imagesFiles.push(this.formBuilder.control(file));
 
           const previewUrl = reader.result as string;
-          if (!this.imagePreviews.includes(previewUrl)) {
-            this.imagePreviews.push(previewUrl);
+          if (!this.newPostState.imagePreviews.includes(previewUrl)) {
+            this.newPostState.imagePreviews.push(previewUrl);
           }
         };
       };
@@ -156,8 +148,8 @@ export class NewPostComponent {
   }
 
   onRemoveFile(index: number): void {
-    this.imagePreviews = this.arrUtilService.removeElemById(
-      this.imagePreviews,
+    this.newPostState.imagePreviews = this.arrUtilService.removeElemById(
+      this.newPostState.imagePreviews,
       index
     );
 
@@ -165,16 +157,16 @@ export class NewPostComponent {
   }
 
   toggleStatusPicker(): void {
-    this.isStatusPickerVisible = !this.isStatusPickerVisible;
+    this.newPostState.isStatusPickerVisible = !this.newPostState.isStatusPickerVisible;
   }
 
   onStatusPickerClose(isVisible: boolean): void {
-    this.isStatusPickerVisible = isVisible;
+    this.newPostState.isStatusPickerVisible = isVisible;
   }
 
   changeStatus(index: number): void {
     const newStatus = statuses[index];
-    this.currentStatus = newStatus.emoji;
+    this.newPostState.currentStatus = newStatus.emoji;
     this.startCreatingNewPost();
   }
 
@@ -185,7 +177,7 @@ export class NewPostComponent {
   }
 
   startCreatingNewPost(): void {
-    if (!this.newPostState.isCreatingNewPost()) {
+    if (!this.newPostState.isCreatingNewPost) {
       this.newPostState.toggleNewPost(true);
 
       this.focusTextArea();

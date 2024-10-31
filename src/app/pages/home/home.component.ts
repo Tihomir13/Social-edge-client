@@ -6,7 +6,7 @@ import { YesNoModalComponent } from '../../shared/components/yes-no-modal/yes-no
 import { ModalService } from './components/shared/services/modal.service';
 import { NewPostStateService } from './components/main/components/new-post/helpers/new-post-state.service';
 import { GenerateNewPostFormService } from './components/main/components/new-post/helpers/generate-new-post-form.service';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -29,6 +29,14 @@ export class HomeComponent implements OnInit {
 
   onChoseOption(option: boolean) {
     if (option === true) {
+      const tagsArray = this.newPostFormGroup.get('tags') as FormArray;
+      tagsArray.clear();
+
+      const imagesArray = this.newPostFormGroup?.get('images') as FormArray;
+      imagesArray.clear();
+      this.newPostStateService.imagePreviews = [];
+      this.newPostStateService.currentStatus = '';
+
       this.newPostFormGroup.reset();
       this.newPostStateService.toggleNewPost(false);
       this.newPostStateService.removeGlobalClickListener();
