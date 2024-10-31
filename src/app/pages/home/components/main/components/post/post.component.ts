@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 })
 export class PostComponent {
   isCommentsClicked: boolean = true;
+  likes: string = '2';
 
   toggleComments(): void {
     this.isCommentsClicked = !this.isCommentsClicked;

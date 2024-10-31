@@ -1,10 +1,24 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="content">
-      <app-new-post class="app-new-post" [newPostFormGroup]="newPostFormGroup()" />
+      <div class="left">
+        <app-suggested-profiles />
+      </div>
 
-      <app-post />
-      <!-- @for (item of items; track $index) {} -->
+      <div class="general">
+        <app-new-post
+          class="app-new-post"
+          [newPostFormGroup]="newPostFormGroup()"
+        />
+
+        <app-post />
+        <!-- @for (item of items; track $index) {} -->
+
+      </div>
+
+      <div class="right">
+        <app-friend-list />
+      </div>
     </div>
   </div>
 </div>

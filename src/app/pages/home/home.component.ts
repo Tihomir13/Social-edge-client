@@ -8,11 +8,12 @@ import { NewPostStateService } from './components/main/components/new-post/helpe
 import { GenerateNewPostFormService } from './components/main/components/new-post/helpers/generate-new-post-form.service';
 import { FormArray, FormGroup } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { FriendListComponent } from "./components/main/components/friend-list/friend-list.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, MainComponent, YesNoModalComponent, NgClass],
+  imports: [HeaderComponent, MainComponent, YesNoModalComponent, NgClass, FriendListComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

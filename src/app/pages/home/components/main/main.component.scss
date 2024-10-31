@@ -1,9 +1,16 @@
 @import "../../../../../styles.scss";
 
-.container {
-  max-width: 740px;
-  width: 100%;
-  margin: 50px auto;
+.container-fluid {
+  .content {
+    padding: 0px;
+    display: flex;
+
+    .general {
+      max-width: 740px;
+      width: 100%;
+      margin: 50px auto;
+    }
+  }
 }
 
 @media screen and (max-width: 768px) {

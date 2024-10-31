@@ -23,15 +23,36 @@
     <img src="assets/images/image.png" alt="" />
   </div>
 
-  <div class="interactions-container d-flex justify-content-between">
-    <div class="d-flex gap-10px">
-      <img class="interaction-icon" src="assets/icons/sparkle.png" alt="" />
-      <img class="interaction-icon" src="assets/icons/comment-black.svg" (click)="toggleComments()" alt="" />
-      <img class="interaction-icon" src="assets/icons/share-arrow.svg" alt="" />
+  <div class="interactions-container d-flex justify-content-between mb-1">
+    <div class="row">
+      <div class="d-flex gap-10px">
+        <img class="interaction-icon" src="assets/icons/sparkle.png" alt="" />
+        <img
+          class="interaction-icon"
+          src="assets/icons/comment-black.svg"
+          (click)="toggleComments()"
+          alt=""
+        />
+        <img
+          class="interaction-icon"
+          src="assets/icons/share-arrow.svg"
+          alt=""
+        />
+      </div>
     </div>
 
     <div>
-      <img class="interaction-icon" src="assets/icons/bookmark-outlined.svg" alt="" />
+      <img
+        class="interaction-icon"
+        src="assets/icons/bookmark-outlined.svg"
+        alt=""
+      />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="d-flex gap-10px">
+      <span class="fw-bold">{{ likes }} likes</span>
     </div>
   </div>
 
@@ -40,7 +61,7 @@
     <div class="profile-icon-container">
       <img class="icon" src="assets/images/image.png" alt="" />
     </div>
-    <input class="form-control" type="text" placeholder="Add a comment...">
+    <input class="form-control" type="text" placeholder="Add a comment..." />
   </div>
   <div class="comments-container"></div>
   }

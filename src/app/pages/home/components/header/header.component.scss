@@ -1,6 +1,10 @@
 @import "../.../../../../../../styles.scss";
 
 .container-fluid {
+  position: sticky;
+  z-index: 1000;
+  top: 0px;
+
   .container-content {
     background-color: rgb(246, 219, 255);
     height: 90px;

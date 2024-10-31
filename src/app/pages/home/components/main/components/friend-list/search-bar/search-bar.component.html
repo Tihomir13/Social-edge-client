@@ -1,0 +1,6 @@
+<div class="d-flex align-items-center search-bar-container" (click)="searchInput.focus()">
+    <img class="search-icon" src="assets/icons/search.svg" alt="search icon" />
+
+    <input #searchInput class="form-control" type="search" (input)="onSearchStatus(searchInput.value)"/>
+</div>
+  
