@@ -10,6 +10,18 @@
       width: 100%;
       margin: 50px auto;
     }
+
+    .left,
+    .right {
+      position: fixed;
+    }
+
+    .left {
+      left: 0px;
+    }
+    .right {
+      right: 0px;
+    }
   }
 }
 

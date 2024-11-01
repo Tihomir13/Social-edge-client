@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { SearchBarComponent } from './search-bar/search-bar.component';
+import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
+import { UserCardComponentComponent } from '../../shared/user-card-component/user-card-component.component';
 
 @Component({
   selector: 'app-friend-list',
   standalone: true,
-  imports: [SearchBarComponent],
+  imports: [SearchBarComponent, UserCardComponentComponent],
   templateUrl: './friend-list.component.html',
   styleUrl: './friend-list.component.scss',
 })
-export class FriendListComponent {}
+export class FriendListComponent {
+  friends: string[] = ['aaa', 'sss', 'ddd'];
+}
