@@ -1,12 +1,16 @@
 .content {
-    width: 320px;
-    padding: 0px 20px;
+  width: 370px;
+  padding: 0px 20px;
+  height: calc(100vh - 30px);
+  overflow-y: auto;
+  scrollbar-width: thin;
 
-    .search-bar{
-        height: 35px;
-    }
+  .search-bar {
+    height: 35px;
+  }
 
-    .friend-list {
-        padding-top: 30px;
-    }
+  .friend-list {
+    margin-top: 10px;
+    padding-top: 20px;
+  }
 }

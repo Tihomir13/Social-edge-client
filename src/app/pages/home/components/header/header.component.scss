@@ -27,14 +27,15 @@
 
     .icons-container {
       margin-right: 20px;
+      
       .icon {
-        width: 35px;
+        width: 50px;
         cursor: pointer;
         border-radius: 50%;
-        padding: 5px;
+        padding: 10px;
 
         &:hover {
-          background-color: $light-gray;
+          background-color: $light-purple;
         }
       }
     }

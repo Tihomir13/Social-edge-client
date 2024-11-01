@@ -10,5 +10,50 @@ import { UserCardComponentComponent } from '../../shared/user-card-component/use
   styleUrl: './friend-list.component.scss',
 })
 export class FriendListComponent {
-  friends: string[] = ['aaa', 'sss', 'ddd'];
+  friends: string[] = [
+    'aaa',
+    'sss',
+    'ddd',
+    'aaa',
+    'sss',
+    'ddd',
+    'aaa',
+    'sss',
+    'ddd',
+    'aaa',
+    'sss',
+    'ddd',
+    'aaa',
+    'sss',
+    'ddd',
+    'aaa',
+    'sss',
+    'ddd',
+    'aaa',
+    'sss',
+    'ddd',
+    'aaa',
+    'sss',
+    'ddd',
+    'aaa',
+    'sss',
+    'ddd',
+    'aaa',
+    'sss',
+    'ddd',
+    'aaa',
+    'sss',
+    'ddd',
+    'aaa',
+    'sss',
+    'ddd',
+  ];
+
+  currentFriends: string[] = this.friends;
+
+  onSearch(value: string) {
+    this.currentFriends = this.friends.filter((friend) =>
+      friend.includes(value)
+    );
+  }
 }

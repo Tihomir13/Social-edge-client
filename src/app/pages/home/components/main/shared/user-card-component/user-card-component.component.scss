@@ -1,6 +1,15 @@
+@import '../../../../../../../styles.scss';
+
 .user-card {
     gap: 11px;
-    padding: 0px;
+    padding: 7px;
+    border-radius: 11px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $primary-purple;
+        color: rgb(255, 255, 255);
+    }
     
     .profile-icon {
         height: 45px;

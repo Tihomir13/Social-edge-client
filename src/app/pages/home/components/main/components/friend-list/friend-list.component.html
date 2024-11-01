@@ -3,14 +3,14 @@
     <div class="text-center pt-3">
       <h6>Friends</h6>
 
-      <app-search-bar class="search-bar" />
+      <app-search-bar class="search-bar" (searchedText)="onSearch($event)" />
     </div>
   </div>
 
   <div class="row">
     <div class="friend-list d-flex flex-column gap-2">
-      @for (friend of friends; track $index) {
-        <app-user-card-component />
+      @for (friend of currentFriends; track $index) {
+        <app-user-card-component [username]="friend" />
       }
     </div>
   </div>

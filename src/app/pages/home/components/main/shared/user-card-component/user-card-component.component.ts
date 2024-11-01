@@ -8,5 +8,5 @@ import { Component, input } from '@angular/core';
   styleUrl: './user-card-component.component.scss',
 })
 export class UserCardComponentComponent {
-  username = input<string>('username');
+  username = input<string>();
 }

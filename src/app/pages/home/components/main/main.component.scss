@@ -25,8 +25,19 @@
   }
 }
 
+@media screen and (max-width: 1600px) {
+  .container-fluid {
+    .content {
+      .left,
+      .right {
+        display: none;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 768px) {
-  .container {
+  .container-fluid {
     margin-top: 10px;
     .content {
       padding: 0px;
