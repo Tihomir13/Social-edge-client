@@ -17,7 +17,7 @@
 
       <div class="right">
         <app-friend-list />
-        <app-chat-heads class="chat-heads"/>
+        <app-chat-heads class="chat-heads" [currentChatHeads]="this.state.currentChatHeads" (close)="onCloseChatHead($event)"/>
       </div>
     </div>
   </div>

@@ -1,13 +1,18 @@
 <div class="container">
   <div class="row">
     <div class="content">
-      <div class="profile-icons-container d-flex flex-column gap-3">
-        @for (item of currentChatHeads; track $index) {
+      <div class="profile-icons-container d-flex flex-column-reverse gap-3">
+        @for (item of currentChatHeads(); track $index) {
 
         <div class="profile-icon-container">
-          <img class="profile-icon" src="assets/images/image.png" alt="profile-icon" />
+          <img
+            class="profile-icon"
+            src="assets/images/image.png"
+            alt="profile-icon"
+          />
 
-          <span class="close-icon"> 
+          <span class="close-icon" (click)="onClose($index)">
+            {{$index}}
             <img src="assets/icons/close.svg" alt="close-icon" />
           </span>
         </div>

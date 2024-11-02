@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input, OnInit, output } from '@angular/core';
 
 @Component({
   selector: 'app-chat-heads',
@@ -7,6 +7,13 @@ import { Component } from '@angular/core';
   templateUrl: './chat-heads.component.html',
   styleUrl: './chat-heads.component.scss',
 })
-export class ChatHeadsComponent {
-  currentChatHeads = ['chat1', 'chat2'];
+export class ChatHeadsComponent implements OnInit {
+  currentChatHeads = input<string[]>();
+  close = output<number>();
+
+  ngOnInit(): void {}
+
+  onClose(chatHeadIndex: number): void {
+    this.close.emit(chatHeadIndex);
+  }
 }
