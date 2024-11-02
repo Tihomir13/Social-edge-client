@@ -1,8 +1,19 @@
+@import "../../../../../../../styles.scss";
+
 .content {
   width: 370px;
   padding: 0px 20px;
 
   .search-bar {
     height: 35px;
+  }
+
+  .see-all-btn {
+    font-weight: bold;
+
+    &:hover {
+      color: $primary-purple;
+      cursor: pointer;
+    }
   }
 }
