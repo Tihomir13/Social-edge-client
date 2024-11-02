@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { UserCardComponentComponent } from '../../shared/user-card-component/user-card-component.component';
+import { MainStateService } from '../../shared/main-state.service';
 
 @Component({
   selector: 'app-friend-list',
@@ -10,50 +11,20 @@ import { UserCardComponentComponent } from '../../shared/user-card-component/use
   styleUrl: './friend-list.component.scss',
 })
 export class FriendListComponent {
-  friends: string[] = [
-    'aaa',
-    'sss',
-    'ddd',
-    'aaa',
-    'sss',
-    'ddd',
-    'aaa',
-    'sss',
-    'ddd',
-    'aaa',
-    'sss',
-    'ddd',
-    'aaa',
-    'sss',
-    'ddd',
-    'aaa',
-    'sss',
-    'ddd',
-    'aaa',
-    'sss',
-    'ddd',
-    'aaa',
-    'sss',
-    'ddd',
-    'aaa',
-    'sss',
-    'ddd',
-    'aaa',
-    'sss',
-    'ddd',
-    'aaa',
-    'sss',
-    'ddd',
-    'aaa',
-    'sss',
-    'ddd',
-  ];
+  friends = input<string[]>();
+  open = output<any>();
 
-  currentFriends: string[] = this.friends;
+  state = inject(MainStateService);
 
-  onSearch(value: string) {
-    this.currentFriends = this.friends.filter((friend) =>
+  currentFriends?: string[] = this.state.friends;
+
+  onSearch(value: string): void {
+    this.currentFriends = this.friends()?.filter((friend) =>
       friend.includes(value)
     );
+  }
+
+  onUserProfileClick(friend: any): void {
+    this.open.emit(friend);
   }
 }

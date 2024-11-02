@@ -7,6 +7,7 @@ import { FriendListComponent } from './components/friend-list/friend-list.compon
 import { SuggestedProfilesComponent } from './components/suggested-profiles/suggested-profiles.component';
 import { ChatHeadsComponent } from './components/chat-heads/chat-heads.component';
 import { MainStateService } from './shared/main-state.service';
+import { ChatComponent } from './components/chat/chat.component';
 
 @Component({
   selector: 'app-main',
@@ -18,6 +19,7 @@ import { MainStateService } from './shared/main-state.service';
     FriendListComponent,
     SuggestedProfilesComponent,
     ChatHeadsComponent,
+    ChatComponent,
   ],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
@@ -35,5 +37,13 @@ export class MainComponent implements OnInit {
     this.state.currentChatHeads = this.state.currentChatHeads.filter(
       (_, index) => index !== chatHeadIndex
     );
+  }
+
+  onProfileClick(chatHeadIndex: number): void {
+    this.state.isChatActive = true;
+  }
+
+  onUserProfileClick(user: any): void {
+    this.state.isChatActive = true;
   }
 }

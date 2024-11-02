@@ -1,0 +1,32 @@
+@import "../../../../../../../styles.scss";
+
+.chat-container {
+  height: 450px;
+  width: 350px;
+  padding: 10px;
+  border-radius: $border-radius $border-radius 0px 0px;
+  background-color: $light-purple;
+
+  .header {
+    .minimize-icon,
+    .close-icon {
+      cursor: pointer;
+    }
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 10px;
+
+    .form-control {
+      border-radius: 80px;
+      width: 285px;
+      height: 40px;
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+}

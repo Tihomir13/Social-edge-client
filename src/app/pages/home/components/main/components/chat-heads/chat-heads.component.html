@@ -9,10 +9,11 @@
             class="profile-icon"
             src="assets/images/image.png"
             alt="profile-icon"
+            (click)="onProfileClick($index)"
           />
 
           <span class="close-icon" (click)="onClose($index)">
-            {{$index}}
+            {{ $index }}
             <img src="assets/icons/close.svg" alt="close-icon" />
           </span>
         </div>

@@ -22,9 +22,16 @@
     .right {
       right: 0px;
 
+      .chat {
+        position: absolute;
+        bottom: 60px;
+        right: 120px;
+        z-index: 1000;
+      }
+
       .chat-heads {
         position: absolute;
-        bottom: 100px;
+        bottom: 70px;
         right: 20px;
         z-index: 100;
       }
