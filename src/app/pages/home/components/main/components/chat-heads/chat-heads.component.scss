@@ -1,0 +1,42 @@
+.content {
+  .profile-icons-container {
+    .profile-icon-container {
+      position: relative;
+
+      .profile-icon {
+        height: 60px;
+        aspect-ratio: 1/1;
+        border-radius: 50%;
+      }
+
+      &:hover {
+        cursor: pointer;
+
+        .close-icon {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+
+      .close-icon {
+        position: absolute;
+        top: -2px;
+        right:-4px;
+        width: 23px;
+        height: 23px;
+        border-radius: 50%;
+        background-color: rgb(255, 255, 255);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.2s ease, visibility 0.2s ease;
+
+        &:hover {
+          background-color: rgb(220, 220, 220);
+        }
+      }
+    }
+  }
+}

@@ -1,19 +1,19 @@
-@import '../../../../../../../styles.scss';
+@import "../../../../../../../styles.scss";
 
 .user-card {
-    gap: 11px;
-    padding: 7px;
-    border-radius: 11px;
+  gap: 11px;
+  padding: 7px;
+  border-radius: 11px;
 
-    &:hover {
-        cursor: pointer;
-        background-color: $light-purple;
-        color: rgb(255, 255, 255);
-    }
-    
-    .profile-icon {
-        height: 45px;
-        aspect-ratio: 1/1;
-        border-radius: 50%;
-    }
+  &:hover {
+    cursor: pointer;
+    background-color: $light-purple;
+    color: rgb(255, 255, 255);
+  }
+
+  .profile-icon {
+    height: 45px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+  }
 }

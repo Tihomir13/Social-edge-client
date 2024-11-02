@@ -1,1 +1,18 @@
-<p>chat-heads works!</p>
+<div class="container">
+  <div class="row">
+    <div class="content">
+      <div class="profile-icons-container d-flex flex-column gap-3">
+        @for (item of currentChatHeads; track $index) {
+
+        <div class="profile-icon-container">
+          <img class="profile-icon" src="assets/images/image.png" alt="profile-icon" />
+
+          <span class="close-icon"> 
+            <img src="assets/icons/close.svg" alt="close-icon" />
+          </span>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

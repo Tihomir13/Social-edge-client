@@ -5,11 +5,12 @@ import { YesNoModalComponent } from '../../../../shared/components/yes-no-modal/
 import { FormGroup } from '@angular/forms';
 import { FriendListComponent } from "./components/friend-list/friend-list.component";
 import { SuggestedProfilesComponent } from "./components/suggested-profiles/suggested-profiles.component";
+import { ChatHeadsComponent } from "./components/chat-heads/chat-heads.component";
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [NewPostComponent, PostComponent, YesNoModalComponent, FriendListComponent, SuggestedProfilesComponent],
+  imports: [NewPostComponent, PostComponent, YesNoModalComponent, FriendListComponent, SuggestedProfilesComponent, ChatHeadsComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
