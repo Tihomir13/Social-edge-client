@@ -9,12 +9,27 @@ import { ModalService } from './components/shared/services/modal.service';
 import { NewPostStateService } from './components/main/components/new-post/helpers/new-post-state.service';
 import { GenerateNewPostFormService } from './components/main/components/new-post/helpers/generate-new-post-form.service';
 
-import { FriendListComponent } from "./components/main/components/friend-list/friend-list.component";
+import { FriendListComponent } from './components/main/components/friend-list/friend-list.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from '../../shared/interceptors/jwt.interceptor';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, MainComponent, YesNoModalComponent, NgClass, FriendListComponent],
+  imports: [
+    HeaderComponent,
+    MainComponent,
+    YesNoModalComponent,
+    NgClass,
+    FriendListComponent,
+  ],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
