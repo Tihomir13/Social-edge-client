@@ -10,8 +10,6 @@ export class LoginRequestsService {
   private http = inject(HttpClient);
 
   loginUser(userData: any): Observable<any> {
-    console.log(userData);
-
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });

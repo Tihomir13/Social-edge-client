@@ -1,4 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
+import { NgClass } from '@angular/common';
 
 import { HeaderComponent } from './components/header/header.component';
 import { MainComponent } from './components/main/main.component';
@@ -6,8 +8,7 @@ import { YesNoModalComponent } from '../../shared/components/yes-no-modal/yes-no
 import { ModalService } from './components/shared/services/modal.service';
 import { NewPostStateService } from './components/main/components/new-post/helpers/new-post-state.service';
 import { GenerateNewPostFormService } from './components/main/components/new-post/helpers/generate-new-post-form.service';
-import { FormArray, FormGroup } from '@angular/forms';
-import { NgClass } from '@angular/common';
+
 import { FriendListComponent } from "./components/main/components/friend-list/friend-list.component";
 
 @Component({
