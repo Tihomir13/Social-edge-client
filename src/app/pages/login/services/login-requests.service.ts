@@ -1,16 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { api } from '../../../shared/constants/api';
+
 import { Observable } from 'rxjs';
 
+import { api } from '../../../shared/constants/api';
+
 @Injectable()
-export class RequestsService {
+export class LoginRequestsService {
   private http = inject(HttpClient);
 
-  registerUser(userData: any): Observable<any> {
+  loginUser(userData: any): Observable<any> {
+    console.log(userData);
+
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
     });
-    return this.http.post(`${api}/register`, userData, { headers });
+    return this.http.post(`${api}/login`, userData, { headers });
   }
 }

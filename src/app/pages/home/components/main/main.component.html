@@ -16,7 +16,7 @@
       </div>
 
       <div class="right">
-        <app-friend-list [friends]="this.state.friends" (open)="onUserProfileClick($event)"/>
+        <app-friend-list class="friend-list" [friends]="this.state.friends" (open)="onUserProfileClick($event)"/>
         <app-chat-heads
           class="chat-heads"
           [currentChatHeads]="this.state.currentChatHeads"

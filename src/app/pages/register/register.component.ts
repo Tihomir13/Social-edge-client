@@ -7,8 +7,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 
-import { FormService } from './services/form.service';
-import { RequestsService } from './services/requests.service';
+import { RegisterFormService } from './services/register-form.service';
+import { RegisterRequestsService } from './services/register-requests.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { GoogleBtnComponent } from '../../shared/components/google-btn/google-btn.component';
@@ -24,7 +24,7 @@ import { GoogleBtnComponent } from '../../shared/components/google-btn/google-bt
     RouterModule,
     GoogleBtnComponent,
   ],
-  providers: [FormService, RequestsService, HttpClient],
+  providers: [RegisterFormService, RegisterRequestsService, HttpClient],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
@@ -97,8 +97,8 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  private formService = inject(FormService);
-  private reqService = inject(RequestsService);
+  private formService = inject(RegisterFormService);
+  private reqService = inject(RegisterRequestsService);
 
   ngOnInit(): void {
     this.selectedDay = this.date.getDate();

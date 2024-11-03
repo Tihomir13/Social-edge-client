@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { passwordMatchValidator } from '../validators/validators';
 
 @Injectable()
-export class FormService {
-  constructor(private formBuilder: FormBuilder) {}
+export class RegisterFormService {
+  private formBuilder = inject(FormBuilder);
 
   createRegisterForm(
     selectedDay: number,
