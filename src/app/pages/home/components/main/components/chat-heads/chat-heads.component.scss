@@ -2,6 +2,7 @@
   .profile-icons-container {
     .profile-icon-container {
       position: relative;
+      transition: transform 0.2s ease;
 
       .profile-icon {
         height: 60px;
@@ -11,6 +12,7 @@
 
       &:hover {
         cursor: pointer;
+        transform: scale(1.1);
 
         .close-icon {
           opacity: 1;
@@ -21,7 +23,7 @@
       .close-icon {
         position: absolute;
         top: -2px;
-        right:-4px;
+        right: -4px;
         width: 23px;
         height: 23px;
         border-radius: 50%;
