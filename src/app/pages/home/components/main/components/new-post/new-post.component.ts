@@ -22,8 +22,7 @@ import { maxImageSize } from '../../../../../../shared/constants/settings';
 
 import * as nsfwjs from 'nsfwjs';
 import { ModalService } from '../../../shared/services/modal.service';
-import { GenerateNewPostFormService } from './helpers/generate-new-post-form.service';
-import { NewPostStateService } from './helpers/new-post-state.service';
+import { NewPostStateService } from './services/new-post-state.service';
 
 @Component({
   selector: 'app-new-post',
@@ -53,7 +52,6 @@ export class NewPostComponent {
   private renderer = inject(Renderer2);
   private elRef = inject(ElementRef);
   private cdr = inject(ChangeDetectorRef);
-  private formService = inject(GenerateNewPostFormService);
   private modalService = inject(ModalService);
   private formBuilder = inject(FormBuilder);
   newPostState = inject(NewPostStateService);
@@ -157,16 +155,18 @@ export class NewPostComponent {
   }
 
   toggleStatusPicker(): void {
-    this.newPostState.isStatusPickerVisible = !this.newPostState.isStatusPickerVisible;
+    this.newPostState.isStatusPickerVisible =
+      !this.newPostState.isStatusPickerVisible;
   }
 
   onStatusPickerClose(isVisible: boolean): void {
     this.newPostState.isStatusPickerVisible = isVisible;
   }
 
-  changeStatus(index: number): void {
+  onStatusChange(index: number): void {
     const newStatus = statuses[index];
     this.newPostState.currentStatus = newStatus.emoji;
+    this.newPostFormGroup()!.patchValue({ status: newStatus });
     this.startCreatingNewPost();
   }
 
@@ -194,18 +194,22 @@ export class NewPostComponent {
           const isTextEmpty = this.newPostFormGroup()!.value.content;
           const isTagsEmpty = this.newPostFormGroup()!.value.tags;
           const isImagesEmpty = this.newPostFormGroup()!.value.images;
+          const isStatusEmpty = this.newPostFormGroup()!.value.status;
+
+          console.log(isTitleEmpty, isTextEmpty, isTagsEmpty, isImagesEmpty);
 
           if (
-            isTitleEmpty === '' &&
-            isTextEmpty === '' &&
+            isTitleEmpty === null &&
+            isTextEmpty === null &&
             isTagsEmpty.length === 0 &&
-            isImagesEmpty.length === 0
+            isImagesEmpty.length === 0 &&
+            isStatusEmpty === null
           ) {
             this.newPostState.toggleNewPost();
             this.newPostState.removeGlobalClickListener();
             return;
           } else {
-            this.modalService.toggleModal();
+            this.modalService.isModalToggled.set(true);
           }
         }
       );
@@ -221,7 +225,9 @@ export class NewPostComponent {
     }
   }
 
-  onSubmit() {}
+  onSubmit() {
+    console.log(this.newPostFormGroup()?.value);
+  }
 
   // submitPost() {
   //   if (this.selectedFiles.length && this.postText) {

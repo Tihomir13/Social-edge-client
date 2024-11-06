@@ -39,7 +39,7 @@
         class="status-picker-component"
         [isVisible]="this.newPostState.isStatusPickerVisible"
         (close)="onStatusPickerClose($event)"
-        (chosenStatus)="changeStatus($event)"
+        (chosenStatus)="onStatusChange($event)"
       />
       }
     </div>
@@ -120,7 +120,7 @@
     }
 
     <div class="btn-container d-flex justify-content-center">
-      <button class="btn">Post</button>
+      <button type="submit" class="btn">Post</button>
     </div>
   </div>
   }
