@@ -23,12 +23,20 @@ import { maxImageSize } from '../../../../../../shared/constants/settings';
 import * as nsfwjs from 'nsfwjs';
 import { ModalService } from '../../../shared/services/modal.service';
 import { NewPostStateService } from './services/new-post-state.service';
+import { NewPostRequestsService } from './services/new-post-requests.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-new-post',
   standalone: true,
-  imports: [StatusPickerComponent, ReactiveFormsModule, NgClass, NgStyle],
-  providers: [ArrayUtilityService],
+  imports: [
+    StatusPickerComponent,
+    ReactiveFormsModule,
+    NgClass,
+    NgStyle,
+    HttpClientModule,
+  ],
+  providers: [ArrayUtilityService, NewPostRequestsService],
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.scss',
 })
@@ -43,8 +51,6 @@ export class NewPostComponent {
     return this.newPostFormGroup()?.get('images') as FormArray;
   }
 
-  errorMsgPhoto: string = '';
-
   @ViewChild('textArea', { static: false }) textArea!: ElementRef;
   @ViewChild('inputFile', { static: false }) inputFile!: ElementRef;
 
@@ -55,16 +61,19 @@ export class NewPostComponent {
   private modalService = inject(ModalService);
   private formBuilder = inject(FormBuilder);
   newPostState = inject(NewPostStateService);
+  private newPostRequests = inject(NewPostRequestsService);
 
   onAddTag(tag: string): void {
     if (tag === '') {
       return;
     }
 
-    const newTag = '#' + tag;
+    if (!tag.startsWith('#')) {
+      tag = '#' + tag;
+    }
 
-    if (this.tags.value.includes(newTag)) {
-      this.newPostState.errorMsgTag = `You have already entered ${newTag}.`;
+    if (this.tags.value.includes(tag)) {
+      this.newPostState.errorMsgTag = `You have already entered ${tag}.`;
       return;
     }
 
@@ -72,7 +81,7 @@ export class NewPostComponent {
       this.newPostState.errorMsgTag = '';
     }
 
-    this.tags.push(this.formBuilder.control('#' + tag));
+    this.tags.push(this.formBuilder.control(tag));
   }
 
   onRemoveTag(index: number): void {
@@ -91,19 +100,20 @@ export class NewPostComponent {
       );
 
       if (isDuplicate) {
-        this.errorMsgPhoto = 'This file has already been added.';
+        this.newPostState.errorMsgPhoto = 'This file has already been added.';
         return;
       }
 
       const validFileTypes = ['image/png', 'image/jpeg'];
       if (!validFileTypes.includes(file.type)) {
-        this.errorMsgPhoto = 'Please, upload only PNG or JPEG images.';
+        this.newPostState.errorMsgPhoto =
+          'Please, upload only PNG or JPEG images.';
         return;
       }
 
       const maxFileSize = maxImageSize * 1024 * 1024;
       if (file.size > maxFileSize) {
-        this.errorMsgPhoto = `The image needs to be smaller than ${maxImageSize}MB.`;
+        this.newPostState.errorMsgPhoto = `The image needs to be smaller than ${maxImageSize}MB.`;
         return;
       }
 
@@ -121,13 +131,13 @@ export class NewPostComponent {
           );
 
           if (nsfwResult && nsfwResult.probability > 0.05) {
-            this.errorMsgPhoto =
+            this.newPostState.errorMsgPhoto =
               'NSFW content detected. Please, upload appropriate images.';
             return;
           }
 
-          if (this.errorMsgPhoto !== '') {
-            this.errorMsgPhoto = '';
+          if (this.newPostState.errorMsgPhoto !== '') {
+            this.newPostState.errorMsgPhoto = '';
           }
 
           this.imagesFiles.push(this.formBuilder.control(file));
@@ -226,7 +236,20 @@ export class NewPostComponent {
   }
 
   onSubmit() {
-    console.log(this.newPostFormGroup()?.value);
+    if (this.newPostFormGroup()?.valid) {
+      const formData = this.newPostFormGroup()?.value;
+
+      this.newPostRequests.savePost(formData).subscribe({
+        next: (response) => {
+          console.log('Post saved successfully', response);
+        },
+        error: (error) => {
+          console.error('Error saving post', error);
+        },
+      });
+    } else {
+      console.error('Form is invalid');
+    }
   }
 
   // submitPost() {

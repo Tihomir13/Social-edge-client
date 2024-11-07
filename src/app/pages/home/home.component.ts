@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
 import { NgClass } from '@angular/common';
 
@@ -7,11 +7,11 @@ import { MainComponent } from './components/main/main.component';
 import { YesNoModalComponent } from '../../shared/components/yes-no-modal/yes-no-modal.component';
 import { ModalService } from './components/shared/services/modal.service';
 import { NewPostStateService } from './components/main/components/new-post/services/new-post-state.service';
-import { GenerateNewPostFormService } from './components/main/components/new-post/services/generate-new-post-form.service';
 
 import { FriendListComponent } from './components/main/components/friend-list/friend-list.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../../shared/interceptors/jwt.interceptor';
+import { GenerateNewPostForm } from './components/main/components/new-post/helpers/form-factory/new-post-form';
 
 @Component({
   selector: 'app-home',
@@ -33,16 +33,12 @@ import { JwtInterceptor } from '../../shared/interceptors/jwt.interceptor';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit {
-  newPostFormGroup!: FormGroup;
+export class HomeComponent {
+  public newPostFormGroup: FormGroup =
+    new GenerateNewPostForm().generateNewPostForm();
 
   modalService = inject(ModalService);
   newPostStateService = inject(NewPostStateService);
-  formService = inject(GenerateNewPostFormService);
-
-  ngOnInit() {
-    this.newPostFormGroup = this.formService.generateNewPostForm();
-  }
 
   onChoseOption(option: boolean) {
     if (option === true) {

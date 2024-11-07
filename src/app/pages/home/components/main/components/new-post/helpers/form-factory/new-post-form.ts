@@ -1,11 +1,8 @@
-import { inject, Injectable } from '@angular/core';
+import { inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import postStatusModel from '../models/post-status.model';
+import postStatusModel from '../../models/post-status.model';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class GenerateNewPostFormService {
+export class GenerateNewPostForm {
   formBuilder = inject(FormBuilder);
 
   generateNewPostForm(): FormGroup {

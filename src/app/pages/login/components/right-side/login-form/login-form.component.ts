@@ -10,26 +10,26 @@ import { LoginFormService } from '../../../services/login-form.service';
   selector: 'app-login-form',
   standalone: true,
   imports: [ReactiveFormsModule, HttpClientModule],
-  providers: [LoginFormService, LoginRequestsService, HttpClient],
+  providers: [LoginFormService, LoginRequestsService],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
 })
 export class LoginFormComponent implements OnInit {
-  form!: FormGroup;
+  loginForm!: FormGroup;
 
   formService = inject(LoginFormService);
   reqService = inject(LoginRequestsService);
   router = inject(Router);
 
   ngOnInit(): void {
-    this.form = this.formService.createLoginForm();
+    this.loginForm = this.formService.createLoginForm();
   }
 
   onSubmit(): void {
-    if (this.form.valid) {
-      console.log(this.form.value);
+    if (this.loginForm.valid) {
+      console.log(this.loginForm.value);
 
-      this.reqService.loginUser(this.form.value).subscribe({
+      this.reqService.loginUser(this.loginForm.value).subscribe({
         next: (response) => {
           console.log('User logged successfully', response);
           sessionStorage.setItem('token', response.token);
@@ -37,7 +37,7 @@ export class LoginFormComponent implements OnInit {
           this.router.navigate(['home']);
         },
         error: (error) => {
-          console.error('login failed', error);
+          console.error('Login failed', error);
         },
       });
     }
