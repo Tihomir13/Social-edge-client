@@ -1,4 +1,8 @@
-<form class="new-post-container" [formGroup]="newPostFormGroup()!" (ngSubmit)="onSubmit()">
+<form
+  class="new-post-container"
+  [formGroup]="newPostFormGroup()!"
+  (ngSubmit)="onSubmit()"
+>
   <div class="new-post-title d-flex align-items-center justify-content-between">
     <img
       class="profile-icon"
@@ -9,9 +13,13 @@
     <input
       class="title form-control"
       type="text"
-      [placeholder]="!this.newPostState.isCreatingNewPost ? 'Make a new post...' : 'Title...'"
+      [placeholder]="
+        !this.newPostState.isCreatingNewPost ? 'Make a new post...' : 'Title...'
+      "
       (click)="startCreatingNewPost()"
-      [ngStyle]="{ 'max-width': this.newPostState.isCreatingNewPost ? '605px' : '580px' }"
+      [ngStyle]="{
+        'max-width': this.newPostState.isCreatingNewPost ? '605px' : '580px'
+      }"
       formControlName="title"
     />
 
@@ -65,6 +73,7 @@
           placeholder="add a tag"
         />
         <button
+          type="button"
           class="add-tag-btn"
           (click)="onAddTag(newTag.value); newTag.value = ''"
         >

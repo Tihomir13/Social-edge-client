@@ -29,7 +29,7 @@ import { GenerateNewPostForm } from './components/main/components/new-post/helpe
       useClass: JwtInterceptor,
       multi: true,
     },
-  ],
+  ], 
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

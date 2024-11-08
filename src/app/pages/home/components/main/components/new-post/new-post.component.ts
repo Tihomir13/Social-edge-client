@@ -4,6 +4,7 @@ import {
   ElementRef,
   inject,
   input,
+  OnDestroy,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -15,7 +16,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 
-import { ArrayUtilityService } from '../../../../../../shared/services/utility/array-utility.service';
+import { UtilityService } from '../../../../../../shared/services/utility/array-utility.service';
 import { StatusPickerComponent } from './status-picker/status-picker.component';
 import { statuses } from '../../../../../../shared/constants/arrays';
 import { maxImageSize } from '../../../../../../shared/constants/settings';
@@ -25,6 +26,7 @@ import { ModalService } from '../../../shared/services/modal.service';
 import { NewPostStateService } from './services/new-post-state.service';
 import { NewPostRequestsService } from './services/new-post-requests.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-new-post',
@@ -36,11 +38,11 @@ import { HttpClientModule } from '@angular/common/http';
     NgStyle,
     HttpClientModule,
   ],
-  providers: [ArrayUtilityService, NewPostRequestsService],
+  providers: [UtilityService, NewPostRequestsService],
   templateUrl: './new-post.component.html',
   styleUrl: './new-post.component.scss',
 })
-export class NewPostComponent {
+export class NewPostComponent implements OnDestroy {
   newPostFormGroup = input<FormGroup>();
 
   get tags(): FormArray {
@@ -54,7 +56,7 @@ export class NewPostComponent {
   @ViewChild('textArea', { static: false }) textArea!: ElementRef;
   @ViewChild('inputFile', { static: false }) inputFile!: ElementRef;
 
-  arrUtilService = inject(ArrayUtilityService);
+  arrUtilService = inject(UtilityService);
   private renderer = inject(Renderer2);
   private elRef = inject(ElementRef);
   private cdr = inject(ChangeDetectorRef);
@@ -62,6 +64,8 @@ export class NewPostComponent {
   private formBuilder = inject(FormBuilder);
   newPostState = inject(NewPostStateService);
   private newPostRequests = inject(NewPostRequestsService);
+
+  subscriptions = new Subscription();
 
   onAddTag(tag: string): void {
     if (tag === '') {
@@ -239,17 +243,23 @@ export class NewPostComponent {
     if (this.newPostFormGroup()?.valid) {
       const formData = this.newPostFormGroup()?.value;
 
-      this.newPostRequests.savePost(formData).subscribe({
-        next: (response) => {
-          console.log('Post saved successfully', response);
-        },
-        error: (error) => {
-          console.error('Error saving post', error);
-        },
-      });
+      this.subscriptions.add(
+        this.newPostRequests.savePost(formData).subscribe({
+          next: (response) => {
+            console.log('Post saved successfully', response);
+          },
+          error: (error) => {
+            console.error('Error saving post', error);
+          },
+        })
+      );
     } else {
       console.error('Form is invalid');
     }
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   // submitPost() {

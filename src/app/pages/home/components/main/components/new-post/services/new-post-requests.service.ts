@@ -4,17 +4,34 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { api } from '../../../../../../../shared/constants/api';
+import { UtilityService } from '../../../../../../../shared/services/utility/utility.service';
 
 @Injectable()
 export class NewPostRequestsService {
   http = inject(HttpClient);
+  utility = inject(UtilityService);
 
   savePost(newPost: any): Observable<Object> {
-    return this.http.post(`${api}/new-posts`, newPost, {
-      // headers: {
-      //   Authorization:
-      //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MmNlMTQyYWEwMTJhYWQ3ZDk1OTEzMiIsInVzZXJuYW1lIjoiUGljaGFnYTEyMyIsImlhdCI6MTczMDk5ODY3NiwiZXhwIjoxNzMxMDAyMjc2fQ.I8_O8ozsziy2okah_QACc7ZupaDYw9ROYwkEXc83rv4',
-      // },
+    const formData = new FormData();
+
+    formData.append('title', newPost.title);
+    formData.append('content', newPost.content);
+    formData.append('status', newPost.status);
+
+    newPost.tags.forEach((tag: string) => {
+      formData.append('tags', tag);
+    });
+
+    newPost.images.forEach((image: File) => {
+      formData.append('images', image);
+    });
+
+    formData.forEach((value, key) => {
+      console.log(key, value);
+    });
+
+    return this.http.post(`${api}/new-posts`, formData, {
+      headers: this.utility.headers,
     });
   }
 }
