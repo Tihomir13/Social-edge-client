@@ -11,7 +11,6 @@ export class NewPostStateService {
 
   imagePreviews: string[] = [];
 
-  currentTags: string[] = [];
   currentStatus: string = '';
 
   errorMsgTag: string = '';
@@ -19,6 +18,11 @@ export class NewPostStateService {
 
   toggleNewPost(value: boolean = !this.isCreatingNewPost) {
     this.isCreatingNewPost = value;
+  }
+
+  resetUI() {
+    this.imagePreviews = [];
+    this.currentStatus = '';
   }
 
   setGlobalClickListener(listener: () => void) {

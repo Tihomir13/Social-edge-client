@@ -15,8 +15,12 @@ export class NewPostRequestsService {
     const formData = new FormData();
 
     formData.append('title', newPost.title);
-    formData.append('content', newPost.content);
-    formData.append('status', newPost.status);
+    formData.append('text', newPost.text);
+
+    if (newPost.status) {
+      formData.append('statusName', newPost.status.name);
+      formData.append('statusEmoji', newPost.status.emoji);
+    }
 
     newPost.tags.forEach((tag: string) => {
       formData.append('tags', tag);

@@ -205,12 +205,10 @@ export class NewPostComponent implements OnDestroy {
           }
 
           const isTitleEmpty = this.newPostFormGroup()!.value.title;
-          const isTextEmpty = this.newPostFormGroup()!.value.content;
+          const isTextEmpty = this.newPostFormGroup()!.value.text;
           const isTagsEmpty = this.newPostFormGroup()!.value.tags;
           const isImagesEmpty = this.newPostFormGroup()!.value.images;
           const isStatusEmpty = this.newPostFormGroup()!.value.status;
-
-          console.log(isTitleEmpty, isTextEmpty, isTagsEmpty, isImagesEmpty);
 
           if (
             isTitleEmpty === null &&
@@ -239,14 +237,35 @@ export class NewPostComponent implements OnDestroy {
     }
   }
 
+  clearFormArrays() {
+    if (this.newPostFormGroup()) {
+      Object.keys(this.newPostFormGroup()!.controls).forEach((key) => {
+        const control = this.newPostFormGroup()!.get(key);
+
+        if (control instanceof FormArray) {
+          while (control.length !== 0) {
+            control.removeAt(0);
+          }
+        }
+      });
+    }
+  }
+
   onSubmit() {
     if (this.newPostFormGroup()?.valid) {
       const formData = this.newPostFormGroup()?.value;
+
+      console.log(formData);
 
       this.subscriptions.add(
         this.newPostRequests.savePost(formData).subscribe({
           next: (response) => {
             console.log('Post saved successfully', response);
+            this.clearFormArrays();
+            this.newPostFormGroup()?.reset();
+            this.newPostState.isCreatingNewPost = false;
+            this.newPostState.resetUI();
+            console.log(this.newPostFormGroup()?.value);
           },
           error: (error) => {
             console.error('Error saving post', error);
