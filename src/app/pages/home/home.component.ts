@@ -8,7 +8,6 @@ import { YesNoModalComponent } from '../../shared/components/yes-no-modal/yes-no
 import { ModalService } from './components/shared/services/modal.service';
 import { NewPostStateService } from './components/main/components/new-post/services/new-post-state.service';
 
-import { FriendListComponent } from './components/main/components/friend-list/friend-list.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../../shared/interceptors/jwt.interceptor';
 import { GenerateNewPostForm } from './components/main/components/new-post/helpers/form-factory/new-post-form';
@@ -16,20 +15,14 @@ import { GenerateNewPostForm } from './components/main/components/new-post/helpe
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    HeaderComponent,
-    MainComponent,
-    YesNoModalComponent,
-    NgClass,
-    FriendListComponent,
-  ],
+  imports: [HeaderComponent, MainComponent, YesNoModalComponent, NgClass],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,
       multi: true,
     },
-  ], 
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })

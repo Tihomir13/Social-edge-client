@@ -5,7 +5,7 @@
         <img class="icon" src="assets/images/image.png" alt="" />
       </div>
 
-      <span class="username-container"> username </span>
+      <span class="username-container"> {{ username() }} </span>
     </div>
 
     <div class="options-container">
@@ -13,14 +13,18 @@
     </div>
   </div>
 
-  <div class="text">
+  <div class="title">
     <p>
-      Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+      {{ title() }}
     </p>
   </div>
 
+  <div class="text">
+    <p>{{ text() }}</p>
+  </div>
+
   <div class="images-container">
-    <img src="assets/images/image.png" alt="" />
+    <img [src]="image()" alt="" />
   </div>
 
   <div class="interactions-container d-flex justify-content-between mb-1">
@@ -52,7 +56,7 @@
 
   <div class="row">
     <div class="d-flex gap-10px">
-      <span class="fw-bold">{{ likes }} likes</span>
+      <span class="fw-bold">{{ likes() }} likes</span>
     </div>
   </div>
 

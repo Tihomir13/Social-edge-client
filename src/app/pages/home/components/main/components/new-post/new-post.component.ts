@@ -53,6 +53,8 @@ export class NewPostComponent implements OnDestroy {
     return this.newPostFormGroup()?.get('images') as FormArray;
   }
 
+  subscriptions = new Subscription();
+
   @ViewChild('textArea', { static: false }) textArea!: ElementRef;
   @ViewChild('inputFile', { static: false }) inputFile!: ElementRef;
 
@@ -64,8 +66,6 @@ export class NewPostComponent implements OnDestroy {
   private formBuilder = inject(FormBuilder);
   newPostState = inject(NewPostStateService);
   private newPostRequests = inject(NewPostRequestsService);
-
-  subscriptions = new Subscription();
 
   onAddTag(tag: string): void {
     if (tag === '') {
@@ -92,71 +92,97 @@ export class NewPostComponent implements OnDestroy {
     this.tags.removeAt(index);
   }
 
-  onAddFile(event: any): void {
+  async onAddFile(event: any): Promise<void> {
     const files = Array.from(event.target.files) as File[];
 
-    files.forEach(async (file) => {
-      const isDuplicate = this.imagesFiles.value.some(
-        (selectedFile: File) =>
-          selectedFile.name === file.name &&
-          selectedFile.size === file.size &&
-          selectedFile.lastModified === file.lastModified
-      );
-
+    for (const file of files) {
+      const isDuplicate = this.isDuplicateFile(file);
       if (isDuplicate) {
         this.newPostState.errorMsgPhoto = 'This file has already been added.';
-        return;
+        continue;
       }
 
-      const validFileTypes = ['image/png', 'image/jpeg'];
-      if (!validFileTypes.includes(file.type)) {
+      const isValidType = this.isValidFileType(file);
+      if (!isValidType) {
         this.newPostState.errorMsgPhoto =
           'Please, upload only PNG or JPEG images.';
-        return;
+        continue;
       }
 
-      const maxFileSize = maxImageSize * 1024 * 1024;
-      if (file.size > maxFileSize) {
+      const isValidSize = this.isValidFileSize(file);
+      if (!isValidSize) {
         this.newPostState.errorMsgPhoto = `The image needs to be smaller than ${maxImageSize}MB.`;
-        return;
+        continue;
       }
 
+      const nsfwCheck = await this.checkNsfw(file);
+      if (!nsfwCheck) {
+        this.newPostState.errorMsgPhoto =
+          'NSFW content detected. Please, upload appropriate images.';
+        continue;
+      }
+
+      if (this.newPostState.errorMsgPhoto !== '') {
+        this.newPostState.errorMsgPhoto = '';
+      }
+
+      // Добавяме файла и генерираме визуализация
+      this.imagesFiles.push(this.formBuilder.control(file));
+      const previewUrl = await this.getPreviewUrl(file);
+      if (!this.newPostState.imagePreviews.includes(previewUrl)) {
+        this.newPostState.imagePreviews.push(previewUrl);
+      }
+    }
+
+    (event.target as HTMLInputElement).value = '';
+  }
+
+  isDuplicateFile(file: File): boolean {
+    return this.imagesFiles.value.some(
+      (selectedFile: File) =>
+        selectedFile.name === file.name &&
+        selectedFile.size === file.size &&
+        selectedFile.lastModified === file.lastModified
+    );
+  }
+
+  isValidFileType(file: File): boolean {
+    const validFileTypes = ['image/png', 'image/jpeg'];
+    return validFileTypes.includes(file.type);
+  }
+
+  isValidFileSize(file: File): boolean {
+    const maxFileSize = maxImageSize * 1024 * 1024;
+    return file.size <= maxFileSize;
+  }
+
+  async checkNsfw(file: File): Promise<boolean> {
+    return new Promise((resolve) => {
       const reader = new FileReader();
       reader.onload = async () => {
         const image = new Image();
         image.src = reader.result as string;
-
         image.onload = async () => {
           const model = await nsfwjs.load();
           const predictions = await model.classify(image);
-
           const nsfwResult = predictions.find(
             (p) => p.className === 'Porn' || p.className === 'Hentai'
           );
-
-          if (nsfwResult && nsfwResult.probability > 0.05) {
-            this.newPostState.errorMsgPhoto =
-              'NSFW content detected. Please, upload appropriate images.';
-            return;
-          }
-
-          if (this.newPostState.errorMsgPhoto !== '') {
-            this.newPostState.errorMsgPhoto = '';
-          }
-
-          this.imagesFiles.push(this.formBuilder.control(file));
-
-          const previewUrl = reader.result as string;
-          if (!this.newPostState.imagePreviews.includes(previewUrl)) {
-            this.newPostState.imagePreviews.push(previewUrl);
-          }
+          resolve(!(nsfwResult && nsfwResult.probability > 0.05));
         };
       };
-
       reader.readAsDataURL(file);
     });
+  }
 
-    (event.target as HTMLInputElement).value = '';
+  async getPreviewUrl(file: File): Promise<string> {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        resolve(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    });
   }
 
   onRemoveFile(index: number): void {
