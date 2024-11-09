@@ -23,9 +23,32 @@
     <p>{{ text() }}</p>
   </div>
 
+  @if(images().length > 0) {
   <div class="images-container">
-    <img [src]="image()" alt="" />
+    <img class="image" [src]="currentImage" alt="Image" />
+
+    @if(images().length>1){
+    <div class="arrow-container left-arrow-container" (click)="prevImage()">
+      <img
+        class="arrow"
+        src="assets/icons/arrow-up.svg"
+        alt="Previous"
+        style="transform: rotate(-90deg)"
+      />
+    </div>
+
+    <div class="arrow-container right-arrow-container" (click)="nextImage()">
+      <img
+        class="arrow"
+        src="assets/icons/arrow-up.svg"
+        alt="Next"
+        style="transform: rotate(90deg)"
+      />
+    </div>
+    }
   </div>
+
+  }
 
   <div class="interactions-container d-flex justify-content-between mb-1">
     <div class="row">

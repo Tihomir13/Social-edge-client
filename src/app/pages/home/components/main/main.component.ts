@@ -2,7 +2,7 @@ import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { Subscription } from 'rxjs';
+import { map, Subscription } from 'rxjs';
 
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { PostComponent } from './components/post/post.component';
@@ -43,16 +43,27 @@ export class MainComponent implements OnInit {
     this.state.currentChatHeads = this.state.currentChatHeads;
 
     this.subscriptions.add(
-      this.postRequests.getPosts().subscribe({
-        next: (response: any) => {
-          console.log(response);
+      this.postRequests
+        .getPosts()
+        // .pipe(
+        //   map((response: any) => {
+        //     // Модифицираме images, за да съдържа само src стойностите
+        //     return response.posts.map((post: any) => ({
+        //       ...post,
+        //       images: post.images.map((image: any) => image.src), // Оставяме само src
+        //     }));
+        //   })
+        // )
+        .subscribe({
+          next: (response: any) => {
+            console.log(response);
 
-          this.posts.set(response.posts);
-        },
-        error: (error) => {
-          console.log(error);
-        },
-      })
+            this.posts.set(response.posts);
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        })
     );
   }
 
