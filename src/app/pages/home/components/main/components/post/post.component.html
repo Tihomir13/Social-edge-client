@@ -29,6 +29,14 @@
   </div>
   }
 
+  @if(tags().length > 0) {
+    <div class="tags-container">
+      @for (tag of tags(); track $index) {
+      <span class="tag"> {{ tag }}</span>
+      }
+    </div>
+  }
+
   @if(images().length > 0) {
   <div class="images-container">
     @for (image of images(); track $index) {
