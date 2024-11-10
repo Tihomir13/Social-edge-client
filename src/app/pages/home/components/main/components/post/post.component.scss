@@ -17,10 +17,36 @@
       }
     }
 
+    .username-container {
+      display: flex;
+      align-items: center;
+    }
+
     .options-container {
       .icon {
         cursor: pointer;
       }
+    }
+  }
+
+  .title-container,
+  .text-container {
+    word-break: break-word;
+  }
+
+  .text-container {
+    .text {
+      overflow: hidden;
+
+      &.collapsed {
+        max-height: none;
+      }
+    }
+    
+    .read-more {
+      color: $primary-purple;
+      cursor: pointer;
+      user-select: none;
     }
   }
 

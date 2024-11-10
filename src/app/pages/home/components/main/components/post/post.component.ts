@@ -1,17 +1,18 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input, OnInit, Pipe } from '@angular/core';
 import { ImageModel } from './model/images.model';
-import { NgClass } from '@angular/common';
+import { NgClass, SlicePipe } from '@angular/common';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [NgClass],
+  imports: [NgClass, SlicePipe],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
   providers: [],
 })
 export class PostComponent {
   isCommentsClicked: boolean = true;
+  isCollapsed = true;
 
   username = input<string>('');
   title = input<string>('');
@@ -22,6 +23,11 @@ export class PostComponent {
 
   currentImageIndex = 0;
 
+  ngOnInit() {
+    console.log(typeof(this.text()));
+    
+  }
+
   nextImage(): void {
     this.currentImageIndex =
       (this.currentImageIndex + 1) % this.images().length;
@@ -31,6 +37,10 @@ export class PostComponent {
     this.currentImageIndex =
       (this.currentImageIndex - 1 + this.images().length) %
       this.images().length;
+  }
+
+  toggleReadMore() {
+    this.isCollapsed = !this.isCollapsed;
   }
 
   toggleComments(): void {

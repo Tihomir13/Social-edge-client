@@ -14,30 +14,36 @@
   </div>
 
   @if(title()) {
-  <div class="title">
-    <h5>
+  <div class="title-container">
+    <h5 class="title">
       {{ title() }}
     </h5>
   </div>
   } 
   
   @if(text()) {
-  <div class="text">
-    <p>
-      {{ text() }}
+  <div class="text-container">
+    <p
+      class="text"
+      [class.collapsed]="isCollapsed"
+      [class.expanded]="!isCollapsed"
+    >
+      {{ isCollapsed ? (text() | slice : 0 : 75) + "..." : text() }}
     </p>
+
+    @if (text().length > 100) { 
+      <span (click)="toggleReadMore()" class="read-more">
+        {{ isCollapsed ? "more" : "less" }}
+      </span>
+    }
   </div>
-  }
-
-  @if(tags().length > 0) {
-    <div class="tags-container">
-      @for (tag of tags(); track $index) {
-      <span class="tag"> {{ tag }}</span>
-      }
-    </div>
-  }
-
-  @if(images().length > 0) {
+  } @if(tags().length > 0) {
+  <div class="tags-container">
+    @for (tag of tags(); track $index) {
+    <span class="tag"> {{ tag }}</span>
+    }
+  </div>
+  } @if(images().length > 0) {
   <div class="images-container">
     @for (image of images(); track $index) {
     <img
