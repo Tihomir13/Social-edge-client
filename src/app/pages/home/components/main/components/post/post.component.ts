@@ -1,10 +1,11 @@
 import { Component, input, OnInit } from '@angular/core';
 import { ImageModel } from './model/images.model';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [],
+  imports: [NgClass],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
   providers: [],
@@ -22,7 +23,7 @@ export class PostComponent implements OnInit {
   currentImageIndex = 0;
 
   ngOnInit() {
-    console.log(this.images());
+    console.log(this.images);
   }
 
   nextImage(): void {
@@ -34,10 +35,6 @@ export class PostComponent implements OnInit {
     this.currentImageIndex =
       (this.currentImageIndex - 1 + this.images().length) %
       this.images().length;
-  }
-
-  get currentImage(): string {
-    return this.images()[this.currentImageIndex].src;
   }
 
   toggleComments(): void {

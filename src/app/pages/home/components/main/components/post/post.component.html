@@ -25,9 +25,18 @@
 
   @if(images().length > 0) {
   <div class="images-container">
-    <img class="image" [src]="currentImage" alt="Image" />
-
-    @if(images().length>1){
+    @for (image of images(); track $index) {
+    <img
+      class="image"
+      [src]="image.src"
+      [alt]="'Image ' + $index"
+      [ngClass]="{
+        active: currentImageIndex === $index,
+        prev: currentImageIndex - 1 === $index,
+        next: currentImageIndex + 1 === $index
+      }"
+    />
+    } @if(this.currentImageIndex > 0) {
     <div class="arrow-container left-arrow-container" (click)="prevImage()">
       <img
         class="arrow"
@@ -36,7 +45,8 @@
         style="transform: rotate(-90deg)"
       />
     </div>
-
+    } @if (images().length > 1) { @if (this.currentImageIndex + 1 <=
+    this.images().length - 1) {
     <div class="arrow-container right-arrow-container" (click)="nextImage()">
       <img
         class="arrow"
@@ -46,8 +56,18 @@
       />
     </div>
     }
-  </div>
 
+    <div class="dots-container">
+      @for (image of images(); track $index) {
+      <span
+        class="dot"
+        [ngClass]="{ active: currentImageIndex === $index }"
+        (click)="currentImageIndex = $index"
+      ></span>
+      }
+    </div>
+    }
+  </div>
   }
 
   <div class="interactions-container d-flex justify-content-between mb-1">
