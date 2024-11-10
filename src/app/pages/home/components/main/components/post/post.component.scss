@@ -30,18 +30,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 720px;
     height: 720px;
-    background-color: black;
+    background-color: white;
     overflow: hidden;
 
     .image {
-      object-fit: contain;
+      object-fit: cover;
       width: 100%;
       height: 100%;
       border-radius: $border-radius;
       position: absolute;
-      transition: transform 0.35s ease-in-out;
+      transition: transform 0.2s ease-in-out;
     }
 
     .active {
@@ -65,14 +64,13 @@
       position: absolute;
       width: 40px;
       height: 40px;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.6);
       border-radius: 50%;
       cursor: pointer;
 
       .arrow {
         width: 20px;
         height: 20px;
-        filter: invert(100%);
       }
     }
 
@@ -89,7 +87,6 @@
       transform: translateY(-50%);
     }
 
-    /* Стилове за точките */
     .dots-container {
       position: absolute;
       bottom: 10px;
@@ -108,7 +105,7 @@
       }
 
       .dot.active {
-        background-color: white; /* Активната точка е бяла */
+        background-color: white;
       }
     }
   }
@@ -149,8 +146,6 @@
     border-radius: 0px;
 
     .images-container {
-      width: 500px;
-      height: 500px;
     }
   }
 }

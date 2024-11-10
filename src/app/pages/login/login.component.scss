@@ -1,6 +1,9 @@
 @import "../../../styles.scss";
 
 .container-fluid {
+  height: 100%;
+  overflow-y: hidden;
+
   .content-container {
     background: $gradient;
     height: 100svh;

@@ -13,15 +13,21 @@
     </div>
   </div>
 
+  @if(title()) {
   <div class="title">
-    <p>
+    <h5>
       {{ title() }}
+    </h5>
+  </div>
+  } 
+  
+  @if(text()) {
+  <div class="text">
+    <p>
+      {{ text() }}
     </p>
   </div>
-
-  <div class="text">
-    <p>{{ text() }}</p>
-  </div>
+  }
 
   @if(images().length > 0) {
   <div class="images-container">

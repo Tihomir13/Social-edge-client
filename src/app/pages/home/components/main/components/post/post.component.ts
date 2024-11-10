@@ -10,7 +10,7 @@ import { NgClass } from '@angular/common';
   styleUrl: './post.component.scss',
   providers: [],
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
   isCommentsClicked: boolean = true;
 
   username = input<string>('');
@@ -21,10 +21,6 @@ export class PostComponent implements OnInit {
   images = input<ImageModel[]>([]);
 
   currentImageIndex = 0;
-
-  ngOnInit() {
-    console.log(this.images);
-  }
 
   nextImage(): void {
     this.currentImageIndex =
