@@ -42,11 +42,15 @@
         max-height: none;
       }
     }
-    
+
     .read-more {
       color: $primary-purple;
       cursor: pointer;
       user-select: none;
+
+      &:hover {
+        color: $light-purple;
+      }
     }
   }
 

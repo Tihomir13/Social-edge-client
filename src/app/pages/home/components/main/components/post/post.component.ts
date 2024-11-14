@@ -1,6 +1,10 @@
-import { Component, input, OnInit, Pipe } from '@angular/core';
-import { ImageModel } from './model/images.model';
+import { Component, inject, input, OnInit, signal } from '@angular/core';
 import { NgClass, SlicePipe } from '@angular/common';
+
+import { Subscription } from 'rxjs';
+
+import { ImageModel } from './model/images.model';
+import { PostsRequestsService } from './services/posts-requests.service';
 
 @Component({
   selector: 'app-post',
@@ -10,10 +14,15 @@ import { NgClass, SlicePipe } from '@angular/common';
   styleUrl: './post.component.scss',
   providers: [],
 })
-export class PostComponent {
+export class PostComponent implements OnInit {
+  subscriptions = new Subscription();
+
   isCommentsClicked: boolean = true;
   isCollapsed = true;
 
+  currLikes = signal<number>(0);
+
+  postId = input<string>('');
   username = input<string>('');
   title = input<string>('');
   text = input<string>('');
@@ -23,9 +32,10 @@ export class PostComponent {
 
   currentImageIndex = 0;
 
-  ngOnInit() {
-    console.log(typeof(this.text()));
-    
+  private postRequests = inject(PostsRequestsService);
+
+  ngOnInit(): void {
+    this.currLikes.set(this.likes());
   }
 
   nextImage(): void {
@@ -39,11 +49,27 @@ export class PostComponent {
       this.images().length;
   }
 
-  toggleReadMore() {
+  toggleReadMore(): void {
     this.isCollapsed = !this.isCollapsed;
   }
 
   toggleComments(): void {
     this.isCommentsClicked = !this.isCommentsClicked;
+  }
+
+  toggleLike(id: string): void {
+    console.log(id);
+    this.subscriptions.add(
+      this.postRequests.likePost(id).subscribe({
+        next: (response) => {
+          console.log(response.likes);
+          this.currLikes.set(response.likes.length);
+        },
+
+        error: (error) => {
+          console.log(error);
+        },
+      })
+    );
   }
 }

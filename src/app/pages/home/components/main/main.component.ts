@@ -45,18 +45,10 @@ export class MainComponent implements OnInit {
     this.subscriptions.add(
       this.postRequests
         .getPosts()
-        // .pipe(
-        //   map((response: any) => {
-        //     // Модифицираме images, за да съдържа само src стойностите
-        //     return response.posts.map((post: any) => ({
-        //       ...post,
-        //       images: post.images.map((image: any) => image.src), // Оставяме само src
-        //     }));
-        //   })
-        // )
         .subscribe({
           next: (response: any) => {
             console.log(response);
+            console.log(response.posts);
 
             this.posts.set(response.posts);
           },
