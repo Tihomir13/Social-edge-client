@@ -28,6 +28,11 @@ select {
       max-width: 542px;
       width: 100%;
 
+      .username-input-container {
+        max-width: 260px;
+        width: 100%;
+      }
+
       .form-control {
         height: 55px;
         border-radius: 11px;
@@ -40,10 +45,12 @@ select {
 
       .semi-width-control {
         max-width: 260px;
+        width: 100%;
       }
 
       .full-width-control {
         max-width: 542px;
+        width: 100%;
       }
 
       .dropdown {

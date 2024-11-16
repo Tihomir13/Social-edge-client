@@ -64,6 +64,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
     return this.registerFormGroup.get('name.lastName');
   }
 
+  get birthdayGroup(): AbstractControl | null {
+    return this.registerFormGroup.get('birthday');
+  }
+
   get emailControl(): AbstractControl | null {
     return this.registerFormGroup.get('email');
   }
@@ -89,14 +93,17 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   get isConfirmPassValid(): boolean | undefined {
-    const passwordGroup = this.passwordGroupControl;
-
     return (
       this.confirmPasswordControl?.value !== '' &&
       this.confirmPasswordControl?.dirty &&
-      passwordGroup?.hasError('passwordsDoNotMatch')
+      this.passwordGroupControl?.hasError('passwordsDoNotMatch')
     );
   }
+
+  isUsernameExists = false;
+  isEmailExists = false;
+  isUserYounger = false;
+  isDateValid = true;
 
   subscriptions = new Subscription();
 
@@ -141,15 +148,69 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
   }
 
+  isSameAsToday(birthday: {
+    day: number;
+    month: number;
+    year: number;
+  }): boolean {
+    const { day, month, year } = birthday;
+
+    const today = new Date();
+
+    return (
+      today.getDate() === day &&
+      today.getMonth() === month &&
+      today.getFullYear() === year
+    );
+  }
+
+  resetErrors() {
+    this.isUsernameExists = false;
+    this.isEmailExists = false;
+    this.isUserYounger = false;
+    this.isDateValid = true;
+  }
+
   onSubmit(): void {
+    if (this.isSameAsToday(this.registerFormGroup.value.birthday)) {
+      this.isDateValid = false;
+      return;
+    } else {
+      this.isDateValid = true;
+    }
+    console.log(this.isSameAsToday(this.registerFormGroup.value.birthday));
+
     if (this.registerFormGroup.valid) {
       this.subscriptions.add(
         this.reqService.registerUser(this.registerFormGroup.value).subscribe({
           next: (response) => {
             console.log('User registered successfully', response);
+            this.resetErrors();
           },
-          error: (error) => {
-            console.error('Registration failed', error);
+          error: (data) => {
+            console.log(data.status);
+            if (
+              data.status === 409 &&
+              data.error.message.includes('Username')
+            ) {
+              this.isUsernameExists = true;
+            } else {
+              this.isUsernameExists = false;
+            }
+
+            if (data.status === 409 && data.error.message.includes('Email')) {
+              this.isEmailExists = true;
+            } else {
+              this.isEmailExists = true;
+            }
+
+            if (data.status === 422) {
+              this.isUserYounger = true;
+            } else {
+              this.isUserYounger = false;
+            }
+
+            console.error('Registration failed', data);
           },
         })
       );

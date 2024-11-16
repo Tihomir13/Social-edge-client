@@ -14,20 +14,26 @@ export class RegisterFormService {
   ): FormGroup {
     return this.formBuilder.group({
       name: this.formBuilder.group({
-        firstName: ['', Validators.required],
-        lastName: ['', Validators.required],
+        firstName: this.formBuilder.control('', [Validators.required]),
+        lastName: this.formBuilder.control('', [Validators.required]),
       }),
-      username: ['', Validators.required],
+      username: this.formBuilder.control('', [Validators.required]),
       birthday: this.formBuilder.group({
-        day: [selectedDay, Validators.required],
-        month: [selectedMonth, Validators.required],
-        year: [selectedYear, Validators.required],
+        day: this.formBuilder.control(selectedDay, [Validators.required]),
+        month: this.formBuilder.control(selectedMonth, [Validators.required]),
+        year: this.formBuilder.control(selectedYear, [Validators.required]),
       }),
-      email: ['', [Validators.required, Validators.email]],
+      email: this.formBuilder.control('', [
+        Validators.required,
+        Validators.email,
+      ]),
       passwords: this.formBuilder.group(
         {
-          password: ['', [Validators.required, Validators.minLength(8)]],
-          confirmPassword: ['', Validators.required],
+          password: this.formBuilder.control('', [
+            Validators.required,
+            Validators.minLength(8),
+          ]),
+          confirmPassword: this.formBuilder.control('', [Validators.required]),
         },
         { validators: passwordMatchValidator() }
       ),
