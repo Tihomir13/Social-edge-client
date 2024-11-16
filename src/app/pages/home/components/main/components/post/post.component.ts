@@ -50,12 +50,21 @@ export class PostComponent implements OnInit, OnDestroy {
   }
 
   nextImage(): void {
-    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+    if (this.currentImageIndex < this.images().length - 1) {
+      this.currentImageIndex++;
+    }
+
+    console.log('Current Index:', this.currentImageIndex);
+    console.log('Images:', this.images());
   }
 
   prevImage(): void {
-    this.currentImageIndex =
-      (this.currentImageIndex - 1 + this.images.length) % this.images.length;
+    if (this.currentImageIndex > 0) {
+      this.currentImageIndex--;
+    }
+
+    console.log('Current Index:', this.currentImageIndex);
+    console.log('Images:', this.images());
   }
 
   toggleReadMore(): void {
@@ -66,7 +75,7 @@ export class PostComponent implements OnInit, OnDestroy {
     this.isCommentsClicked = !this.isCommentsClicked;
   }
 
-  async toggleLike(postId: string): Promise<any> {
+  async toggleLike(): Promise<any> {
     const username = this.utilityService.userInfo.username;
 
     if (this.localLikes.includes(username)) {
@@ -79,16 +88,16 @@ export class PostComponent implements OnInit, OnDestroy {
     }
 
     try {
-      await this.postLikeDislike(postId);
+      await this.postLikeDislike();
     } catch (error) {
       console.log('Error syncing with server:', error);
     }
   }
 
-  postLikeDislike(postId: string) {
+  postLikeDislike() {
     return new Promise((resolve, reject) => {
       this.subscriptions.add(
-        this.postRequests.likePost(postId).subscribe({
+        this.postRequests.likePost(this.postId()).subscribe({
           next: (response) => {
             console.log(response.likes);
             this.currLikes.set(response.likes.length);

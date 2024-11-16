@@ -44,17 +44,15 @@
   } @if(images().length > 0) {
   <div class="images-container">
     @for (image of images(); track $index) {
-    <img
-      class="image"
-      [src]="image.src"
-      [alt]="'Image ' + $index"
-      [ngClass]="{
-        active: currentImageIndex === $index,
-        prev: currentImageIndex - 1 === $index,
-        next: currentImageIndex + 1 === $index
-      }"
-    />
-    } @if(this.currentImageIndex > 0) {
+    <div
+      class="image-wrapper"
+      [class.active]="currentImageIndex === $index"
+      [class.prev]="currentImageIndex > $index"
+      [class.next]="currentImageIndex < $index"
+    >
+      <img class="image" [src]="image.src" [alt]="'Image ' + $index" />
+    </div>
+    } @if(currentImageIndex > 0) {
     <div class="arrow-container left-arrow-container" (click)="prevImage()">
       <img
         class="arrow"
@@ -63,8 +61,7 @@
         style="transform: rotate(-90deg)"
       />
     </div>
-    } @if (images().length > 1) { @if (this.currentImageIndex + 1 <=
-    this.images().length - 1) {
+    } @if(currentImageIndex + 1 < images().length) {
     <div class="arrow-container right-arrow-container" (click)="nextImage()">
       <img
         class="arrow"
@@ -79,12 +76,11 @@
       @for (image of images(); track $index) {
       <span
         class="dot"
-        [ngClass]="{ active: currentImageIndex === $index }"
+        [class.active]="currentImageIndex === $index"
         (click)="currentImageIndex = $index"
       ></span>
       }
     </div>
-    }
   </div>
   }
 
@@ -96,7 +92,7 @@
             class="interaction-icon"
             src="assets/icons/sparkle.png"
             alt=""
-            (click)="toggleLike(postId())"
+            (click)="toggleLike()"
           />
           <img
             class="interaction-icon"
