@@ -1,4 +1,11 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { NgClass, SlicePipe } from '@angular/common';
 
 import { Subscription } from 'rxjs';
@@ -15,7 +22,7 @@ import { UtilityService } from '../../../../../../shared/services/utility/utilit
   styleUrl: './post.component.scss',
   providers: [],
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnDestroy {
   subscriptions = new Subscription();
 
   isCommentsClicked: boolean = true;
@@ -38,7 +45,7 @@ export class PostComponent implements OnInit {
   utilityService = inject(UtilityService);
 
   ngOnInit(): void {
-    this.localLikes = [...this.likes()]; // Копиране на likes в локалния масив
+    this.localLikes = [...this.likes()];
     this.currLikes.set(this.localLikes.length);
   }
 
@@ -94,5 +101,9 @@ export class PostComponent implements OnInit {
         })
       );
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
