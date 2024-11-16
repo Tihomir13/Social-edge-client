@@ -10,9 +10,8 @@ select {
 }
 
 .container-fluid {
-  background: $gradient;
-
   .content {
+    background: $gradient;
     height: 100svh;
 
     .google-btn {
@@ -92,15 +91,14 @@ select {
 
 @media screen and (max-width: 768px) {
   .container-fluid {
-    margin-top: 110px;
-    margin-bottom: 110px;
     .content {
-      padding: 0px;
-
+      padding: 20px 0px 20px 0px;
+      height: auto;
       .form {
         max-width: 360px;
         width: 100%;
 
+        .username-input-container,
         .semi-width-control,
         .full-width-control {
           max-width: 360px;
@@ -108,7 +106,7 @@ select {
         }
 
         .dropdown {
-          width: 120px;
+          width: 113.33px;
         }
 
         .btn {
