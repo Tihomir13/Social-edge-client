@@ -13,14 +13,20 @@ export function passwordMatchValidator(): ValidatorFn {
   };
 }
 
-export function usernameTakenValidator(usernames: string[]): ValidationErrors {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const username = control.value;
+// export function notTodayValidator(): ValidatorFn {
+//   return (control: AbstractControl): ValidationErrors | null => {
+//     if (!control || !control.value) {
+//       return null;
+//     }
 
-    if (username && usernames.includes(username)) {
-      return { usernameTaken: true };
-    }
+//     const { day, month, year } = control.value;
 
-    return null;
-  };
-}
+//     const today = new Date();
+//     const isToday =
+//       today.getDate() === day &&
+//       today.getMonth() === month &&
+//       today.getFullYear() === year;
+
+//     return isToday ? { notToday: true } : null;
+//   };
+// }
