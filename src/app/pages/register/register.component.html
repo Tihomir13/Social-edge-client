@@ -7,7 +7,7 @@
 
             <p class="or-text fw-bold">or</p>
 
-            <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+            <form class="form" [formGroup]="registerFormGroup" (ngSubmit)="onSubmit()">
                 <div class="d-flex flex-md-row flex-column mb-22px gap-22px" formGroupName="name">
                     <input class="form-control semi-width-control" type="text" placeholder="First name*" formControlName="firstName">
 

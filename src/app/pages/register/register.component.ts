@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ShortenMonthPipe } from '../../shared/pipes/shorten-month.pipe';
 import {
   AbstractControl,
@@ -12,6 +12,7 @@ import { RegisterRequestsService } from './services/register-requests.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { GoogleBtnComponent } from '../../shared/components/google-btn/google-btn.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +29,7 @@ import { GoogleBtnComponent } from '../../shared/components/google-btn/google-bt
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   date: Date = new Date();
   months: string[] = [
     'January',
@@ -53,30 +54,30 @@ export class RegisterComponent implements OnInit {
   selectedMonth!: number;
   selectedYear!: number;
 
-  form!: FormGroup;
+  registerFormGroup!: FormGroup;
 
   get firstNameControl(): AbstractControl | null {
-    return this.form.get('name.firstName');
+    return this.registerFormGroup.get('name.firstName');
   }
 
   get lastNameControl(): AbstractControl | null {
-    return this.form.get('name.lastName');
+    return this.registerFormGroup.get('name.lastName');
   }
 
   get emailControl(): AbstractControl | null {
-    return this.form.get('email');
+    return this.registerFormGroup.get('email');
   }
 
   get passwordGroupControl(): AbstractControl | null {
-    return this.form.get('passwords');
+    return this.registerFormGroup.get('passwords');
   }
 
   get passwordControl(): AbstractControl | null {
-    return this.form.get('passwords.password');
+    return this.registerFormGroup.get('passwords.password');
   }
 
   get confirmPasswordControl(): AbstractControl | null {
-    return this.form.get('passwords.confirmPassword');
+    return this.registerFormGroup.get('passwords.confirmPassword');
   }
 
   get isEmailValid(): boolean | undefined {
@@ -97,6 +98,8 @@ export class RegisterComponent implements OnInit {
     );
   }
 
+  subscriptions = new Subscription();
+
   private formService = inject(RegisterFormService);
   private reqService = inject(RegisterRequestsService);
 
@@ -105,7 +108,7 @@ export class RegisterComponent implements OnInit {
     this.selectedMonth = this.date.getMonth();
     this.selectedYear = this.date.getFullYear();
 
-    this.form = this.formService.createRegisterForm(
+    this.registerFormGroup = this.formService.createRegisterForm(
       this.selectedDay,
       this.selectedMonth,
       this.selectedYear
@@ -139,15 +142,21 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.form.valid) {
-      this.reqService.registerUser(this.form.value).subscribe({
-        next: (response) => {
-          console.log('User registered successfully', response);
-        },
-        error: (error) => {
-          console.error('Registration failed', error);
-        },
-      });
+    if (this.registerFormGroup.valid) {
+      this.subscriptions.add(
+        this.reqService.registerUser(this.registerFormGroup.value).subscribe({
+          next: (response) => {
+            console.log('User registered successfully', response);
+          },
+          error: (error) => {
+            console.error('Registration failed', error);
+          },
+        })
+      );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
