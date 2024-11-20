@@ -104,6 +104,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   isEmailExists = false;
   isUserYounger = false;
   isDateValid = true;
+  isUserRegistered = false;
 
   subscriptions = new Subscription();
 
@@ -186,6 +187,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           next: (response) => {
             console.log('User registered successfully', response);
             this.resetErrors();
+            this.isUserRegistered = true;
           },
           error: (data) => {
             console.log(data.status);

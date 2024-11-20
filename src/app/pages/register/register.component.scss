@@ -34,7 +34,7 @@ select {
 
       .form-control {
         height: 55px;
-        border-radius: 11px;
+        border-radius: $border-radius;
 
         &:focus {
           outline: none;
@@ -55,7 +55,7 @@ select {
       .dropdown {
         width: 80px;
         height: 55px;
-        border-radius: 11px;
+        border-radius: $border-radius;
         text-align: center;
         border-color: $light-gray;
       }
@@ -63,7 +63,7 @@ select {
       .btn {
         max-width: 260px;
         height: 55px;
-        border-radius: 11px;
+        border-radius: $border-radius;
         width: 100%;
 
         color: rgb(255, 255, 255);
@@ -84,6 +84,12 @@ select {
 
       .invalid-message {
         color: rgb(220, 0, 0);
+      }
+
+      .success-message {
+        color: rgb(255, 255, 255);
+        border-radius: $border-radius;
+        padding: 11px
       }
     }
   }
