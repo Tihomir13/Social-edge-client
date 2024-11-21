@@ -5,6 +5,7 @@ import {
   inject,
   input,
   OnDestroy,
+  output,
   Renderer2,
   ViewChild,
 } from '@angular/core';
@@ -66,6 +67,8 @@ export class NewPostComponent implements OnDestroy {
   private formBuilder = inject(FormBuilder);
   newPostState = inject(NewPostStateService);
   private newPostRequests = inject(NewPostRequestsService);
+
+  creatingNewPost = output();
 
   onAddTag(tag: string): void {
     if (tag === '') {
@@ -292,6 +295,8 @@ export class NewPostComponent implements OnDestroy {
             this.newPostState.isCreatingNewPost = false;
             this.newPostState.resetUI();
             console.log(this.newPostFormGroup()?.value);
+
+            this.creatingNewPost.emit();
           },
           error: (error) => {
             console.error('Error saving post', error);
@@ -306,19 +311,4 @@ export class NewPostComponent implements OnDestroy {
   ngOnDestroy() {
     this.subscriptions.unsubscribe();
   }
-
-  // submitPost() {
-  //   if (this.selectedFiles.length && this.postText) {
-  //     const formData = new FormData();
-  //     this.selectedFiles.forEach(file => {
-  //       formData.append('images', file);
-  //     });
-  //     formData.append('text', this.postText);
-
-  //     // Изпращане на всички файлове и текст към бекенда
-  //     // this.http.post('your-backend-url', formData).subscribe();
-  //   } else {
-  //     alert('Please add some text or images before submitting!');
-  //   }
-  // }
 }

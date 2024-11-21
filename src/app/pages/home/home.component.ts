@@ -11,11 +11,18 @@ import { NewPostStateService } from './components/main/components/new-post/servi
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from '../../shared/interceptors/jwt.interceptor';
 import { GenerateNewPostForm } from './components/main/components/new-post/helpers/form-factory/new-post-form';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [HeaderComponent, MainComponent, YesNoModalComponent, NgClass],
+  imports: [
+    HeaderComponent,
+    MainComponent,
+    YesNoModalComponent,
+    RouterModule,
+    NgClass,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

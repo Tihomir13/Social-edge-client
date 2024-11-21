@@ -4,6 +4,7 @@ import {
   input,
   OnDestroy,
   OnInit,
+  output,
   signal,
 } from '@angular/core';
 import { NgClass, SlicePipe } from '@angular/common';

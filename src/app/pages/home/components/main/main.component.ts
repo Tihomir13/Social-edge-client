@@ -42,20 +42,26 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.state.currentChatHeads = this.state.currentChatHeads;
 
-    this.subscriptions.add(
-      this.postRequests
-        .getPosts()
-        .subscribe({
-          next: (response: any) => {
-            console.log(response);
-            console.log(response.posts);
+    this.getPosts();
+  }
 
-            this.posts.set(response.posts);
-          },
-          error: (error) => {
-            console.log(error);
-          },
-        })
+  onNewPost(): void {
+    this.getPosts();
+  }
+
+  getPosts(): void {
+    this.subscriptions.add(
+      this.postRequests.getPosts().subscribe({
+        next: (response: any) => {
+          console.log(response);
+          console.log(response.posts);
+
+          this.posts.set(response.posts);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      })
     );
   }
 

@@ -9,6 +9,7 @@
         <app-new-post
           class="app-new-post"
           [newPostFormGroup]="newPostFormGroup()"
+          (creatingNewPost)="onNewPost()"
         />
 
         @for (post of posts(); track $index) {
