@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { NgClass } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
@@ -31,12 +31,13 @@ export class HomeComponent implements OnInit {
   constructor() {}
 
   modalService = inject(ModalService);
+  formBuilder = inject(FormBuilder);
   newPostStateService = inject(NewPostStateService);
   newPostFormService = inject(NewPostFormServiceService);
 
   ngOnInit(): void {
-    const newPostFormGroup: FormGroup =
-      new GenerateNewPostForm().generateNewPostForm();
+    const formGenerator = new GenerateNewPostForm(this.formBuilder);
+    const newPostFormGroup = formGenerator.generateNewPostForm();
 
     this.newPostFormService.setFormGroup(newPostFormGroup);
   }

@@ -1,10 +1,9 @@
-import { inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import postStatusModel from '../../models/post-status.model';
 
 export class GenerateNewPostForm {
-  formBuilder = inject(FormBuilder);
+  constructor(private formBuilder: FormBuilder) {}
 
   generateNewPostForm(): FormGroup {
     return this.formBuilder.group({
