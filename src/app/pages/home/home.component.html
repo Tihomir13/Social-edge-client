@@ -1,8 +1,7 @@
 <app-header />
 
 <app-main
-  [newPostFormGroup]="newPostFormGroup"
-  [ngClass]="{ 'blurred': this.modalService.isModalToggled() }"
+[ngClass]="{ 'blurred': this.modalService.isModalToggled() }"
 />
 
 @if(this.modalService.isModalToggled()) {

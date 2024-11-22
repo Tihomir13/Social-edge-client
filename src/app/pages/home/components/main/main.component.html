@@ -6,22 +6,7 @@
       </div>
 
       <div class="general">
-        <app-new-post
-          class="app-new-post"
-          [newPostFormGroup]="newPostFormGroup()"
-        />
-
-        @for (post of posts(); track $index) {
-        <app-post
-          [images]="post.images"
-          [likes]="post.likes"
-          [title]="post.title"
-          [text]="post.text"
-          [username]="post.author.username"
-          [tags]="post.tags"
-          [postId]="post._id"
-        />
-        }
+        <router-outlet></router-outlet>
       </div>
 
       <div class="right">

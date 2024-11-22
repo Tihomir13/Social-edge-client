@@ -1,4 +1,4 @@
-import postStatusModel from '../../pages/home/components/main/components/new-post/models/post-status.model';
+import postStatusModel from '../../pages/home/components/main/components/feed/components/new-post/models/post-status.model';
 
 export const statuses: postStatusModel[] = [
   { name: 'Feeling Happy', emoji: '😊' },

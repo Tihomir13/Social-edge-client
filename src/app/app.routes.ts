@@ -4,6 +4,9 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { YesNoModalComponent } from './shared/components/yes-no-modal/yes-no-modal.component';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { MainComponent } from './pages/home/components/main/main.component';
+import { ProfileComponent } from './pages/home/components/profile/profile.component';
+import { FeedComponent } from './pages/home/components/main/components/feed/feed.component';
 
 export const routes: Routes = [
   {
@@ -23,8 +26,11 @@ export const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuard],
+    children: [
+      { path: 'feed', component: FeedComponent },
+      { path: 'profile', component: ProfileComponent },
+    ],
   },
-
   {
     path: 'modal',
     component: YesNoModalComponent,

@@ -6,18 +6,18 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
-import { NgClass, SlicePipe } from '@angular/common';
+import { SlicePipe } from '@angular/common';
 
 import { Subscription } from 'rxjs';
 
 import { ImageModel } from './model/images.model';
 import { PostsRequestsService } from './services/posts-requests.service';
-import { UtilityService } from '../../../../../../shared/services/utility/utility.service';
+import { UtilityService } from '../../../../../../../../shared/services/utility/utility.service';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [NgClass, SlicePipe],
+  imports: [SlicePipe],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
   providers: [],

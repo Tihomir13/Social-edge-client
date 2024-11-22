@@ -3,8 +3,8 @@ import { inject, Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { api } from '../../../../../../../shared/constants/api';
-import { UtilityService } from '../../../../../../../shared/services/utility/utility.service';
+import { api } from '../../../../../../../../../shared/constants/api';
+import { UtilityService } from '../../../../../../../../../shared/services/utility/utility.service';
 
 @Injectable()
 export class NewPostRequestsService {
