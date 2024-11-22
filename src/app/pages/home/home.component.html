@@ -1,14 +1,8 @@
 <app-header />
 
-<!-- <app-main
-  [newPostFormGroup]="newPostFormGroup"
-  [ngClass]="{ 'blurred': this.modalService.isModalToggled() }"
-/> -->
-
-<!-- TODO Да преместя свойствата от коментара отгоре в main-а -->
-<!-- Friends трябва да са в home -->
-
-<router-outlet></router-outlet>
+<app-main
+[ngClass]="{ 'blurred': this.modalService.isModalToggled() }"
+/>
 
 @if(this.modalService.isModalToggled()) {
 <app-yes-no-modal class="dialog" (option)="onChoseOption($event)" />

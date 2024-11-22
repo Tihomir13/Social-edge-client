@@ -17,17 +17,18 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 
-import { UtilityService } from '../../../../../../shared/services/utility/array-utility.service';
+import { UtilityService } from '../../../../../../../../shared/services/utility/array-utility.service';
 import { StatusPickerComponent } from './status-picker/status-picker.component';
-import { statuses } from '../../../../../../shared/constants/arrays';
-import { maxImageSize } from '../../../../../../shared/constants/settings';
+import { statuses } from '../../../../../../../../shared/constants/arrays'; 
+import { maxImageSize } from '../../../../../../../../shared/constants/settings';
 
 import * as nsfwjs from 'nsfwjs';
-import { ModalService } from '../../../shared/services/modal.service';
+import { ModalService } from '../../../../../shared/services/modal.service';
 import { NewPostStateService } from './services/new-post-state.service';
 import { NewPostRequestsService } from './services/new-post-requests.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { NewPostFormServiceService } from '../../../../../shared/services/new-post-form-service.service';
 
 @Component({
   selector: 'app-new-post',
@@ -44,15 +45,15 @@ import { Subscription } from 'rxjs';
   styleUrl: './new-post.component.scss',
 })
 export class NewPostComponent implements OnDestroy {
-  newPostFormGroup = input<FormGroup>();
-
   get tags(): FormArray {
-    return this.newPostFormGroup()?.get('tags') as FormArray;
+    return this.newPostFormService.newPostFormGroup()?.get('tags') as FormArray;
   }
 
   get imagesFiles(): FormArray {
-    return this.newPostFormGroup()?.get('images') as FormArray;
+    return this.newPostFormService.newPostFormGroup()?.get('images') as FormArray;
   }
+
+  newPostFormService = inject(NewPostFormServiceService);
 
   subscriptions = new Subscription();
 
@@ -209,7 +210,7 @@ export class NewPostComponent implements OnDestroy {
   onStatusChange(index: number): void {
     const newStatus = statuses[index];
     this.newPostState.currentStatus = newStatus.emoji;
-    this.newPostFormGroup()!.patchValue({ status: newStatus });
+    this.newPostFormService.newPostFormGroup().patchValue({ status: newStatus });
     this.startCreatingNewPost();
   }
 
@@ -233,11 +234,11 @@ export class NewPostComponent implements OnDestroy {
             return;
           }
 
-          const isTitleEmpty = this.newPostFormGroup()!.value.title;
-          const isTextEmpty = this.newPostFormGroup()!.value.text;
-          const isTagsEmpty = this.newPostFormGroup()!.value.tags;
-          const isImagesEmpty = this.newPostFormGroup()!.value.images;
-          const isStatusEmpty = this.newPostFormGroup()!.value.status;
+          const isTitleEmpty = this.newPostFormService.newPostFormGroup().value.title;
+          const isTextEmpty = this.newPostFormService.newPostFormGroup().value.text;
+          const isTagsEmpty = this.newPostFormService.newPostFormGroup().value.tags;
+          const isImagesEmpty = this.newPostFormService.newPostFormGroup().value.images;
+          const isStatusEmpty = this.newPostFormService.newPostFormGroup().value.status;
 
           if (
             isTitleEmpty === null &&
@@ -267,9 +268,9 @@ export class NewPostComponent implements OnDestroy {
   }
 
   clearFormArrays() {
-    if (this.newPostFormGroup()) {
-      Object.keys(this.newPostFormGroup()!.controls).forEach((key) => {
-        const control = this.newPostFormGroup()!.get(key);
+    if (this.newPostFormService.newPostFormGroup()) {
+      Object.keys(this.newPostFormService.newPostFormGroup()!.controls).forEach((key) => {
+        const control = this.newPostFormService.newPostFormGroup()!.get(key);
 
         if (control instanceof FormArray) {
           while (control.length !== 0) {
@@ -281,8 +282,8 @@ export class NewPostComponent implements OnDestroy {
   }
 
   onSubmit() {
-    if (this.newPostFormGroup()?.valid) {
-      const formData = this.newPostFormGroup()?.value;
+    if (this.newPostFormService.newPostFormGroup()?.valid) {
+      const formData = this.newPostFormService.newPostFormGroup()?.value;
 
       console.log(formData);
 
@@ -291,10 +292,10 @@ export class NewPostComponent implements OnDestroy {
           next: (response) => {
             console.log('Post saved successfully', response);
             this.clearFormArrays();
-            this.newPostFormGroup()?.reset();
+            this.newPostFormService.newPostFormGroup()?.reset();
             this.newPostState.isCreatingNewPost = false;
             this.newPostState.resetUI();
-            console.log(this.newPostFormGroup()?.value);
+            console.log(this.newPostFormService.newPostFormGroup()?.value);
 
             this.creatingNewPost.emit();
           },

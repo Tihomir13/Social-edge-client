@@ -6,6 +6,7 @@ import { YesNoModalComponent } from './shared/components/yes-no-modal/yes-no-mod
 import { AuthGuard } from './shared/guards/auth.guard';
 import { MainComponent } from './pages/home/components/main/main.component';
 import { ProfileComponent } from './pages/home/components/profile/profile.component';
+import { FeedComponent } from './pages/home/components/main/components/feed/feed.component';
 
 export const routes: Routes = [
   {
@@ -26,14 +27,10 @@ export const routes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: '', component: MainComponent },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-      },
+      { path: 'feed', component: FeedComponent },
+      { path: 'profile', component: ProfileComponent },
     ],
   },
-
   {
     path: 'modal',
     component: YesNoModalComponent,
