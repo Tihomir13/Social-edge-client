@@ -46,7 +46,7 @@
   .interaction-options-container {
     position: absolute;
     top: 103%;
-    left: 8%;
+    left: 4%;
 
     .options-container {
       padding: 8px;
@@ -55,8 +55,12 @@
       transition: background-color 0.3s ease;
 
       &:hover {
-        background-color: $primary-purple;
+        background-color: $light-purple;
       }
+    }
+
+    .selected {
+      background-color: $primary-purple;
     }
   }
 
@@ -78,4 +82,8 @@
       }
     }
   }
+}
+
+.content {
+  margin-top: 200px;
 }

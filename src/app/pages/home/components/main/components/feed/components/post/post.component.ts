@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 
 import { imagePostModel } from './model/post.model';
 import { PostsRequestsService } from './services/posts-requests.service';
-import { UtilityService } from '../../../../../../../../shared/services/utility/utility.service';
+import { UtilitySessionService } from '../../../../../../../../shared/services/utility/utility.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { GenerateCommentForm } from './helper/comment.form';
 import { CommentModel } from '../../../../../../../../shared/interfaces/post';
@@ -50,7 +50,7 @@ export class PostComponent implements OnInit, OnDestroy {
   commentFormGroup!: FormGroup;
 
   private postRequests = inject(PostsRequestsService);
-  utilityService = inject(UtilityService);
+  utilityService = inject(UtilitySessionService);
   formBuilder = inject(FormBuilder);
 
   ngOnInit(): void {
@@ -136,7 +136,7 @@ export class PostComponent implements OnInit, OnDestroy {
           },
           error: (error) => {
             console.log(error);
-          }
+          },
         })
       );
     }

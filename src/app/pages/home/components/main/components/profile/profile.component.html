@@ -1,4 +1,4 @@
-<div class="profile-container">
+<div class="profile-container mb-4">
   <div class="banner-container">
 
     @if(!bannerImage) {
@@ -23,7 +23,15 @@
   </div>
 
   <div class="interaction-options-container d-flex gap-4">
-    <div class="options-container">
+    <div class="options-container" [class.selected]="isSelectedPosts" (click)="navigateToUserPosts()">
+      <img
+        class="image"
+        src="assets/icons/profile-page/posts.svg"
+        alt="Profile info icon"
+      />
+    </div>
+
+    <div class="options-container" [class.selected]="isSelectedInfo" (click)="navigateToUserInfo()">
       <img
         class="image"
         src="assets/icons/profile-page/profile-info.svg"
@@ -31,7 +39,7 @@
       />
     </div>
 
-    <div class="options-container">
+    <div class="options-container" [class.selected]="isSelectedFriends" (click)="navigateToUserFriends()">
       <img
         class="image"
         src="assets/icons/profile-page/friends.svg"
@@ -39,7 +47,7 @@
       />
     </div>
 
-    <div class="options-container">
+    <div class="options-container" [class.selected]="isSelectedPhotos" (click)="navigateToUserPhotos()">
       <img
         class="image"
         src="assets/icons/profile-page/images.svg"
@@ -51,4 +59,8 @@
   <div class="add-btn-container">
     <button class="btn">Add friend</button>
   </div>
+</div>
+
+<div class="content">
+  <router-outlet></router-outlet>
 </div>

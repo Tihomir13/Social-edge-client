@@ -3,13 +3,13 @@ import { inject, Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { UtilityService } from '../../../../../../../../../shared/services/utility/utility.service';
+import { UtilitySessionService } from '../../../../../../../../../shared/services/utility/utility.service';
 import { api } from '../../../../../../../../../shared/constants/api';
 
 @Injectable()
 export class PostsRequestsService {
   http = inject(HttpClient);
-  utility = inject(UtilityService);
+  utility = inject(UtilitySessionService);
 
   headers = {
     headers: this.utility.headers,
