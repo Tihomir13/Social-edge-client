@@ -72,15 +72,17 @@
     </div>
     }
 
-    <div class="dots-container">
-      @for (image of images(); track $index) {
-      <span
-        class="dot"
-        [class.active]="currentImageIndex === $index"
-        (click)="currentImageIndex = $index"
-      ></span>
-      }
-    </div>
+    @if(images().length > 1) {
+      <div class="dots-container">
+        @for (image of images(); track $index) {
+          <span
+          class="dot"
+          [class.active]="currentImageIndex === $index"
+          (click)="currentImageIndex = $index"
+          ></span>
+        }
+      </div>
+    }
   </div>
   }
 

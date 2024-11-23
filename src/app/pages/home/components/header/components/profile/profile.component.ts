@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +13,8 @@ export class ProfileComponent implements OnInit {
   isArrowRotated = false;
   isImageClickable = false;
 
+  router = inject(Router);
+
   ngOnInit(): void {
     this.checkWindowWidth();
   }
@@ -21,16 +24,20 @@ export class ProfileComponent implements OnInit {
     this.checkWindowWidth();
   }
 
-  checkWindowWidth() {
+  checkWindowWidth(): void {
     const width = window.innerWidth;
     this.isImageClickable = width <= 768;
   }
 
-  toggleArrow() {
+  toggleArrow(): void {
     this.isArrowRotated = !this.isArrowRotated;
   }
 
-  onImageClick() {
+  navToProfilePage(): void {
+    this.router.navigate(['home','profile']);
+  }
+
+  onImageClick(): void {
     if (this.isImageClickable) {
       this.toggleArrow();
     }

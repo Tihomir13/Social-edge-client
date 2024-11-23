@@ -5,7 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { YesNoModalComponent } from './shared/components/yes-no-modal/yes-no-modal.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { MainComponent } from './pages/home/components/main/main.component';
-import { ProfileComponent } from './pages/home/components/profile/profile.component';
+import { ProfileComponent } from './pages/home/components/main/components/profile/profile.component';
 import { FeedComponent } from './pages/home/components/main/components/feed/feed.component';
 
 export const routes: Routes = [

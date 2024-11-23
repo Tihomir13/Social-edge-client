@@ -1,0 +1,81 @@
+@import "../../../../../../../styles.scss";
+
+.profile-container {
+  position: relative;
+  max-width: 1040px;
+  width: 100%;
+  //   border: 1px solid black;
+  margin: 0px auto;
+
+  .banner-container {
+    width: 100%;
+    height: 100%;
+
+    .image {
+      border-radius: 0px 0px $border-radius $border-radius;
+      max-height: 585px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .no-banner-container {
+    height: 585px;
+    border-radius: 0px 0px $border-radius $border-radius;
+    background-color: gray;
+  }
+
+  .profile-image-container {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%); // Изместване по двете оси за центриране
+    z-index: 100;
+
+    width: 300px;
+
+    .image {
+      border-radius: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .interaction-options-container {
+    position: absolute;
+    top: 103%;
+    left: 8%;
+
+    .options-container {
+      padding: 8px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $primary-purple;
+      }
+    }
+  }
+
+  .add-btn-container {
+    position: absolute;
+    top: 103%;
+    right: 10%;
+    right: calc((1040px - 300px) / 8);
+
+    .btn {
+      max-width: 228px;
+      width: 200px;
+      background-color: $dark-purple;
+      transition: background-color 0.3s ease;
+      color: white;
+
+      &:hover {
+        background-color: $primary-purple;
+      }
+    }
+  }
+}
