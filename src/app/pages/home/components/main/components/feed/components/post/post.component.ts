@@ -10,14 +10,17 @@ import { SlicePipe } from '@angular/common';
 
 import { Subscription } from 'rxjs';
 
-import { ImageModel } from './model/images.model';
+import { imagePostModel } from './model/post.model';
 import { PostsRequestsService } from './services/posts-requests.service';
-import { UtilityService } from '../../../../../../../../shared/services/utility/utility.service';
+import { UtilitySessionService } from '../../../../../../../../shared/services/utility/utility.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { GenerateCommentForm } from './helper/comment.form';
+import { CommentModel } from '../../../../../../../../shared/interfaces/post';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [SlicePipe],
+  imports: [SlicePipe, ReactiveFormsModule],
   templateUrl: './post.component.html',
   styleUrl: './post.component.scss',
   providers: [],
@@ -37,16 +40,26 @@ export class PostComponent implements OnInit, OnDestroy {
   text = input<string>('');
   tags = input<string[]>([]);
   likes = input<string[]>([]);
-  images = input<ImageModel[]>([]);
+  images = input<imagePostModel[]>([]);
+  comments = input<CommentModel[]>([]);
 
   currentImageIndex = 0;
 
+  comment: string = '';
+
+  commentFormGroup!: FormGroup;
+
   private postRequests = inject(PostsRequestsService);
-  utilityService = inject(UtilityService);
+  utilityService = inject(UtilitySessionService);
+  formBuilder = inject(FormBuilder);
 
   ngOnInit(): void {
     this.localLikes = [...this.likes()];
     this.currLikes.set(this.localLikes.length);
+
+    this.commentFormGroup = new GenerateCommentForm(
+      this.formBuilder
+    ).generateCommentPost();
   }
 
   nextImage(): void {
@@ -94,7 +107,7 @@ export class PostComponent implements OnInit, OnDestroy {
     }
   }
 
-  postLikeDislike() {
+  postLikeDislike(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.subscriptions.add(
         this.postRequests.likePost(this.postId()).subscribe({
@@ -110,6 +123,23 @@ export class PostComponent implements OnInit, OnDestroy {
         })
       );
     });
+  }
+
+  onComment() {
+    const comment = this.commentFormGroup.value.comment;
+
+    if (this.commentFormGroup.valid) {
+      this.subscriptions.add(
+        this.postRequests.commentPost(comment, this.postId()).subscribe({
+          next: (response) => {
+            console.log(response);
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        })
+      );
+    }
   }
 
   ngOnDestroy(): void {

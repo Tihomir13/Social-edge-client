@@ -4,12 +4,12 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { api } from '../../../../../../../../../shared/constants/api';
-import { UtilityService } from '../../../../../../../../../shared/services/utility/utility.service';
+import { UtilitySessionService } from '../../../../../../../../../shared/services/utility/utility.service';
 
 @Injectable()
 export class NewPostRequestsService {
   http = inject(HttpClient);
-  utility = inject(UtilityService);
+  utility = inject(UtilitySessionService);
 
   savePost(newPost: any): Observable<Object> {
     const formData = new FormData();

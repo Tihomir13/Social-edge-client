@@ -1,0 +1,15 @@
+<div class="user-posts-container">
+  
+    @for (post of posts(); track $index) {
+    <app-post
+      [images]="post.images"
+      [likes]="post.likes"
+      [title]="post.title"
+      [text]="post.text"
+      [username]="post.author.username"
+      [tags]="post.tags"
+      [postId]="post._id"
+      [comments]="post.comments"
+    />
+    }
+  </div>
