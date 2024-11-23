@@ -205,14 +205,38 @@
         }
       }
 
-      .form-control {
-        width: 100%;
-        border-radius: 25px;
-        height: 45px;
+      .my-comment {
+        position: relative;
+        justify-content: center;
+        align-items: center;
 
-        &:focus {
-          outline: none;
-          box-shadow: none;
+        width: 100%;
+
+        .form-control {
+          width: 100%;
+          border-radius: 25px;
+          height: 45px;
+
+          &:focus {
+            outline: none;
+            box-shadow: none;
+          }
+        }
+
+        .post-btn {
+          position: absolute;
+          right: 22px;
+          border: none;
+          background-color: transparent;
+
+          color: $primary-purple;
+          cursor: pointer;
+          font-weight: bold;
+          display: inline-block;
+
+          &:hover {
+            opacity: 0.8;
+          }
         }
       }
     }

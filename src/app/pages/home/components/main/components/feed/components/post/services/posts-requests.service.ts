@@ -19,11 +19,20 @@ export class PostsRequestsService {
     return this.http.get(`${api}/posts`, this.headers);
   }
 
-  likePost(id: string): Observable<any> {
+  likePost(postId: string): Observable<any> {
     const body = {
-      id,
+      id: postId,
     };
 
     return this.http.patch(`${api}/posts/like`, body, this.headers);
+  }
+
+  commentPost(comment: string, postId: string): Observable<any> {
+    const body = {
+      postId,
+      comment,
+    };
+
+    return this.http.patch(`${api}/posts/comment`, body, this.headers);
   }
 }

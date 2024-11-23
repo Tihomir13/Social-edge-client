@@ -1,14 +1,10 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
 
 import { Subscription } from 'rxjs';
 
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { PostComponent } from './components/post/post.component';
 import { PostsRequestsService } from './components/post/services/posts-requests.service';
-import { GenerateNewPostForm } from './components/new-post/helpers/form-factory/new-post-form';
-import { ModalService } from '../../../shared/services/modal.service';
-import { NewPostStateService } from './components/new-post/services/new-post-state.service';
 
 @Component({
   selector: 'app-feed',

@@ -70,18 +70,16 @@
         style="transform: rotate(90deg)"
       />
     </div>
-    }
-
-    @if(images().length > 1) {
-      <div class="dots-container">
-        @for (image of images(); track $index) {
-          <span
-          class="dot"
-          [class.active]="currentImageIndex === $index"
-          (click)="currentImageIndex = $index"
-          ></span>
-        }
-      </div>
+    } @if(images().length > 1) {
+    <div class="dots-container">
+      @for (image of images(); track $index) {
+      <span
+        class="dot"
+        [class.active]="currentImageIndex === $index"
+        (click)="currentImageIndex = $index"
+      ></span>
+      }
+    </div>
     }
   </div>
   }
@@ -123,13 +121,32 @@
       <div class="d-flex gap-10px">
         <span class="fw-bold">{{ currLikes() }} likes</span>
       </div>
+
+      <div>{{ comments().length }} comments</div>
     </div>
 
     <div class="add-comment-container d-flex gap-10px">
       <div class="profile-icon-container">
         <img class="icon" src="assets/images/image.png" alt="" />
       </div>
-      <input class="form-control" type="text" placeholder="Add a comment..." />
+
+      <form
+        class="my-comment d-flex"
+        [formGroup]="commentFormGroup"
+        (ngSubmit)="onComment()"
+      >
+        <input
+          class="form-control"
+          #comment
+          type="text"
+          placeholder="Add a comment..."
+          formControlName="comment"
+        />
+
+        @if(comment.value.trim() !== '') {
+        <button class="post-btn" type="submit">Post</button>
+        }
+      </form>
     </div>
 
     @if(isCommentsClicked) {
