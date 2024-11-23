@@ -31,7 +31,6 @@ export class FeedComponent implements OnInit {
     this.subscriptions.add(
       this.postRequests.getPosts().subscribe({
         next: (response: any) => {
-          console.log(response);
           console.log(response.posts);
 
           this.posts.set(response.posts);

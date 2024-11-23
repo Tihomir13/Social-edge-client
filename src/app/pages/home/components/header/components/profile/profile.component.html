@@ -2,9 +2,9 @@
     <img class="profile-image" src="./assets/images/image.png" alt="profile image" (click)="onImageClick()">
 
     <div class="d-none d-md-flex flex-column">
-        <p class="email mb-0">email</p>
+        <p class="email mb-0">{{email}}</p>
 
-        <p class="username mb-0">username</p>
+        <p class="username mb-0">{{username}}</p>
     </div>
 
     <img class="d-none d-md-block arrow-img" src="./assets/icons/arrow-up.svg" alt="arrow up" [ngClass]="{'rotated': isArrowRotated}"
