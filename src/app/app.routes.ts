@@ -31,7 +31,9 @@ export const routes: Routes = [
     component: HomeComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'feed', component: FeedComponent },
+      { path: 'feed', component: FeedComponent, children: [
+        { path: ':postId', component: UserPostsComponent },
+      ] },
       {
         path: 'profile/:username',
         component: ProfileComponent,
