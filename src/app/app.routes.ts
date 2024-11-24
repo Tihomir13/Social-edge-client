@@ -8,6 +8,9 @@ import { MainComponent } from './pages/home/components/main/main.component';
 import { ProfileComponent } from './pages/home/components/main/components/profile/profile.component';
 import { FeedComponent } from './pages/home/components/main/components/feed/feed.component';
 import { UserPostsComponent } from './pages/home/components/main/components/profile/components/user-posts/user-posts.component';
+import { UserInformationComponent } from './pages/home/components/main/components/profile/components/user-information/user-information.component';
+import { UserFriendsComponent } from './pages/home/components/main/components/profile/components/user-friends/user-friends.component';
+import { UserPhotosComponent } from './pages/home/components/main/components/profile/components/user-photos/user-photos.component';
 
 export const routes: Routes = [
   {
@@ -34,6 +37,9 @@ export const routes: Routes = [
         component: ProfileComponent,
         children: [
           { path: 'posts', component: UserPostsComponent },
+          { path: 'information', component: UserInformationComponent },
+          { path: 'friends', component: UserFriendsComponent },
+          { path: 'photos', component: UserPhotosComponent },
         ],
       },
     ],
