@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { LoginFormComponent } from './login-form/login-form.component';
 import { Router, RouterModule } from '@angular/router';
+
+import { LoginFormComponent } from './login-form/login-form.component';
 import { GoogleBtnComponent } from '../../../../shared/components/google-btn/google-btn.component';
 
 @Component({

@@ -23,12 +23,12 @@ import { statuses } from '../../../../../../../../shared/constants/arrays';
 import { maxImageSize } from '../../../../../../../../shared/constants/settings';
 
 import * as nsfwjs from 'nsfwjs';
-import { ModalService } from '../../../../../shared/services/modal.service';
+import { ModalService } from '../../../../../../shared/services/modal.service';
 import { NewPostStateService } from './services/new-post-state.service';
 import { NewPostRequestsService } from './services/new-post-requests.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { NewPostFormServiceService } from '../../../../../shared/services/new-post-form-service.service';
+import { NewPostFormServiceService } from '../../../../../../shared/services/new-post-form-service.service';
 
 @Component({
   selector: 'app-new-post',

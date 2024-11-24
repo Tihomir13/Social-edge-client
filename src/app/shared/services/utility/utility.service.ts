@@ -21,4 +21,8 @@ export class UtilitySessionService {
       return null;
     }
   }
+
+  setToken(newToken: any) {
+    sessionStorage.setItem('token', newToken);
+  }
 }
