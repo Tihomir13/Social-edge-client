@@ -1,6 +1,6 @@
-import { Component, inject, input, OnInit, signal } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterOutlet } from '@angular/router';
 
 import { FriendListComponent } from './components/friend-list/friend-list.component';
 import { SuggestedProfilesComponent } from './components/suggested-profiles/suggested-profiles.component';
@@ -9,7 +9,6 @@ import { MainStateService } from './shared/main-state.service';
 import { ChatComponent } from './components/chat/chat.component';
 import { PostsStateService } from './components/feed/components/post/services/posts-state.service';
 import { PostsRequestsService } from './components/feed/components/post/services/posts-requests.service';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-main',
