@@ -49,7 +49,8 @@ export class ProfileComponent implements OnInit {
 
   onImageClick(): void {
     if (this.isImageClickable) {
-      this.toggleArrow();
+      this.navToProfilePage()
     }
+    
   }
 }

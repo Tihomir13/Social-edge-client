@@ -22,6 +22,10 @@ export class ProfileRequestsService {
 
     console.log(username);
     
+    return this.http.get(`${api}/profiles/${username}/posts`, this.headers);
+  }
+
+  getInitialUserData(username: string): Observable<any> {
     return this.http.get(`${api}/profiles/${username}`, this.headers);
   }
 }

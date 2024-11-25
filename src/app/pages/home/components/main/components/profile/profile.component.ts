@@ -1,35 +1,62 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 
 import { UtilitySessionService } from '../../../../../../shared/services/utility/utility.service';
+import { ProfileRequestsService } from './services/profile-requests.service';
+import { Subscription } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HttpClientModule],
+  providers: [ProfileRequestsService],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   fullName = '';
   userInfo: any;
   username: string | null = '';
+
+  profileImage = '';
+  bannerImage = '';
 
   isSelectedPosts = false;
   isSelectedInfo = false;
   isSelectedFriends = false;
   isSelectedPhotos = false;
 
-  bannerImage =
-    'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.wsha.org%2Fwp-content%2Fuploads%2Fbanner-diverse-group-of-people-2.jpg&f=1&nofb=1&ipt=38717e8493bd9dc35c26e2911f1c37ef1bdaa1c32c3ad7ba7c196dee4a27ec0b&ipo=images';
+  subscriptions = new Subscription();
+
+  defaultProfileImg = 'assets/images/default-images/profile-image.png';
+  defaultBannerImg = 'assets/images/default-images/banner-image.png';
 
   utilitySession = inject(UtilitySessionService);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  profileRequestService = inject(ProfileRequestsService);
 
   ngOnInit(): void {
     this.userInfo = this.utilitySession.userInfo;
     this.username = this.route.snapshot.paramMap.get('username');
+
+    if (!this.username) {
+      return;
+    }
+    this.subscriptions.add(
+      this.profileRequestService.getInitialUserData(this.username).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.isUserHasProfileImage(response.userData.profileImage.data);
+          this.isUserHasBannerImage(response.userData.bannerImage.data);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      })
+    );
+
     this.navigateToUserPosts();
 
     // this.fullName = `${this.userInfo.name.firstName} ${this.userInfo.name.lastName}`;
@@ -76,5 +103,25 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['home', 'profile', this.username, 'photos']);
     this.resetSelections();
     this.isSelectedPhotos = true;
+  }
+
+  isUserHasBannerImage(bannerImage: string): void {
+    if (bannerImage === '') {
+      this.bannerImage = this.defaultBannerImg;
+    } else {
+      this.bannerImage = bannerImage;
+    }
+  }
+
+  isUserHasProfileImage(profileImage: string): void {
+    if (profileImage === '') {
+      this.profileImage = this.defaultProfileImg;
+    } else {
+      this.profileImage = profileImage;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
