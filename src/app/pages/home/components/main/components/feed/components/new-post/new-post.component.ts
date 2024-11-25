@@ -3,7 +3,6 @@ import {
   Component,
   ElementRef,
   inject,
-  input,
   OnDestroy,
   output,
   Renderer2,
@@ -13,21 +12,20 @@ import { NgClass, NgStyle } from '@angular/common';
 import {
   FormArray,
   FormBuilder,
-  FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
+import { Subscription } from 'rxjs';
+
+import * as nsfwjs from 'nsfwjs';
 import { UtilityService } from '../../../../../../../../shared/services/utility/array-utility.service';
 import { StatusPickerComponent } from './status-picker/status-picker.component';
 import { statuses } from '../../../../../../../../shared/constants/arrays'; 
 import { maxImageSize } from '../../../../../../../../shared/constants/settings';
-
-import * as nsfwjs from 'nsfwjs';
 import { ModalService } from '../../../../../../shared/services/modal.service';
 import { NewPostStateService } from './services/new-post-state.service';
 import { NewPostRequestsService } from './services/new-post-requests.service';
-import { HttpClientModule } from '@angular/common/http';
-import { Subscription } from 'rxjs';
 import { NewPostFormServiceService } from '../../../../../../shared/services/new-post-form-service.service';
 
 @Component({
@@ -167,12 +165,12 @@ export class NewPostComponent implements OnDestroy {
         const image = new Image();
         image.src = reader.result as string;
         image.onload = async () => {
-          const model = await nsfwjs.load();
+          const model = await nsfwjs.load("InceptionV3");
           const predictions = await model.classify(image);
           const nsfwResult = predictions.find(
             (p) => p.className === 'Porn' || p.className === 'Hentai'
           );
-          resolve(!(nsfwResult && nsfwResult.probability > 0.05));
+          resolve(!(nsfwResult && nsfwResult.probability > 0.3));
         };
       };
       reader.readAsDataURL(file);
