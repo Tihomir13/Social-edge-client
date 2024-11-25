@@ -10,11 +10,13 @@
   }
 
   .container-content {
-    background-color: rgb(246, 219, 255);
+    background-color: $light-plus-purple;
     height: 90px;
     padding: 5px 20px 5px 20px;
 
     .logo-container {
+      cursor: pointer;
+      
       .logo {
         width: 80px;
       }
@@ -27,7 +29,7 @@
 
     .icons-container {
       margin-right: 20px;
-      
+
       .icon {
         width: 50px;
         cursor: pointer;

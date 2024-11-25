@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class UtilityService {
+export class UtilitySessionService {
   get headers():
     | {
         Authorization: string;
@@ -20,5 +20,9 @@ export class UtilityService {
     } else {
       return null;
     }
+  }
+
+  setToken(newToken: any) {
+    sessionStorage.setItem('token', newToken);
   }
 }

@@ -4,6 +4,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { YesNoModalComponent } from './shared/components/yes-no-modal/yes-no-modal.component';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { MainComponent } from './pages/home/components/main/main.component';
+import { ProfileComponent } from './pages/home/components/main/components/profile/profile.component';
+import { FeedComponent } from './pages/home/components/main/components/feed/feed.component';
+import { UserPostsComponent } from './pages/home/components/main/components/profile/components/user-posts/user-posts.component';
+import { UserInformationComponent } from './pages/home/components/main/components/profile/components/user-information/user-information.component';
+import { UserFriendsComponent } from './pages/home/components/main/components/profile/components/user-friends/user-friends.component';
+import { UserPhotosComponent } from './pages/home/components/main/components/profile/components/user-photos/user-photos.component';
 
 export const routes: Routes = [
   {
@@ -23,8 +30,22 @@ export const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [AuthGuard],
+    children: [
+      { path: 'feed', component: FeedComponent, children: [
+        { path: ':postId', component: UserPostsComponent },
+      ] },
+      {
+        path: 'profile/:username',
+        component: ProfileComponent,
+        children: [
+          { path: 'posts', component: UserPostsComponent },
+          { path: 'information', component: UserInformationComponent },
+          { path: 'friends', component: UserFriendsComponent },
+          { path: 'photos', component: UserPhotosComponent },
+        ],
+      },
+    ],
   },
-
   {
     path: 'modal',
     component: YesNoModalComponent,

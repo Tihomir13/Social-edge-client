@@ -6,9 +6,7 @@
     display: flex;
 
     .general {
-      max-width: 640px;
       width: 100%;
-      margin: 50px auto;
     }
 
     .left,
@@ -39,7 +37,7 @@
   }
 }
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1800px) {
   .container-fluid {
     .content {
       .left {
@@ -47,9 +45,7 @@
       }
 
       .right {
-        .friend-list {
-          display: none;
-        }
+        display: none;
       }
     }
   }

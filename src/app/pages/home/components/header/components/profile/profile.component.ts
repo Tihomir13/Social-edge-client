@@ -1,5 +1,7 @@
 import { NgClass } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UtilitySessionService } from '../../../../../../shared/services/utility/utility.service';
 
 @Component({
   selector: 'app-profile',
@@ -12,8 +14,19 @@ export class ProfileComponent implements OnInit {
   isArrowRotated = false;
   isImageClickable = false;
 
+  email = '';
+  username = '';
+
+  router = inject(Router);
+  utilitySession = inject(UtilitySessionService);
+
   ngOnInit(): void {
     this.checkWindowWidth();
+
+    const userInfo = this.utilitySession.userInfo;
+
+    this.email = userInfo.email;
+    this.username = userInfo.username;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -21,18 +34,23 @@ export class ProfileComponent implements OnInit {
     this.checkWindowWidth();
   }
 
-  checkWindowWidth() {
+  checkWindowWidth(): void {
     const width = window.innerWidth;
     this.isImageClickable = width <= 768;
   }
 
-  toggleArrow() {
+  toggleArrow(): void {
     this.isArrowRotated = !this.isArrowRotated;
   }
 
-  onImageClick() {
+  navToProfilePage(): void {
+    this.router.navigate(['home', 'profile', this.username]);
+  }
+
+  onImageClick(): void {
     if (this.isImageClickable) {
-      this.toggleArrow();
+      this.navToProfilePage()
     }
+    
   }
 }

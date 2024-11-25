@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 import { LoginRequestsService } from '../../../services/login-requests.service';
@@ -21,6 +21,9 @@ export class LoginFormComponent implements OnInit {
   reqService = inject(LoginRequestsService);
   router = inject(Router);
 
+  isErrorMsgShowed = false;
+  errorMsg: string = '';
+
   ngOnInit(): void {
     this.loginForm = this.formService.createLoginForm();
   }
@@ -34,10 +37,14 @@ export class LoginFormComponent implements OnInit {
           console.log('User logged successfully', response);
           sessionStorage.setItem('token', response.token);
           sessionStorage.setItem('userInfo', JSON.stringify(response.userInfo));
-          this.router.navigate(['home']);
+
+          this.router.navigate(['home', 'feed']);
+          this.isErrorMsgShowed = false;
         },
         error: (error) => {
           console.error('Login failed', error);
+          this.isErrorMsgShowed = true;
+          this.errorMsg = error.error.message;
         },
       });
     }

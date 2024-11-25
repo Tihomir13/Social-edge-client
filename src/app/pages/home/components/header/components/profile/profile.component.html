@@ -1,12 +1,22 @@
-<div class="profile-container d-flex align-items-center">
-    <img class="profile-image" src="./assets/images/image.png" alt="profile image" (click)="onImageClick()">
+<div
+  class="profile-container d-flex align-items-center"
+>
+  <img
+    class="profile-image"
+    src="./assets/images/image.png"
+    alt="profile image"
+    (click)="navToProfilePage()"
+  />
 
-    <div class="d-none d-md-flex flex-column">
-        <p class="email mb-0">email</p>
+  <div class="d-none d-md-flex flex-column">
+    <p class="username mb-0">{{ username }}</p>
+  </div>
 
-        <p class="username mb-0">username</p>
-    </div>
-
-    <img class="d-none d-md-block arrow-img" src="./assets/icons/arrow-up.svg" alt="arrow up" [ngClass]="{'rotated': isArrowRotated}"
-        (click)="toggleArrow()">
+  <img
+    class="d-none d-md-block arrow-img"
+    src="./assets/icons/arrow-up.svg"
+    alt="arrow up"
+    [class.rotated]="isArrowRotated"
+    (click)="toggleArrow()"
+  />
 </div>

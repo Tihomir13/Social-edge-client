@@ -1,0 +1,78 @@
+<div class="profile-container mb-4">
+  <div class="banner-container">
+    <img class="image" [src]="bannerImage" alt="Banner image" />
+  </div>
+
+  <div
+    class="profile-options-container row flex-md-row flex-column align-items-center m-auto"
+  >
+    <div
+      class="interaction-options-container col-md-4 col-12 order-md-1 order-3 d-flex justify-content-center"
+    >
+      <div
+        class="options-container"
+        [class.selected]="isSelectedPosts"
+        (click)="navigateToUserPosts()"
+      >
+        <img
+          class="image"
+          src="assets/icons/profile-page/posts.svg"
+          alt="Profile info icon"
+        />
+      </div>
+      <div
+        class="options-container"
+        [class.selected]="isSelectedInfo"
+        (click)="navigateToUserInfo()"
+      >
+        <img
+          class="image"
+          src="assets/icons/profile-page/profile-info.svg"
+          alt="Profile info icon"
+        />
+      </div>
+      <div
+        class="options-container"
+        [class.selected]="isSelectedFriends"
+        (click)="navigateToUserFriends()"
+      >
+        <img
+          class="image"
+          src="assets/icons/profile-page/friends.svg"
+          alt="Friends icon"
+        />
+      </div>
+      <div
+        class="options-container"
+        [class.selected]="isSelectedPhotos"
+        (click)="navigateToUserPhotos()"
+      >
+        <img
+          class="image"
+          src="assets/icons/profile-page/images.svg"
+          alt="Images icon"
+        />
+      </div>
+    </div>
+
+    <div
+      class="image-container col-md-4 col-12 order-md-2 order-1 d-flex justify-content-center"
+    >
+      <img
+        class="image"
+        [src]="profileImage"
+        alt="Profile icon"
+      />
+    </div>
+
+    <div
+      class="add-btn-container col-md-4 col-12 order-md-3 order-2 d-flex justify-content-center"
+    >
+      <button class="btn">Add friend</button>
+    </div>
+  </div>
+</div>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

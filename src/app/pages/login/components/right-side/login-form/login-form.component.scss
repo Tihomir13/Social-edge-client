@@ -13,6 +13,12 @@
     }
   }
 
+  .error-message {
+    border-radius: $border-radius;
+    color: white;
+    padding: 11px;
+  }
+
   .identifier {
     margin-bottom: 25px;
   }
