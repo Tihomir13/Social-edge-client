@@ -48,6 +48,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.profileRequestService.getInitialUserData(this.username).subscribe({
         next: (response) => {
           console.log(response);
+          this.fullName = `${response.userData.name.firstName} ${response.userData.name.lastName}`
           this.isUserHasProfileImage(response.userData.profileImage.data);
           this.isUserHasBannerImage(response.userData.bannerImage.data);
         },

@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="modal-container px-0">
+      <h4 class="title-container m-0">
+        {{ title }}
+      </h4>
+      @for (option of options; track $index) {
+      <div
+        class="option-container fs-5"
+        [ngStyle]="{ color: option.optionColor }"
+        (click)="onChosenOption(option.optionName)"
+      >
+        {{ option.optionName }}
+      </div>
+      }
+    </div>
+  </div>
+</div>
