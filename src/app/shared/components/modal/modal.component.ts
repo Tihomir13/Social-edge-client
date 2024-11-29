@@ -9,11 +9,10 @@ import { Component, input, output } from '@angular/core';
   styleUrl: './modal.component.scss',
 })
 export class ModalComponent {
-  // title? = input();
+  title = input('Title');
   // options = input<{ optionName: string; optionColor: string }[]>([]);
   clickedOption = output<string>();
 
-  title = 'Title';
   options: { optionName: string; optionColor: string }[] = [
     {
       optionName: 'Upload Photo',

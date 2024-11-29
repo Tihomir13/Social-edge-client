@@ -1,10 +1,11 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
+import { Subscription } from 'rxjs';
 
 import { UtilitySessionService } from '../../../../../../shared/services/utility/utility.service';
 import { ProfileRequestsService } from './services/profile-requests.service';
-import { Subscription } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-profile',
@@ -18,6 +19,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   fullName = '';
   userInfo: any;
   username: string | null = '';
+  isProfileOwner: boolean = false;
 
   profileImage = '';
   bannerImage = '';
@@ -47,10 +49,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.profileRequestService.getInitialUserData(this.username).subscribe({
         next: (response) => {
+          this.fullName = `${response.data.userData.name.firstName} ${response.data.userData.name.lastName}`;
+          this.username = response.data.userData.username;
+          this.isProfileOwner = response.data.isProfileOwner;
           console.log(response);
-          this.fullName = `${response.userData.name.firstName} ${response.userData.name.lastName}`
-          this.isUserHasProfileImage(response.userData.profileImage.data);
-          this.isUserHasBannerImage(response.userData.bannerImage.data);
+
+          this.isUserHasProfileImage(response.data.userData.profileImage.data);
+          this.isUserHasBannerImage(response.data.userData.bannerImage.data);
         },
         error: (error) => {
           console.log(error);

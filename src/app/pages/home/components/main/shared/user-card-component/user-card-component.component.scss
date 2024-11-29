@@ -16,4 +16,13 @@
     aspect-ratio: 1/1;
     border-radius: 50%;
   }
+
+  .online-status-icon {
+    padding: 5px;
+    position: absolute;
+    right: 0px;
+    top: 33px;
+    border-radius: 50%;
+    border: 2px solid $primary-background;
+  }
 }

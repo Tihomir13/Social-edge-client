@@ -9,4 +9,5 @@ import { Component, input } from '@angular/core';
 })
 export class UserCardComponentComponent {
   username = input<string>();
+  isOnline = input<boolean>(false);
 }

@@ -4,7 +4,7 @@
     (creatingNewPost)="onNewPost()"
   />
 
-  @for (post of posts(); track $index) {
+  @for (post of this.state.posts(); track $index) {
   <app-post
     [images]="post.images"
     [likes]="post.likes"

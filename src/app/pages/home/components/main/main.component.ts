@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { FriendListComponent } from './components/friend-list/friend-list.component';
 import { SuggestedProfilesComponent } from './components/suggested-profiles/suggested-profiles.component';
 import { ChatHeadsComponent } from './components/chat-heads/chat-heads.component';
-import { MainStateService } from './shared/main-state.service';
+import { MainStateService } from './shared/services/main-state.service';
 import { ChatComponent } from './components/chat/chat.component';
 import { PostsStateService } from './components/feed/components/post/services/posts-state.service';
 import { PostsRequestsService } from './components/feed/components/post/services/posts-requests.service';
@@ -19,7 +19,7 @@ import { PostsRequestsService } from './components/feed/components/post/services
     ChatHeadsComponent,
     ChatComponent,
     HttpClientModule,
-    RouterOutlet
+    RouterOutlet,
   ],
   providers: [PostsStateService, PostsRequestsService],
   templateUrl: './main.component.html',
@@ -36,16 +36,18 @@ export class MainComponent implements OnInit {
   }
 
   onCloseChatHead(chatHeadIndex: number): void {
-    this.state.currentChatHeads = this.state.currentChatHeads.filter(
-      (_, index) => index !== chatHeadIndex
+    this.state.currentChatHeads.set(
+      this.state
+        .currentChatHeads()
+        .filter((_, index) => index !== chatHeadIndex)
     );
   }
 
   onProfileClick(chatHeadIndex: number): void {
-    this.state.isChatActive = true;
+    this.state.setChat(false);
   }
 
   onUserProfileClick(user: any): void {
-    this.state.isChatActive = true;
+    this.state.setChat(true);
   }
 }
