@@ -3,18 +3,21 @@
     [alt]="'Location'"
     [imgSrc]="'assets/icons/profile-page/user-information/location.svg'"
     [userInfo]="userInfo.currLocation"
+    (newInfo)="onNewInfo($event)"
   />
 
-  <app-info-card-arr
+  <app-info-card
     [alt]="'Graduation'"
     [imgSrc]="'assets/icons/profile-page/user-information/graduated.svg'"
     [userInfo]="userInfo.studied"
+    (newInfo)="onNewInfo($event)"
   />
 
-  <app-info-card-arr
+  <app-info-card
     [alt]="'Job'"
     [imgSrc]="'assets/icons/profile-page/user-information/job.svg'"
     [userInfo]="userInfo.worksIn"
+    (newInfo)="onNewInfo($event)"
   />
 
   <app-info-card

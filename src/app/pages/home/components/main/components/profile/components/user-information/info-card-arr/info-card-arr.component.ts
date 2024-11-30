@@ -6,7 +6,7 @@ import { ShortenMonthPipe } from '../../../../../../../../../shared/pipes/shorte
 @Component({
   selector: 'app-info-card-arr',
   standalone: true,
-  imports: [ShortenMonthPipe],
+  // imports: [ShortenMonthPipe],
   templateUrl: './info-card-arr.component.html',
   styleUrl: './info-card-arr.component.scss',
 })

@@ -4,17 +4,26 @@ img {
   width: 35px;
 }
 
-.text {
-  padding-left: 5px;
-  font-size: larger;
-}
+.form {
+  .form-control {
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+  }
 
-.edit {
-  color: $primary-purple;
-  cursor: pointer;
-}
+  .text {
+    padding-left: 5px;
+    font-size: larger;
+  }
 
-.add {
-  color: green;
-  cursor: pointer;
+  .edit {
+    color: $primary-purple;
+    cursor: pointer;
+  }
+
+  .add {
+    color: green;
+    cursor: pointer;
+  }
 }

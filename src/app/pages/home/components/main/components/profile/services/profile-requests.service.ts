@@ -28,4 +28,8 @@ export class ProfileRequestsService {
   getUserInfo(username: string): Observable<any> {
     return this.http.get(`${api}/profiles/${username}/info`, this.headers);
   }
+
+  addUserInfo(username: string | null, body: any): Observable<any> {
+    return this.http.post(`${api}/profiles/${username}/info`, body, this.headers);
+  }
 }

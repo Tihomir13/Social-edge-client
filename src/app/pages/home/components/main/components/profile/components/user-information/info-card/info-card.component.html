@@ -1,21 +1,41 @@
-<div class="d-flex justify-content-between align-items-center py-2">
-  <div class="d-flex align-items-center">
+<form class="form d-flex justify-content-between align-items-center py-2" 
+  [class.flex-column]="isUserAdding"
+  [formGroup]="userInfoFormGroup"
+  (ngSubmit)="onSave()">
+  <div class="d-flex align-items-center gap-2 w-100">
     <img [src]="imgSrc()" [alt]="alt()" />
 
     @if(userInfo() != null && state.isProfileOwner()) {
       <span class="text">
         {{ userInfo() }}
       </span>
-    } 
-    @if(userInfo() == null && state.isProfileOwner()) {
+    }
+
+    @if(userInfo() == null && state.isProfileOwner() && !isUserAdding) {
       <span class="text"> No added {{ alt() }} </span>
     }
+
+    @if(userInfo() == null && state.isProfileOwner() && isUserAdding) {
+      <input #input class="form-control" formControlName="info" type="text">
+    }
   </div>
+
+  @if(userInfo() == null && state.isProfileOwner() && isUserAdding) {
+    <div class="d-flex gap-2">
+      <div>
+        <button class="btn" type="button" (click)="onCancel()">cancel</button>
+      </div>
+
+      <div>
+        <button class="btn" type="submit">save</button>
+      </div>
+    </div>
+  }
 
   @if(userInfo() != null && state.isProfileOwner()) {
     <span class="edit"> Edit </span>
   } 
-  @if(userInfo() == null && state.isProfileOwner()) {
-    <span class="add"> Add </span>
+  @if(userInfo() == null && state.isProfileOwner() && !isUserAdding) {
+    <span class="add" (click)="onAdd()"> Add </span>
   }
-</div>
+</form>
