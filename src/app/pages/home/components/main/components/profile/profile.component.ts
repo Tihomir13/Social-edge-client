@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 
 import { UtilitySessionService } from '../../../../../../shared/services/utility/utility.service';
 import { ProfileRequestsService } from './services/profile-requests.service';
+import { ProfileStateService } from './services/profile-state.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,7 +20,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   fullName = '';
   userInfo: any;
   username: string | null = '';
-  isProfileOwner: boolean = false;
 
   profileImage = '';
   bannerImage = '';
@@ -35,9 +35,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   defaultBannerImg = 'assets/images/default-images/banner-image.png';
 
   utilitySession = inject(UtilitySessionService);
-  route = inject(ActivatedRoute);
-  router = inject(Router);
-  profileRequestService = inject(ProfileRequestsService);
+  state = inject(ProfileStateService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private profileRequestService = inject(ProfileRequestsService);
 
   ngOnInit(): void {
     this.userInfo = this.utilitySession.userInfo;
@@ -51,8 +52,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         next: (response) => {
           this.fullName = `${response.data.userData.name.firstName} ${response.data.userData.name.lastName}`;
           this.username = response.data.userData.username;
-          this.isProfileOwner = response.data.isProfileOwner;
-          console.log(response);
+          this.state.setIsProfileOwner(response.data.isProfileOwner);
 
           this.isUserHasProfileImage(response.data.userData.profileImage.data);
           this.isUserHasBannerImage(response.data.userData.bannerImage.data);
@@ -63,7 +63,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.navigateToUserPosts();
+    this.navigateToUserInfo();
 
     // this.fullName = `${this.userInfo.name.firstName} ${this.userInfo.name.lastName}`;
   }

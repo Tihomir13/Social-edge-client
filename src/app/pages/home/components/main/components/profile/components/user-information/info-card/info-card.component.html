@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-between align-items-center py-2">
+  <div class="d-flex align-items-center">
+    <img [src]="imgSrc()" [alt]="alt()" />
+
+    @if(userInfo() != null && state.isProfileOwner()) {
+      <span class="text">
+        {{ userInfo() }}
+      </span>
+    } 
+    @if(userInfo() == null && state.isProfileOwner()) {
+      <span class="text"> No added {{ alt() }} </span>
+    }
+  </div>
+
+  @if(userInfo() != null && state.isProfileOwner()) {
+    <span class="edit"> Edit </span>
+  } 
+  @if(userInfo() == null && state.isProfileOwner()) {
+    <span class="add"> Add </span>
+  }
+</div>
