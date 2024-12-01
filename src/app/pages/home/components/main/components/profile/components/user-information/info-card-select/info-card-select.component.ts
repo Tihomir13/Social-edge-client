@@ -1,27 +1,18 @@
-import {
-  Component,
-  ElementRef,
-  HostListener,
-  inject,
-  input,
-  OnInit,
-  output,
-  ViewChild,
-} from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-
+import { ChangeDetectorRef, Component, ElementRef, HostListener, inject, input, output, ViewChild } from '@angular/core';
 import { ProfileStateService } from '../../../services/profile-state.service';
-import { UserInfoFormService } from './user-info-form.service';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { UserInfoFormService } from '../info-card/user-info-form.service';
 
 @Component({
-  selector: 'app-info-card',
+  selector: 'app-info-card-select',
   standalone: true,
   imports: [ReactiveFormsModule],
-  templateUrl: './info-card.component.html',
-  styleUrl: './info-card.component.scss',
+  templateUrl: './info-card-select.component.html',
+  styleUrl: './info-card-select.component.scss'
 })
-export class InfoCardComponent implements OnInit {
-  userInfo = input<string | null | []>();
+export class InfoCardSelectComponent {
+  userInfo = input<string>();
+  options = input<string[]>();
   alt = input<string>();
   imgSrc = input<string>();
   isUserAdding = false;
@@ -44,6 +35,8 @@ export class InfoCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.userInfoFormGroup = this.generateUserInfoGroup.generateUserInfoForm();
+    console.log(this.options());
+    
   }
 
   onAdd(): void {

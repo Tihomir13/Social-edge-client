@@ -5,7 +5,9 @@ img {
 }
 
 .form {
-  .form-control {
+  .form-select {
+    cursor: pointer;
+
     &:focus {
       outline: none;
       box-shadow: none;

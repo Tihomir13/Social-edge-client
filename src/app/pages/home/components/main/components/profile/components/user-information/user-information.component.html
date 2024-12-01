@@ -20,15 +20,18 @@
     (newInfo)="onNewInfo($event)"
   />
 
-  <app-info-card
+  <app-info-card-select
     [alt]="'Relationship'"
     [imgSrc]="'assets/icons/profile-page/user-information/heart.svg'"
     [userInfo]="userInfo.relationship"
+    (newInfo)="onNewInfo($event)"
+    [options]="relationshipStatuses"
   />
 
   <app-info-card
     [alt]="'Phone'"
     [imgSrc]="'assets/icons/profile-page/user-information/phone.svg'"
     [userInfo]="userInfo.phoneNumber"
+    (newInfo)="onNewInfo($event)"
   />
 </div>

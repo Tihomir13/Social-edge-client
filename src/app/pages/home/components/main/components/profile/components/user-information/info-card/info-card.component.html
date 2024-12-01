@@ -5,22 +5,22 @@
   <div class="d-flex align-items-center gap-2 w-100">
     <img [src]="imgSrc()" [alt]="alt()" />
 
-    @if(userInfo() != null && state.isProfileOwner()) {
+    @if(userInfo() != null && !isUserAdding) {
       <span class="text">
         {{ userInfo() }}
       </span>
     }
 
-    @if(userInfo() == null && state.isProfileOwner() && !isUserAdding) {
+    @if(userInfo() == null && !isUserAdding) {
       <span class="text"> No added {{ alt() }} </span>
     }
 
-    @if(userInfo() == null && state.isProfileOwner() && isUserAdding) {
+    @if(state.isProfileOwner() && isUserAdding) {
       <input #input class="form-control" formControlName="info" type="text">
     }
   </div>
 
-  @if(userInfo() == null && state.isProfileOwner() && isUserAdding) {
+  @if(state.isProfileOwner() && isUserAdding) {
     <div class="d-flex gap-2">
       <div>
         <button class="btn" type="button" (click)="onCancel()">cancel</button>
@@ -32,8 +32,12 @@
     </div>
   }
 
-  @if(userInfo() != null && state.isProfileOwner()) {
-    <span class="edit"> Edit </span>
+  @if(userInfo() != null && state.isProfileOwner() && !isUserAdding) {
+    <div class="d-flex gap-3">
+      <span class="edit" (click)="onEdit()"> Edit </span>
+      
+      <span class="delete" (click)="onDelete()"> Delete </span>
+    </div>
   } 
   @if(userInfo() == null && state.isProfileOwner() && !isUserAdding) {
     <span class="add" (click)="onAdd()"> Add </span>

@@ -42,30 +42,39 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userInfo = this.utilitySession.userInfo;
-    this.username = this.route.snapshot.paramMap.get('username');
 
-    if (!this.username) {
-      return;
-    }
     this.subscriptions.add(
-      this.profileRequestService.getInitialUserData(this.username).subscribe({
-        next: (response) => {
-          this.fullName = `${response.data.userData.name.firstName} ${response.data.userData.name.lastName}`;
-          this.username = response.data.userData.username;
-          this.state.setIsProfileOwner(response.data.isProfileOwner);
+      this.route.paramMap.subscribe((params) => {
+        this.username = params.get('username');
+        console.log(this.username);
 
-          this.isUserHasProfileImage(response.data.userData.profileImage.data);
-          this.isUserHasBannerImage(response.data.userData.bannerImage.data);
-        },
-        error: (error) => {
-          console.log(error);
-        },
+        if (!this.username) {
+          return;
+        }
+
+        this.navigateToUserPosts();
       })
     );
 
-    this.navigateToUserInfo();
+    if (this.username) {
+      this.subscriptions.add(
+        this.profileRequestService.getInitialUserData(this.username).subscribe({
+          next: (response) => {
+            this.fullName = `${response.data.userData.name.firstName} ${response.data.userData.name.lastName}`;
+            this.username = response.data.userData.username;
+            this.state.setIsProfileOwner(response.data.isProfileOwner);
 
-    // this.fullName = `${this.userInfo.name.firstName} ${this.userInfo.name.lastName}`;
+            this.isUserHasProfileImage(
+              response.data.userData.profileImage.data
+            );
+            this.isUserHasBannerImage(response.data.userData.bannerImage.data);
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        })
+      );
+    }
   }
 
   resetSelections() {

@@ -4,11 +4,12 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { ProfileStateService } from '../../services/profile-state.service';
 import { InfoCardComponent } from './info-card/info-card.component';
+import { InfoCardSelectComponent } from './info-card-select/info-card-select.component';
 
 @Component({
   selector: 'app-user-information',
   standalone: true,
-  imports: [InfoCardComponent],
+  imports: [InfoCardComponent, InfoCardSelectComponent],
   templateUrl: './user-information.component.html',
   styleUrl: './user-information.component.scss',
 })
@@ -21,7 +22,29 @@ export class UserInformationComponent implements OnInit, OnDestroy {
   private requests = inject(ProfileRequestsService);
   state = inject(ProfileStateService);
 
+  relationshipStatuses = [
+    'Single',
+    'In a relationship',
+    'Engaged',
+    'Married',
+    'It’s complicated',
+    'In an open relationship',
+    'Separated',
+    'Divorced',
+    'Widowed',
+  ];
+
   ngOnInit(): void {
+    this.getUserInfo();
+  }
+
+  private setRelationship(userInfo: any): void {
+    const id = userInfo.relationship;
+
+    this.userInfo.relationship = this.relationshipStatuses[id];
+  }
+
+  getUserInfo() {
     this.username = this.route.parent?.snapshot.paramMap.get('username')!;
 
     if (!this.username) {
@@ -33,7 +56,7 @@ export class UserInformationComponent implements OnInit, OnDestroy {
         next: (response) => {
           console.log(response);
           this.userInfo = response.userInfo;
-          console.log(this.userInfo.studied);
+          this.setRelationship(response.userInfo);
         },
         error: (error) => {
           console.log(error);
@@ -49,6 +72,7 @@ export class UserInformationComponent implements OnInit, OnDestroy {
       this.requests.addUserInfo(this.username, value).subscribe({
         next: (response) => {
           console.log(response);
+          this.getUserInfo();
         },
         error: (error) => {
           console.log(error);
