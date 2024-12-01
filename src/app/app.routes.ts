@@ -11,6 +11,7 @@ import { UserPostsComponent } from './pages/home/components/main/components/prof
 import { UserInformationComponent } from './pages/home/components/main/components/profile/components/user-information/user-information.component';
 import { UserFriendsComponent } from './pages/home/components/main/components/profile/components/user-friends/user-friends.component';
 import { UserPhotosComponent } from './pages/home/components/main/components/profile/components/user-photos/user-photos.component';
+import { ModalComponent } from './shared/components/modal/modal.component';
 
 export const routes: Routes = [
   {
@@ -47,7 +48,11 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'modal',
+    path: 'YesNoModal',
     component: YesNoModalComponent,
+  },
+  {
+    path: 'modal',
+    component: ModalComponent,
   },
 ];

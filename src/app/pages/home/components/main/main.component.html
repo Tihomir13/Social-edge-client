@@ -12,17 +12,17 @@
       <div class="right">
         <app-friend-list
           class="friend-list"
-          [friends]="this.state.friends"
+          [friends]="this.state.friends()"
           (open)="onUserProfileClick($event)"
         />
         <app-chat-heads
           class="chat-heads"
-          [currentChatHeads]="this.state.currentChatHeads"
+          [currentChatHeads]="this.state.currentChatHeads()"
           (open)="onProfileClick($event)"
           (close)="onCloseChatHead($event)"
         />
 
-        @if (this.state.isChatActive) {
+        @if (this.state.isChatActive()) {
         <app-chat class="chat" />
         }
       </div>

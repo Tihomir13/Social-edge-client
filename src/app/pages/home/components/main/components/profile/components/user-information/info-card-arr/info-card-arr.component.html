@@ -1,0 +1,115 @@
+<div class="d-flex justify-content-between align-items-center py-2">
+  <div class="d-flex align-items-center">
+    <img [src]="imgSrc()" [alt]="alt()" />
+
+    @if(userInfo().length > 0 && state.isProfileOwner()) {
+    <span class="text">
+      {{ userInfo()[0] }}
+    </span>
+    } @if(userInfo().length === 0 && state.isProfileOwner()) {
+    <span class="text"> No added {{ alt() }} </span>
+    }
+  </div>
+
+  @if(userInfo().length === 0 && state.isProfileOwner() && !isUserAdding) {
+  <span class="add" (click)="onAdd()"> Add </span>
+  } @if(userInfo().length > 0 && state.isProfileOwner()) {
+  <span class="edit"> Edit </span>
+  }
+</div>
+
+@if(isUserAdding) {
+<form class="d-flex flex-column align-items-center gap-3" onsubmit="onSubmit()">
+  <input class="form-control w-100" type="text" />
+
+  <div class="d-flex gap-5">
+    <div>
+      <button class="btn" type="button" (click)="onCancel()">cancel</button>
+    </div>
+
+    <div>
+      <button class="btn" type="submit">save</button>
+    </div>
+  </div>
+</form>
+
+}
+
+<!-- @if (isUserAdding) {
+
+<div class="d-flex flex-column gap-3">
+  <div>
+    <input class="form-control" type="text" />
+  </div>
+
+  <div class="d-flex gap-3">
+    <div class="d-flex flex-column align-items-center">
+      <div class="d-flex gap-10px">
+        <select class="dropdown" id="day" name="day" formControlName="day">
+          @for (day of getDaysInMonth(); track $index) {
+          <option [value]="day">{{ day }}</option>
+          }
+        </select>
+
+        <select
+          class="dropdown"
+          id="month"
+          name="month"
+          (change)="onMonthChange()"
+          formControlName="month"
+        >
+          @for (month of months; track $index) {
+          <option [value]="$index">{{ month | shortenMonth }}</option>
+          }
+        </select>
+
+        <select
+          class="dropdown"
+          id="year"
+          name="year"
+          (change)="onYearChange()"
+          formControlName="year"
+        >
+          @for (year of years; track $index) {
+          <option [value]="year">{{ year }}</option>
+          }
+        </select>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column align-items-center">
+      <div class="d-flex gap-10px">
+        <select class="dropdown" id="day" name="day" formControlName="day">
+          @for (day of getDaysInMonth(); track $index) {
+          <option [value]="day">{{ day }}</option>
+          }
+        </select>
+
+        <select
+          class="dropdown"
+          id="month"
+          name="month"
+          (change)="onMonthChange()"
+          formControlName="month"
+        >
+          @for (month of months; track $index) {
+          <option [value]="$index">{{ month | shortenMonth }}</option>
+          }
+        </select>
+
+        <select
+          class="dropdown"
+          id="year"
+          name="year"
+          (change)="onYearChange()"
+          formControlName="year"
+        >
+          @for (year of years; track $index) {
+          <option [value]="year">{{ year }}</option>
+          }
+        </select>
+      </div>
+    </div>
+  </div> 
+</div>
+}-->

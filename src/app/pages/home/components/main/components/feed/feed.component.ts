@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { NewPostComponent } from './components/new-post/new-post.component';
 import { PostComponent } from './components/post/post.component';
 import { PostsRequestsService } from './components/post/services/posts-requests.service';
+import { MainStateService } from '../../shared/services/main-state.service';
 
 @Component({
   selector: 'app-feed',
@@ -15,8 +16,8 @@ import { PostsRequestsService } from './components/post/services/posts-requests.
 })
 export class FeedComponent implements OnInit {
   subscriptions = new Subscription();
-  posts = signal<any[] | null>(null);
 
+  state = inject(MainStateService);
   private postRequests = inject(PostsRequestsService);
 
   ngOnInit(): void {
@@ -32,8 +33,9 @@ export class FeedComponent implements OnInit {
       this.postRequests.getPosts().subscribe({
         next: (response: any) => {
           console.log(response.posts);
-
-          this.posts.set(response.posts);
+          this.state.setPosts(response.posts);
+          console.log(this.state.posts());
+          
         },
         error: (error) => {
           console.log(error);

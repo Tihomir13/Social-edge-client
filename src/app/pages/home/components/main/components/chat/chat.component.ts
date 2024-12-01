@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { MainStateService } from '../../shared/main-state.service';
+import { MainStateService } from '../../shared/services/main-state.service';
 
 @Component({
   selector: 'app-chat',
@@ -12,6 +12,6 @@ export class ChatComponent {
   state = inject(MainStateService);
 
   closeChat() {
-    this.state.isChatActive = false;
+    this.state.setChat(false);
   }
 }

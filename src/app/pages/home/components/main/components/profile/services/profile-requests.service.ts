@@ -7,10 +7,9 @@ import { UtilitySessionService } from '../../../../../../../shared/services/util
 import { api } from '../../../../../../../shared/constants/api';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfileRequestsService {
-
   http = inject(HttpClient);
   utility = inject(UtilitySessionService);
 
@@ -18,14 +17,19 @@ export class ProfileRequestsService {
     headers: this.utility.headers,
   };
 
-  getUserPosts(username: string): Observable<any> {
+  getInitialUserData(username: string): Observable<any> {
+    return this.http.get(`${api}/profiles/${username}`, this.headers);
+  }
 
-    console.log(username);
-    
+  getUserPosts(username: string): Observable<any> {
     return this.http.get(`${api}/profiles/${username}/posts`, this.headers);
   }
 
-  getInitialUserData(username: string): Observable<any> {
-    return this.http.get(`${api}/profiles/${username}`, this.headers);
+  getUserInfo(username: string): Observable<any> {
+    return this.http.get(`${api}/profiles/${username}/info`, this.headers);
+  }
+
+  addUserInfo(username: string | null, body: any): Observable<any> {
+    return this.http.post(`${api}/profiles/${username}/info`, body, this.headers);
   }
 }

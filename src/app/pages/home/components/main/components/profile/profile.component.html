@@ -56,20 +56,30 @@
     </div>
 
     <div
-      class="image-container col-md-4 col-12 order-md-2 order-1 d-flex justify-content-center"
+      class="image-container col-md-4 col-12 order-md-2 order-1 gap-3 d-flex flex-column justify-content-center"
     >
-      <img
-        class="image"
-        [src]="profileImage"
-        alt="Profile icon"
-      />
+      <div class=" ">
+        <img class="image" [src]="profileImage" alt="Profile icon" />
+      </div>
+
+      <h1 class="fs-2 text-center">
+        <span>
+          {{ fullName }}
+        </span>
+        
+        <span class="fs-4">
+          {{ "@" + username }}
+        </span>
+      </h1>
     </div>
 
+    @if(!state.isProfileOwner()) {
     <div
       class="add-btn-container col-md-4 col-12 order-md-3 order-2 d-flex justify-content-center"
     >
       <button class="btn">Add friend</button>
     </div>
+    }
   </div>
 </div>
 

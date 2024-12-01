@@ -1,7 +1,8 @@
 import { Component, inject, input, output } from '@angular/core';
+
 import { SearchBarComponent } from '../../shared/search-bar/search-bar.component';
 import { UserCardComponentComponent } from '../../shared/user-card-component/user-card-component.component';
-import { MainStateService } from '../../shared/main-state.service';
+import { MainStateService } from '../../shared/services/main-state.service';
 
 @Component({
   selector: 'app-friend-list',
@@ -16,7 +17,7 @@ export class FriendListComponent {
 
   state = inject(MainStateService);
 
-  currentFriends?: string[] = this.state.friends;
+  currentFriends?: string[] = this.state.friends();
 
   onSearch(value: string): void {
     this.currentFriends = this.friends()?.filter((friend) =>

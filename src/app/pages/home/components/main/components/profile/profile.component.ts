@@ -1,10 +1,12 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
+
+import { Subscription } from 'rxjs';
 
 import { UtilitySessionService } from '../../../../../../shared/services/utility/utility.service';
 import { ProfileRequestsService } from './services/profile-requests.service';
-import { Subscription } from 'rxjs';
-import { HttpClientModule } from '@angular/common/http';
+import { ProfileStateService } from './services/profile-state.service';
 
 @Component({
   selector: 'app-profile',
@@ -33,33 +35,46 @@ export class ProfileComponent implements OnInit, OnDestroy {
   defaultBannerImg = 'assets/images/default-images/banner-image.png';
 
   utilitySession = inject(UtilitySessionService);
-  route = inject(ActivatedRoute);
-  router = inject(Router);
-  profileRequestService = inject(ProfileRequestsService);
+  state = inject(ProfileStateService);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private profileRequestService = inject(ProfileRequestsService);
 
   ngOnInit(): void {
     this.userInfo = this.utilitySession.userInfo;
-    this.username = this.route.snapshot.paramMap.get('username');
 
-    if (!this.username) {
-      return;
-    }
     this.subscriptions.add(
-      this.profileRequestService.getInitialUserData(this.username).subscribe({
-        next: (response) => {
-          console.log(response);
-          this.isUserHasProfileImage(response.userData.profileImage.data);
-          this.isUserHasBannerImage(response.userData.bannerImage.data);
-        },
-        error: (error) => {
-          console.log(error);
-        },
+      this.route.paramMap.subscribe((params) => {
+        this.username = params.get('username');
+        console.log(this.username);
+
+        if (!this.username) {
+          return;
+        }
+
+        this.navigateToUserPosts();
       })
     );
 
-    this.navigateToUserPosts();
+    if (this.username) {
+      this.subscriptions.add(
+        this.profileRequestService.getInitialUserData(this.username).subscribe({
+          next: (response) => {
+            this.fullName = `${response.data.userData.name.firstName} ${response.data.userData.name.lastName}`;
+            this.username = response.data.userData.username;
+            this.state.setIsProfileOwner(response.data.isProfileOwner);
 
-    // this.fullName = `${this.userInfo.name.firstName} ${this.userInfo.name.lastName}`;
+            this.isUserHasProfileImage(
+              response.data.userData.profileImage.data
+            );
+            this.isUserHasBannerImage(response.data.userData.bannerImage.data);
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        })
+      );
+    }
   }
 
   resetSelections() {

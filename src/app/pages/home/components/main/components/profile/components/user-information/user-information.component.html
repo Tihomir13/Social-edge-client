@@ -1,7 +1,37 @@
-<div class="container">
-    <div class="row">
-        <div class="informacion-card">
-            
-        </div>
-    </div>
+<div class="information-card-container">
+  <app-info-card
+    [alt]="'Location'"
+    [imgSrc]="'assets/icons/profile-page/user-information/location.svg'"
+    [userInfo]="userInfo.currLocation"
+    (newInfo)="onNewInfo($event)"
+  />
+
+  <app-info-card
+    [alt]="'Graduation'"
+    [imgSrc]="'assets/icons/profile-page/user-information/graduated.svg'"
+    [userInfo]="userInfo.studied"
+    (newInfo)="onNewInfo($event)"
+  />
+
+  <app-info-card
+    [alt]="'Job'"
+    [imgSrc]="'assets/icons/profile-page/user-information/job.svg'"
+    [userInfo]="userInfo.worksIn"
+    (newInfo)="onNewInfo($event)"
+  />
+
+  <app-info-card-select
+    [alt]="'Relationship'"
+    [imgSrc]="'assets/icons/profile-page/user-information/heart.svg'"
+    [userInfo]="userInfo.relationship"
+    (newInfo)="onNewInfo($event)"
+    [options]="relationshipStatuses"
+  />
+
+  <app-info-card
+    [alt]="'Phone'"
+    [imgSrc]="'assets/icons/profile-page/user-information/phone.svg'"
+    [userInfo]="userInfo.phoneNumber"
+    (newInfo)="onNewInfo($event)"
+  />
 </div>
