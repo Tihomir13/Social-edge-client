@@ -1,0 +1,12 @@
+.search-container {
+    max-width: 460px;
+    margin: 50px auto;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .search-container {
+      border-top: 2px solid black;
+      margin: 0px auto;
+    }
+  }
+  
