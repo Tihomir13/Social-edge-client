@@ -45,7 +45,7 @@ export const routes: Routes = [
           { path: 'photos', component: UserPhotosComponent },
         ],
       },
-      { path: 'search', component: SearchComponent }
+      { path: 'search', component: SearchComponent },
     ],
   },
   {

@@ -1,17 +1,24 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-user-card',
   standalone: true,
   imports: [],
   templateUrl: './user-card.component.html',
-  styleUrl: './user-card.component.scss'
+  styleUrl: './user-card.component.scss',
 })
 export class UserCardComponent {
-  profileImg = input<string>('assets/images/image.png');
-  fullName = input<string>('Tihomir Susamov');
-  username = input<string>('pichaga123');
+  profileImg = input<string>();
+  fullName = input<string>();
+  username = input<string>();
 
-  ngOnInit() {
+  clickProfile = output<string>();
+
+  onClick(): void {
+    this.clickProfile.emit(this.username()!);
+  }
+
+  onAdd(): void {
+    console.log(this.username());
   }
 }
