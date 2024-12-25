@@ -33,12 +33,13 @@
 
     .image-container {
       // max-width: calc(1040px / 3);
-      .image {
+      .profile-image {
         border-radius: 50%;
         aspect-ratio: 1/1;
         width: 100%;
         height: 100%;
         object-fit: cover;
+        cursor: pointer;
       }
     }
 
@@ -101,4 +102,19 @@
       }
     }
   }
+}
+
+
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000; /* Уверете се, че модалът е над другите елементи */
+  background-color: #fff; /* Задайте фонов цвят */
+  padding: 20px; /* Добавете вътрешни отстояния */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Малка сянка за ефект */
+  border-radius: 10px; /* Заоблени краища */
+  width: 90%; /* Опционално: задайте ширина */
+  max-width: 500px; /* Максимална ширина */
 }

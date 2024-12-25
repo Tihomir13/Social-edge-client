@@ -1,13 +1,13 @@
-<div class="user-card-container d-flex justify-content-between align-items-center" (click)="onClick()">
+<div class="user-card-container d-flex justify-content-between align-items-center">
     <div class="d-flex gap-3 align-items-center">
-        <img class="image" [src]="profileImg()" alt="profile image">
+        <img class="image" [src]="profileImg()" alt="profile image" (click)="onClick()">
         
-        <div class="d-flex flex-column">
-            <span>
+        <div class="d-flex flex-column" (click)="onClick()">
+            <span class="full-name">
                 {{fullName()}}
             </span>
             
-            <span>
+            <span class="username">
                 {{'@' + username()}}
             </span>
         </div>

@@ -59,14 +59,19 @@
       class="image-container col-md-4 col-12 order-md-2 order-1 gap-3 d-flex flex-column justify-content-center"
     >
       <div class=" ">
-        <img class="image" [src]="profileImage" alt="Profile icon" />
+        <img
+          class="profile-image"
+          [src]="profileImage"
+          alt="Profile icon"
+          (click)="openModal()"
+        />
       </div>
 
       <h1 class="fs-2 text-center">
         <span>
           {{ fullName }}
         </span>
-        
+
         <span class="fs-4">
           {{ "@" + username }}
         </span>
@@ -86,3 +91,9 @@
 <div class="content">
   <router-outlet></router-outlet>
 </div>
+
+@if(isModalOpened) {
+  <div class="modal-container">
+    <app-change-profile-modal (clickedOption)="onChoseOption($event)"></app-change-profile-modal>
+  </div>
+}

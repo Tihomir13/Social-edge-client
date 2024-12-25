@@ -1,17 +1,25 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+} from '@angular/core';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 
 import { Subscription } from 'rxjs';
 
 import { UtilitySessionService } from '../../../../../../shared/services/utility/utility.service';
 import { ProfileRequestsService } from './services/profile-requests.service';
 import { ProfileStateService } from './services/profile-state.service';
+import { ModalService } from '../../../../shared/services/modal.service';
+import { ChangeProfileModalComponent } from '../../../../../../shared/components/change-profile-modal/change-profile-modal.component';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule],
+  imports: [RouterOutlet, ChangeProfileModalComponent],
   providers: [ProfileRequestsService],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
@@ -29,6 +37,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   isSelectedFriends = false;
   isSelectedPhotos = false;
 
+  isModalOpened = false;
+
   subscriptions = new Subscription();
 
   defaultProfileImg = 'assets/images/default-images/profile-image.png';
@@ -39,6 +49,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private profileRequestService = inject(ProfileRequestsService);
+
+  private renderer = inject(Renderer2);
+
+  modalService = inject(ModalService);
 
   ngOnInit(): void {
     this.userInfo = this.utilitySession.userInfo;
@@ -134,6 +148,39 @@ export class ProfileComponent implements OnInit, OnDestroy {
     } else {
       this.profileImage = profileImage;
     }
+  }
+
+  openModal(): void {
+    this.isModalOpened = true;
+    this.renderer.setStyle(document.body, 'overflow-y', 'hidden');
+  }
+
+  closeModal(): void {
+    this.isModalOpened = false;
+    this.renderer.removeStyle(document.body, 'overflow-y');
+
+    console.log('sss');
+    
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+
+    if (
+      this.isModalOpened &&
+      !target.closest('.modal-container') &&
+      !target.closest('.profile-image')
+    ) {
+      this.closeModal();
+    }
+  }
+
+  onChoseOption(modalOption: string): void {
+    if(modalOption === 'Cancels') {
+      this.closeModal();
+    }
+    
   }
 
   ngOnDestroy(): void {

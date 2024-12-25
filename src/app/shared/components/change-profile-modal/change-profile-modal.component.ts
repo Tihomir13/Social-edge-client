@@ -2,28 +2,28 @@ import { NgStyle } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-change-profile-modal',
   standalone: true,
   imports: [NgStyle],
-  templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss',
+  templateUrl: './change-profile-modal.component.html',
+  styleUrl: './change-profile-modal.component.scss',
 })
-export class ModalComponent {
-  title = input('Title');
+export class ChangeProfileModalComponent {
+  title = input('Change Profile Photo');
   // options = input<{ optionName: string; optionColor: string }[]>([]);
   clickedOption = output<string>();
 
   options: { optionName: string; optionColor: string }[] = [
     {
       optionName: 'Upload Photo',
-      optionColor: 'purple',
+      optionColor: 'rgb(143, 30, 255)',
     },
     {
-      optionName: 'remove',
+      optionName: 'Remove Photo',
       optionColor: 'red',
     },
     {
-      optionName: 'cancel',
+      optionName: 'Cancel',
       optionColor: 'white',
     },
   ];

@@ -12,6 +12,7 @@ import { UserInformationComponent } from './pages/home/components/main/component
 import { UserFriendsComponent } from './pages/home/components/main/components/profile/components/user-friends/user-friends.component';
 import { UserPhotosComponent } from './pages/home/components/main/components/profile/components/user-photos/user-photos.component';
 import { SearchComponent } from './pages/home/components/main/components/pages/search/search.component';
+import { ChangeProfileModalComponent } from './shared/components/change-profile-modal/change-profile-modal.component';
 
 export const routes: Routes = [
   {
@@ -51,5 +52,9 @@ export const routes: Routes = [
   {
     path: 'modal',
     component: YesNoModalComponent,
+  },
+  {
+    path: 'mod',
+    component: ChangeProfileModalComponent,
   },
 ];
