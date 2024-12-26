@@ -32,4 +32,16 @@ export class ProfileRequestsService {
   addUserInfo(username: string | null, body: any): Observable<any> {
     return this.http.post(`${api}/profiles/${username}/info`, body, this.headers);
   }
+
+  addNewPhoto(username: string | null, newProfilePhoto: any): Observable<Object> {
+    return this.http.post(`${api}/profiles/${username}/new-profile-photo`, newProfilePhoto, {
+      headers: this.utility.headers,
+    });
+  }
+
+  removePhoto(username: string | null): Observable<Object> {
+    return this.http.delete(`${api}/profiles/${username}/new-profile-photo-remove`, {
+      headers: this.utility.headers,
+    });
+  }
 }

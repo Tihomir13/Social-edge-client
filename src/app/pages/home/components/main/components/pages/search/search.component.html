@@ -3,7 +3,7 @@
 
     <div class="profile-cards-container d-flex flex-column gap-2 px-2 px-md-0 gap-md-4">
         @for (user of mainState.searchedUsers(); track $index) {
-            <app-user-card [fullName]="user.name" [profileImg]="user.profileImg" [username]="user.username" (clickProfile)="onClickProfile($event)"/>
+            <app-user-card [fullName]="user.name" [profileImg]="user.profileImage.data" [username]="user.username" (clickProfile)="onClickProfile($event)"/>
         }
     </div>
 </div>

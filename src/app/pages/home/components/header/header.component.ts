@@ -16,6 +16,8 @@ import { MainStateService } from '../main/shared/services/main-state.service';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
+  defaultProfileImg = 'assets/images/default-images/profile-image.png';
+
   isScrolled = false;
   subscriptions = new Subscription();
 
@@ -35,12 +37,19 @@ export class HeaderComponent {
 
   onSearch(value: any): void {
     this.router.navigate(['home', 'search'], { queryParams: { query: value } });
-
+  
     this.subscriptions.add(this.request.getSearchedProfiles(value).subscribe({
       next: (response) => {
-        this.mainState.setSearchedUsers(response.users);
-        console.log(this.mainState.searchedUsers());
+        const users = response.users.map((user: any) => {
+          if (!user.profileImage?.data || user.profileImage.data === '') {
+            user.profileImage = { data: this.defaultProfileImg };
+          }
+          return user;
+        });
+  
+        this.mainState.setSearchedUsers(users);
         
+        console.log(this.mainState.searchedUsers());
       },
       error: (error) => {
         console.log(error);

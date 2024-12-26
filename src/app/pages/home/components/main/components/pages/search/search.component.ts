@@ -19,6 +19,6 @@ export class SearchComponent {
   onClickProfile(username: string):void {
       this.router.navigate(['home', 'profile', username]);
       console.log('aaa');
-      
+
   }
 }
