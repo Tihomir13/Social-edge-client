@@ -11,6 +11,7 @@ export class UserCardComponent {
   profileImg = input<string>();
   fullName = input<string>();
   username = input<string>();
+  currUserProfileName = input<string>();
 
   clickProfile = output<string>();
 

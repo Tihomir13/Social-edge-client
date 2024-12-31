@@ -66,16 +66,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.route.paramMap.subscribe((params) => {
         this.username = params.get('username');
-        console.log(this.username);
-
         this.getInitialData(this.username);
-
         this.navigateToUserPosts();
       })
     );
-
-    if (this.username) {
-    }
   }
 
   getInitialData(username: string | null): void {
@@ -100,7 +94,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     );
   }
 
-  resetSelections() {
+  resetSelections(): void {
     this.isSelectedPosts = false;
     this.isSelectedInfo = false;
     this.isSelectedFriends = false;
@@ -166,6 +160,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   openModal(): void {
+    if (!this.state.isProfileOwner()) {
+      return;
+    }
+
     this.isModalOpened = true;
     this.renderer.setStyle(document.body, 'overflow-y', 'hidden');
   }
@@ -227,9 +225,29 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   async onAddFile(event: any): Promise<void> {
     const files = event.target.files as File[];
-    if (files.length === 1) {
-      this.uploadFile(files[0]);
+    if (files.length !== 1) {
+      return;
     }
+
+    const isValidSize = this.isValidFileSize(files[0]);
+    if (!isValidSize) {
+      this.closeModal();
+      return;
+    }
+
+    const isValidType = this.isValidFileType(files[0]);
+    if (!isValidType) {
+      this.closeModal();
+      return;
+    }
+
+    const nsfwCheck = await this.checkNsfw(files[0]);
+    if (!nsfwCheck) {
+      this.closeModal();
+      return;
+    }
+
+    this.uploadFile(files[0]);
   }
 
   removePhoto(): void {

@@ -44,7 +44,7 @@ export class ProfileComponent implements OnInit {
   }
 
   navToProfilePage(): void {
-    this.router.navigate(['home', 'profile', this.username]);
+    this.router.navigate(['home', 'profile', this.username, 'posts']);
   }
 
   onImageClick(): void {

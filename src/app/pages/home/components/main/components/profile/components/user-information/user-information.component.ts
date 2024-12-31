@@ -44,7 +44,7 @@ export class UserInformationComponent implements OnInit, OnDestroy {
     this.userInfo.relationship = this.relationshipStatuses[id];
   }
 
-  getUserInfo() {
+  getUserInfo(): void {
     this.username = this.route.parent?.snapshot.paramMap.get('username')!;
 
     if (!this.username) {

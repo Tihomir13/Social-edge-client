@@ -50,6 +50,10 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'post/:id',
+    component: YesNoModalComponent,
+  },
+  {
     path: 'modal',
     component: YesNoModalComponent,
   },

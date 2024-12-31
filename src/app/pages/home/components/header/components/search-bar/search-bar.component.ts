@@ -27,7 +27,7 @@ export class SearchBarComponent {
     this.searchBar.nativeElement.value = '';
   }
 
-  subscribeToUrl() {
+  subscribeToUrl():void {
     this.subscriptions.add(
       this.router.events
         .pipe(filter((event) => event instanceof NavigationEnd))
