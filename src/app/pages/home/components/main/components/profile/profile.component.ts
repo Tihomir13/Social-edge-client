@@ -17,8 +17,8 @@ import { ProfileRequestsService } from './services/profile-requests.service';
 import { ProfileStateService } from './services/profile-state.service';
 import { ModalService } from '../../../../shared/services/modal.service';
 import { ChangeProfileModalComponent } from '../../../../../../shared/components/change-profile-modal/change-profile-modal.component';
-import * as nsfwjs from 'nsfwjs';
 import { maxImageSize } from '../../../../../../shared/constants/settings';
+import * as nsfwjs from 'nsfwjs';
 
 @Component({
   selector: 'app-profile',
@@ -41,7 +41,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   isSelectedFriends = false;
   isSelectedPhotos = false;
 
-  isModalOpened = false;
+  isModalProfilePhotoOpened = false;
+  isModalBannerPhotoOpened = false;
 
   subscriptions = new Subscription();
 
@@ -159,17 +160,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  openModal(): void {
+  openModalProfilePhotoChange(): void {
     if (!this.state.isProfileOwner()) {
       return;
     }
 
-    this.isModalOpened = true;
+    this.isModalProfilePhotoOpened = true;
+    this.renderer.setStyle(document.body, 'overflow-y', 'hidden');
+  }
+
+  openModalBannerPhotoChange():void {
+    if (!this.state.isProfileOwner()) {
+      return;
+    }
+
+    this.isModalBannerPhotoOpened = true;
     this.renderer.setStyle(document.body, 'overflow-y', 'hidden');
   }
 
   closeModal(): void {
-    this.isModalOpened = false;
+    this.isModalProfilePhotoOpened = false;
+    this.isModalBannerPhotoOpened = false;
     this.renderer.removeStyle(document.body, 'overflow-y');
   }
 
@@ -178,7 +189,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const target = event.target as HTMLElement;
 
     if (
-      this.isModalOpened &&
+      this.isModalProfilePhotoOpened &&
       !target.closest('.modal-container') &&
       !target.closest('.profile-image')
     ) {

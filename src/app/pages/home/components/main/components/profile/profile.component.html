@@ -1,6 +1,7 @@
 <div class="profile-container mb-4">
   <div class="banner-container">
-    <img class="image" [src]="bannerImage" alt="Banner image" />
+    <img class="banner-image" [src]="bannerImage" alt="Banner image"  (click)="openModalBannerPhotoChange()" />
+    <img class="edit-image" src="assets/icons/profile-page/edit-image.svg" alt="Banner image" (click)="openModalBannerPhotoChange()" />
   </div>
 
   <div
@@ -63,7 +64,7 @@
           class="profile-image"
           [src]="profileImage"
           alt="Profile icon"
-          (click)="openModal()"
+          (click)="openModalProfilePhotoChange()"
         />
       </div>
 
@@ -92,9 +93,17 @@
   <router-outlet></router-outlet>
 </div>
 
-@if(isModalOpened) {
+@if(isModalProfilePhotoOpened || isModalBannerPhotoOpened) {
   <div class="modal-container">
     <app-change-profile-modal (clickedOption)="onChoseOption($event)"></app-change-profile-modal>
+
+    <input type="file" #fileInput style="display:none" (change)="onAddFile($event)" />
+  </div>
+}
+
+@if(isModalBannerPhotoOpened) {
+  <div class="modal-container">
+    <app-change-profile-modal (clickedOption)="onChoseOption($event)" [title]="'Choose Banner Photo'"></app-change-profile-modal>
 
     <input type="file" #fileInput style="display:none" (change)="onAddFile($event)" />
   </div>

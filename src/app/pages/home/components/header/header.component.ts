@@ -1,9 +1,10 @@
 import { Component, HostListener, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+import { Subscription } from 'rxjs';
+
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { Subscription } from 'rxjs';
 import { SearchRequestsService } from './components/search-bar/services/search-requests.service';
 import { MainStateService } from '../main/shared/services/main-state.service';
 import { NotificationsWindowComponent } from './components/notifications-window/notifications-window.component';
@@ -73,7 +74,6 @@ export class HeaderComponent {
 
   onClickOutSideNotifications(): void {
     this.isNotificationsShowed = false;
-    console.log('aa1');
   }
 
   onDestroy(): void {
@@ -82,6 +82,5 @@ export class HeaderComponent {
 
   toggleNotifications(): void {
     this.isNotificationsShowed = !this.isNotificationsShowed;
-    console.log('aa2');
   }
 }
