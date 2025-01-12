@@ -1,5 +1,5 @@
 import { NgStyle } from '@angular/common';
-import { Component, input, output } from '@angular/core';
+import { Component, HostListener, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-change-profile-modal',
@@ -30,5 +30,14 @@ export class ChangeProfileModalComponent {
 
   onChosenOption(optionName: string) {
     this.clickedOption.emit(optionName);
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+
+    if (!target.closest('.modal-container')) {
+      this.clickedOption.emit('Cancel');
+    }
   }
 }

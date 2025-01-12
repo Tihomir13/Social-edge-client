@@ -184,19 +184,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.renderer.removeStyle(document.body, 'overflow-y');
   }
 
-  @HostListener('document:click', ['$event'])
-  onDocumentClick(event: MouseEvent): void {
-    const target = event.target as HTMLElement;
-
-    if (
-      this.isModalProfilePhotoOpened &&
-      !target.closest('.modal-container') &&
-      !target.closest('.profile-image')
-    ) {
-      this.closeModal();
-    }
-  }
-
   triggerFileInput(): void {
     this.renderer.selectRootElement(this.fileInput.nativeElement).click();
   }

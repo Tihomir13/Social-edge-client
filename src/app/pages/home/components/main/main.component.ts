@@ -1,5 +1,4 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterOutlet } from '@angular/router';
 
 import { FriendListComponent } from './components/friend-list/friend-list.component';
@@ -18,7 +17,6 @@ import { PostsRequestsService } from './components/feed/components/post/services
     SuggestedProfilesComponent,
     ChatHeadsComponent,
     ChatComponent,
-    HttpClientModule,
     RouterOutlet,
   ],
   providers: [PostsStateService, PostsRequestsService],
