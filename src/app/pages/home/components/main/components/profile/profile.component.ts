@@ -188,13 +188,13 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.renderer.selectRootElement(this.fileInput.nativeElement).click();
   }
 
-  onChoseOption(modalOption: string): void {
+  onChoseOptionProfile(modalOption: string): void {
     if (modalOption === 'Upload Photo') {
       this.triggerFileInput();
     }
 
     if (modalOption === 'Remove Photo') {
-      this.removePhoto();
+      this.removeProfilePhoto();
     }
 
     if (modalOption === 'Cancel') {
@@ -202,13 +202,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  uploadFile(file: File): void {
+  onChoseOptionBanner(modalOption: string): void {
+    if (modalOption === 'Upload Photo') {
+      this.triggerFileInput();
+    }
+
+    if (modalOption === 'Remove Photo') {
+      this.removeBannerPhoto();
+    }
+
+    if (modalOption === 'Cancel') {
+      this.closeModal();
+    }
+  }
+
+  uploadProfileImage(file: File): void {
     const formData = new FormData();
     formData.append('images', file);
 
     this.subscriptions.add(
       this.profileRequestService
-        .addNewPhoto(this.username, formData)
+        .addNewProfilePhoto(this.username, formData)
         .subscribe({
           next: () => {
             this.getInitialData(this.username);
@@ -221,7 +235,26 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.closeModal();
   }
 
-  async onAddFile(event: any): Promise<void> {
+  uploadBannerImage(file: File): void {
+    const formData = new FormData();
+    formData.append('images', file);
+
+    this.subscriptions.add(
+      this.profileRequestService
+        .addNewBannerPhoto(this.username, formData)
+        .subscribe({
+          next: () => {
+            this.getInitialData(this.username);
+          },
+          error: (error) => {
+            console.log(error);
+          },
+        })
+    );
+    this.closeModal();
+  }
+
+  async onAddFileProfile(event: any): Promise<void> {
     const files = event.target.files as File[];
     if (files.length !== 1) {
       return;
@@ -245,12 +278,54 @@ export class ProfileComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.uploadFile(files[0]);
+    this.uploadProfileImage(files[0]);
   }
 
-  removePhoto(): void {
+  async onAddFileBanner(event: any): Promise<void> {
+    const files = event.target.files as File[];
+    if (files.length !== 1) {
+      return;
+    }
+
+    const isValidSize = this.isValidFileSize(files[0]);
+    if (!isValidSize) {
+      this.closeModal();
+      return;
+    }
+
+    const isValidType = this.isValidFileType(files[0]);
+    if (!isValidType) {
+      this.closeModal();
+      return;
+    }
+
+    const nsfwCheck = await this.checkNsfw(files[0]);
+    if (!nsfwCheck) {
+      this.closeModal();
+      return;
+    }
+
+    this.uploadBannerImage(files[0]);
+  }
+
+  removeProfilePhoto(): void {
     this.subscriptions.add(
-      this.profileRequestService.removePhoto(this.username).subscribe({
+      this.profileRequestService.removeProfilePhoto(this.username).subscribe({
+        next: () => {
+          this.getInitialData(this.username);
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      })
+    );
+
+    this.closeModal();
+  }
+
+  removeBannerPhoto(): void {
+    this.subscriptions.add(
+      this.profileRequestService.removeBannerPhoto(this.username).subscribe({
         next: () => {
           this.getInitialData(this.username);
         },

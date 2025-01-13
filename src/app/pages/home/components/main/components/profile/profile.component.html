@@ -93,18 +93,20 @@
   <router-outlet></router-outlet>
 </div>
 
-@if(isModalProfilePhotoOpened || isModalBannerPhotoOpened) {
-  <div class="modal-container">
-    <app-change-profile-modal (clickedOption)="onChoseOption($event)"></app-change-profile-modal>
-
-    <input type="file" #fileInput style="display:none" (change)="onAddFile($event)" />
+@if (isModalProfilePhotoOpened) {
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <app-change-profile-modal (clickedOption)="onChoseOptionProfile($event)"></app-change-profile-modal>
+      <input class="d-none" type="file" #fileInput (change)="onAddFileProfile($event)" />
+    </div>
   </div>
 }
 
 @if(isModalBannerPhotoOpened) {
-  <div class="modal-container">
-    <app-change-profile-modal (clickedOption)="onChoseOption($event)" [title]="'Choose Banner Photo'"></app-change-profile-modal>
-
-    <input type="file" #fileInput style="display:none" (change)="onAddFile($event)" />
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <app-change-profile-modal (clickedOption)="onChoseOptionBanner($event)" [title]="'Choose Banner Photo'"></app-change-profile-modal>
+      <input class="d-none" type="file" #fileInput (change)="onAddFileBanner($event)" />
+    </div>
   </div>
 }

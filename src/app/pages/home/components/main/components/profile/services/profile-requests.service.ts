@@ -33,14 +33,26 @@ export class ProfileRequestsService {
     return this.http.post(`${api}/profiles/${username}/info`, body, this.headers);
   }
 
-  addNewPhoto(username: string | null, newProfilePhoto: any): Observable<Object> {
+  addNewProfilePhoto(username: string | null, newProfilePhoto: any): Observable<Object> {
     return this.http.post(`${api}/profiles/${username}/new-profile-photo`, newProfilePhoto, {
       headers: this.utility.headers,
     });
   }
 
-  removePhoto(username: string | null): Observable<Object> {
-    return this.http.delete(`${api}/profiles/${username}/new-profile-photo-remove`, {
+  removeProfilePhoto(username: string | null): Observable<Object> {
+    return this.http.delete(`${api}/profiles/${username}/profile-photo-remove`, {
+      headers: this.utility.headers,
+    });
+  }
+
+  addNewBannerPhoto(username: string | null, newBannerPhoto: any): Observable<Object> {
+    return this.http.post(`${api}/profiles/${username}/new-banner-photo`, newBannerPhoto, {
+      headers: this.utility.headers,
+    });
+  }
+
+  removeBannerPhoto(username: string | null): Observable<Object> {
+    return this.http.delete(`${api}/profiles/${username}/banner-photo-remove`, {
       headers: this.utility.headers,
     });
   }
