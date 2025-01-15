@@ -19,6 +19,6 @@ export class SearchComponent {
   router = inject(Router);
 
   onClickProfile(username: string): void {
-    this.router.navigate(['home', 'profile', username, 'posts']);
+    this.router.navigate(['profile', username, 'posts']);
   }
 }

@@ -37,7 +37,7 @@ export class LoginFormComponent implements OnInit {
           sessionStorage.setItem('token', response.token);
           sessionStorage.setItem('userInfo', JSON.stringify(response.userInfo));
 
-          this.router.navigate(['home', 'feed']);
+          this.router.navigate(['feed']);
           this.isErrorMsgShowed = false;
         },
         error: (error) => {

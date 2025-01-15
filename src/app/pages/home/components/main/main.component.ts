@@ -8,6 +8,7 @@ import { MainStateService } from './shared/services/main-state.service';
 import { ChatComponent } from './components/chat/chat.component';
 import { PostsStateService } from './components/feed/components/post/services/posts-state.service';
 import { PostsRequestsService } from './components/feed/components/post/services/posts-requests.service';
+import { NavigationComponent } from "./components/navigation/navigation.component";
 
 @Component({
   selector: 'app-main',
@@ -18,7 +19,8 @@ import { PostsRequestsService } from './components/feed/components/post/services
     ChatHeadsComponent,
     ChatComponent,
     RouterOutlet,
-  ],
+    NavigationComponent
+],
   providers: [PostsStateService, PostsRequestsService],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',

@@ -106,7 +106,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (!this.username) {
       return;
     }
-    this.router.navigate(['home', 'profile', this.username, 'posts']);
+    this.router.navigate(['profile', this.username, 'posts']);
     this.resetSelections();
     this.isSelectedPosts = true;
   }
@@ -115,7 +115,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (!this.username) {
       return;
     }
-    this.router.navigate(['home', 'profile', this.username, 'information']);
+    this.router.navigate(['profile', this.username, 'information']);
     this.resetSelections();
     this.isSelectedInfo = true;
   }
@@ -124,7 +124,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (!this.username) {
       return;
     }
-    this.router.navigate(['home', 'profile', this.username, 'friends']);
+    this.router.navigate(['profile', this.username, 'friends']);
     this.resetSelections();
     this.isSelectedFriends = true;
   }
@@ -133,7 +133,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     if (!this.username) {
       return;
     }
-    this.router.navigate(['home', 'profile', this.username, 'photos']);
+    this.router.navigate(['profile', this.username, 'photos']);
     this.resetSelections();
     this.isSelectedPhotos = true;
   }

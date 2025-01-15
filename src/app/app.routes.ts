@@ -18,7 +18,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'home',
+    redirectTo: 'feed',
   },
   {
     path: 'register',
@@ -29,7 +29,7 @@ export const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'home',
+    path: '',
     component: HomeComponent,
     canActivate: [AuthGuard],
     children: [

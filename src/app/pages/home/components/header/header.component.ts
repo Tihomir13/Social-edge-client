@@ -44,11 +44,11 @@ export class HeaderComponent {
   }
 
   navigateToFeed(): void {
-    this.router.navigate(['home', 'feed']);
+    this.router.navigate(['feed']);
   }
 
   onSearch(value: any): void {
-    this.router.navigate(['home', 'search'], { queryParams: { query: value } });
+    this.router.navigate(['search'], { queryParams: { query: value } });
 
     this.subscriptions.add(
       this.request.getSearchedProfiles(value).subscribe({
