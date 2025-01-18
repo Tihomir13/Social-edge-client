@@ -16,6 +16,8 @@ export class UserCardComponent {
   clickProfile = output<string>();
 
   onClick(): void {
+    console.log(this.username());
+
     this.clickProfile.emit(this.username()!);
   }
 

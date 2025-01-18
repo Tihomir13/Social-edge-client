@@ -5,7 +5,7 @@
       <li
         class="option"
         [ngClass]="{ 'selected-option': selectedOption === item }"
-        (click)="selectOption(item)"
+        (click)="selectOption(item.label)"
       >
         @if(selectedOption === item) {
         <div class="selected-option-dash"></div>

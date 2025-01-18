@@ -169,7 +169,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.renderer.setStyle(document.body, 'overflow-y', 'hidden');
   }
 
-  openModalBannerPhotoChange():void {
+  openModalBannerPhotoChange(): void {
     if (!this.state.isProfileOwner()) {
       return;
     }
@@ -366,6 +366,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       reader.readAsDataURL(file);
     });
   }
+
+  onAddFriend(): void {}
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
